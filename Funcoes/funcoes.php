@@ -7,10 +7,20 @@
  * @return "30/05/2023"
  */
 
-function formataData($data)
-{
-    return date("d/m/Y", strtotime($data));
-}
+ function formataData($data)
+ {
+     if (empty($data)) {
+         return ''; // Retorna uma string vazia se $data estiver vazia
+     }
+ 
+     $dateTime = DateTime::createFromFormat('Y-m-d', $data);
+ 
+     if ($dateTime === false) {
+         return 'Data inválida'; // Retorna uma mensagem de erro se $data não for uma data válida
+     }
+ 
+     return $dateTime->format('d/m/Y');
+ }
 
 /**
  * Formata a data para enviar ao banco de dados
@@ -20,10 +30,21 @@ function formataData($data)
  * @return "2023-05-30"
  */
 
-function formataDataSql($data)
-{
-    return date("Y-m-d", strtotime($data));
-}
+ function formataDataSql($data)
+ {
+     if (empty($data)) {
+         return null; // Retorna null se $data estiver vazia
+     }
+ 
+     $dateTime = DateTime::createFromFormat('d/m/Y', $data);
+ 
+     if ($dateTime === false) {
+         return 'Data inválida'; // Retorna uma mensagem de erro se $data não for uma data válida
+     }
+ 
+     return $dateTime->format('Y-m-d');
+ }
+ 
 
 /**
  * Envia a imagem para a pasta de imagens do site

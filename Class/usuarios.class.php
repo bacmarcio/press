@@ -99,7 +99,7 @@ class Usuarios
         $sqlLimite = !empty($limite) ? "LIMIT 0,{$limite}" : '';
 
         try {
-            $sql = "SELECT * FROM tbl_usuarios {$sqlFiltro} {$sqlOrdem} {$sqlLimite}";
+            $sql = "SELECT * FROM usuarios {$sqlFiltro} {$sqlOrdem} {$sqlLimite}";
             $stm = $this->pdo->prepare($sql);
 
             for ($i = 1; $i <= count($parametros); $i++) {
@@ -126,10 +126,11 @@ class Usuarios
             $email = filter_input(INPUT_POST, 'login', FILTER_SANITIZE_SPECIAL_CHARS);
             $telefone = filter_input(INPUT_POST, 'telefone', FILTER_SANITIZE_SPECIAL_CHARS);
             $cpf = filter_input(INPUT_POST, 'cpf', FILTER_SANITIZE_SPECIAL_CHARS);
+            $adm = filter_input(INPUT_POST, 'adm', FILTER_SANITIZE_SPECIAL_CHARS);
             $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
 
             // Verifica se o email já existe
-            $sqlVerificaEmail = "SELECT COUNT(*) FROM tbl_usuarios WHERE email = ?";
+            $sqlVerificaEmail = "SELECT COUNT(*) FROM usuarios WHERE email = ?";
             $stmVerificaEmail = $this->pdo->prepare($sqlVerificaEmail);
             $stmVerificaEmail->bindValue(1, $email, PDO::PARAM_STR);
             $stmVerificaEmail->execute();
@@ -140,13 +141,14 @@ class Usuarios
             }
             
             try {
-                $sql = "INSERT INTO tbl_usuarios (nome, email, telefone, cpf, senha) VALUES (?, ?, ?, ?, ?)";
+                $sql = "INSERT INTO usuarios (nome, email, telefone, cpf, senha, adm) VALUES (?, ?, ?, ?, ?, ?)";
                 $stm = $this->pdo->prepare($sql);
                 $stm->bindValue(1, $nome, PDO::PARAM_STR);
                 $stm->bindValue(2, $email, PDO::PARAM_STR);
                 $stm->bindValue(3, $telefone, PDO::PARAM_STR);
                 $stm->bindValue(4, $cpf, PDO::PARAM_STR);
                 $stm->bindValue(5, $senha, PDO::PARAM_STR);
+                $stm->bindValue(6, $adm, PDO::PARAM_STR);
 
                 $stm->execute();
                 $ultimoIdUsuario = $this->pdo->lastInsertId();
@@ -168,10 +170,11 @@ class Usuarios
             $telefone = filter_input(INPUT_POST, 'telefone', FILTER_SANITIZE_SPECIAL_CHARS);
             $cpf = filter_input(INPUT_POST, 'cpf', FILTER_SANITIZE_SPECIAL_CHARS);
             
+            
 
 
             if ($_POST['senha']==='') {
-                $sqlVerificaSenha = "SELECT senha FROM tbl_usuarios WHERE id = ?";
+                $sqlVerificaSenha = "SELECT senha FROM usuarios WHERE id = ?";
                 $stmVerificaSenha = $this->pdo->prepare($sqlVerificaSenha);
                 $stmVerificaSenha->bindValue(1, $id, PDO::PARAM_STR);
                 $stmVerificaSenha->execute();
@@ -183,7 +186,7 @@ class Usuarios
             
 
             try {
-                $sql = "UPDATE tbl_usuarios SET nome=?, email=?, telefone=?, cpf=?, senha=? WHERE id=?";
+                $sql = "UPDATE usuarios SET nome=?, email=?, telefone=?, cpf=?, senha=? WHERE id=?";
                 $stm = $this->pdo->prepare($sql);
                 $stm->bindValue(1, $nome, PDO::PARAM_STR);
                 $stm->bindValue(2, $email, PDO::PARAM_STR);
@@ -209,7 +212,7 @@ class Usuarios
                 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
                 if ($id !== false) {
-                    $sql = "DELETE FROM tbl_usuarios WHERE id=?";
+                    $sql = "DELETE FROM usuarios WHERE id=?";
                     $stm = $this->pdo->prepare($sql);
                     $stm->bindValue(1, $id, PDO::PARAM_INT);
                     $stm->execute();

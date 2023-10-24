@@ -1,8 +1,8 @@
 <?php
 include "verifica.php";
 $acesso->restritoAdmin();
-$usuarios->excluir();
-$dadosUsuarios = $usuarios->dadosUsuarios();
+$categorias->excluir();
+$dadosCategorias = $categorias->dadosCategorias();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -20,7 +20,7 @@ $dadosUsuarios = $usuarios->dadosUsuarios();
 </head>
 
 <body>
-	<?php //include "header.php";?>
+	<?php //include "header.php"; ?>
 
 	<!--//----CONTEUDO---//-->
 	<main class="container">
@@ -29,35 +29,37 @@ $dadosUsuarios = $usuarios->dadosUsuarios();
 		<div class="clearfix">&nbsp;</div>
 		<header>
 			<div class="row">
-				<div class="col-sm-6">
-					<h2>Editores</h2>
+				<div class="col-sm-5">
+					<h2>Categorias</h2>
 				</div>
-				<div class="col-sm-6 text-right h2">
-					<a class="btn btn-primary" href="add-usuario.php"><i class="fa fa-plus"></i> Novo Editor</a>
-					<a class="btn btn-default" href="usuarios.php"><i class="fa fa-refresh"></i> Atualizar</a>
+				<div class="col-sm-7 text-right h2">
+					<a class="btn btn-primary" href="add-categoria.php"><i class="fa fa-plus"></i> Nova Categoria</a>
+					<a class="btn btn-default" href="categorias.php"><i class="fa fa-refresh"></i> Atualizar</a>
 				</div>
 			</div>
 		</header>
+
+
 
 		<hr>
 
 		<table class="table table-hover" border="1">
 			<thead>
 				<tr>
-					<th width="36">ID</th>
-					<th width="1076">Nome</th>
-					<th width="236" class="text-center">Opções</th>
+					<th width="83">ID</th>
+					<th width="886">Titulo</th>
+					<th width="223" class="text-center">Opções</th>
 				</tr>
 			</thead>
 			<tbody>
-				<?php if ($dadosUsuarios) : ?>
-					<?php foreach ($dadosUsuarios as $usuario) : ?>
+				<?php if ($dadosCategorias) : ?>
+					<?php foreach ($dadosCategorias as $categoria) : ?>
 						<tr>
-							<td><?php echo $usuario->id; ?></td>
-							<td><?php echo $usuario->nome; ?></td>
+							<td><?php echo $categoria->id; ?></td>
+							<td><?php echo $categoria->titulo; ?></td>
 							<td class="actions text-right">
-								<a href="editar-usuario.php?id=<?php echo $usuario->id; ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i> Editar</a>
-								<a href="javascript:;" class="btn btn-sm btn-danger" onclick="if(confirm('Tem certeza que deseja excluir <?php echo preg_replace('~[\r\n]+~', '', $usuario->nome); ?>?')) { window.location='usuarios.php?acao=excluirUsuarios&id=<?php echo $usuario->id; ?>'; } ">
+								<a href="editar-categoria.php?id=<?php echo $categoria->id; ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i> Editar</a>
+								<a href="javascript:;" class="btn btn-sm btn-danger" onclick="if(confirm('Tem certeza que deseja excluir <?php echo preg_replace('~[\r\n]+~', '', $categoria->titulo); ?>?')) { window.location='categorias.php?acao=excluirCategoria&id=<?php echo $categoria->id; ?>'; } ">
 									<i class="fa fa-trash"></i> Excluir
 								</a>
 							</td>
@@ -70,13 +72,14 @@ $dadosUsuarios = $usuarios->dadosUsuarios();
 				<?php endif; ?>
 			</tbody>
 		</table>
-		<?php //include('modal.php');?>
+		<?php //include('modal.php'); ?>
 	</main>
 	<!--//----FIM DO CONTEUDO---//-->
 	<hr>
-	<?php //include "footer.php";?>
+	<?php //include "footer.php"; ?>
 
 </body>
 <!--Ultima versão do jquery-->
+
 
 </html>

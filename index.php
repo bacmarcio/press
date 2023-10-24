@@ -1,7 +1,7 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_erros', 1);
-error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_erros', 1);
+// error_reporting(E_ALL);
 include "verifica.php";
 
 $acesso-> restritoAdmin();
@@ -23,7 +23,7 @@ $acesso->logout();
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
 </head>
 <body>
-	<?php include "header.php"; ?>
+	<?php //include "header.php"; ?>
 	<!--//----CONTEUDO---//-->
 	<main class="container">
 		<br><br><br>
@@ -354,100 +354,13 @@ $acesso->logout();
 
 	<hr>
 
-<?php include "footer.php"; ?>
+<?php //include "footer.php"; ?>
 
 </body>
 
 <!--Ultima versão do jquery-->
     
-    <script>
-		
-        $(window).on('load', function() {
-          $.ajax({
-            url: 'gerar-feed-justica.php', // Substitua pelo caminho correto do seu script PHP
-            type: 'POST',
-            data: { data: 'alguns_dados_para_processamento' },
-            async: true, // Usando uma solicitação assíncrona
-            success: function(response) {
-              // Lide com a resposta do servidor, se necessário
-              console.log('Feed gerado com sucesso:', response);
-            },
-            error: function() {
-              // Lide com erros de solicitação AJAX, se necessário
-              console.log('Ocorreu um erro durante a geração do feed justica.');
-            }
-          });
-        });
 
-        
-         $(window).on('load', function() {
-          $.ajax({
-            url: 'gerar-feed-politica.php', // Substitua pelo caminho correto do seu script PHP
-            type: 'POST',
-            data: { data: 'alguns_dados_para_processamento' },
-            async: true, // Usando uma solicitação assíncrona
-            success: function(response) {
-              // Lide com a resposta do servidor, se necessário
-              console.log('Feed gerado com sucesso:', response);
-            },
-            error: function() {
-              // Lide com erros de solicitação AJAX, se necessário
-              console.log('Ocorreu um erro durante a geração do feed politica.');
-            }
-          });
-        });
-
-         $(window).on('load', function() {
-          $.ajax({
-            url: 'gerar-feed-rb.php', // Substitua pelo caminho correto do seu script PHP
-            type: 'POST',
-            data: { data: 'alguns_dados_para_processamento' },
-            async: true, // Usando uma solicitação assíncrona
-            success: function(response) {
-              // Lide com a resposta do servidor, se necessário
-              console.log('Feed gerado com sucesso:', response);
-            },
-            error: function() {
-              // Lide com erros de solicitação AJAX, se necessário
-              console.log('Ocorreu um erro durante a geração do feed revista brasilia.');
-            }
-          });
-        });
-        
-        $(window).on('load', function() {
-          $.ajax({
-            url: 'gerar-feed-360.php', // Substitua pelo caminho correto do seu script PHP
-            type: 'POST',
-            data: { data: 'alguns_dados_para_processamento' },
-            async: true, // Usando uma solicitação assíncrona
-            success: function(response) {
-              // Lide com a resposta do servidor, se necessário
-              console.log('Feed gerado com sucesso:', response);
-            },
-            error: function() {
-              // Lide com erros de solicitação AJAX, se necessário
-              console.log('Ocorreu um erro durante a geração do feed poder 360.');
-            }
-          });
-        });
-        
-         $(window).on('load', function() {
-          $.ajax({
-            url: 'gerar-feed.php', // Substitua pelo caminho correto do seu script PHP
-            type: 'POST',
-            data: { data: 'alguns_dados_para_processamento' },
-            async: true, // Usando uma solicitação assíncrona
-            success: function(response) {
-              // Lide com a resposta do servidor, se necessário
-              console.log('Feed gerado com sucesso jornal brasil.');
-            },
-            error: function() {
-              // Lide com erros de solicitação AJAX, se necessário
-              console.log('Ocorreu um erro durante a geração do feed jornal brasil.');
-            }
-          });
-        });
-    </script>
 
 
 

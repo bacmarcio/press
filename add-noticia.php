@@ -1,6 +1,7 @@
 <?php
 include "verifica.php";
-$dadosPosts = $posts->dadosPost();
+$acesso->restritoAdmin();
+$dadosCategorias = $categorias->dadosCategorias();
 $posts->add();
 ?>
 <!DOCTYPE html>
@@ -60,22 +61,7 @@ $posts->add();
           </select>
 
         </div>
-        <div class="form-group col-md-2">
-          <label for="campo1">Principal</label>
-          <select name="principal" id="principal" class="form-control">
-            <option value="S">Sim</option>
-            <option value="N" selected>Não</option>
-          </select>
-
-        </div>
-        <div class="form-group col-md-2">
-          <label for="campo1">Destaque da Categoria</label>
-          <select name="cat_destaque" id="cat_destaque" class="form-control">
-            <option value="S">Sim</option>
-            <option value="N" selected>Não</option>
-          </select>
-
-        </div>
+        
         <div class="form-group col-md-3">
           <label for="campo1">Data</label>
           <input type="text" name="data" disabled class="form-control" value="<?php echo date('d/m/Y'); ?>">
@@ -96,19 +82,8 @@ $posts->add();
         </div>
         <div class="form-group col-md-6">
           <label for="campo1">Legenda Foto</label>
-          <input type="text" class="form-control" name="descricao_imagem">
+          <input type="text" class="form-control" name="legenda">
         </div>
-      </div>
-      <div class="row">
-        <div class="form-group col-md-6">
-          <label for="campo1">Arquivo PDF</label>
-          <input type="file" class="form-control" name="arquivo_pdf">
-        </div>
-        <div class="form-group col-md-6">
-          <label for="campo1">Arquivo Audio</label>
-          <input type="file" class="form-control" name="audio">
-        </div>
-
       </div>
       <div class="row">
         <div class="form-group col-md-12">
@@ -120,7 +95,7 @@ $posts->add();
       <div class="row">
         <div class="form-group col-md-12">
           <label for="campo2">Resumo</label>
-          <textarea name="breve" id="resumo" class="form-control" cols="30" rows="5"></textarea>
+          <textarea name="resumo" id="resumo" class="form-control" cols="30" rows="5"></textarea>
         </div>
       </div>
       <div class="row">
@@ -129,32 +104,13 @@ $posts->add();
           <textarea name="conteudo" id="ckeditor" class="ckeditor" cols="30" rows="10"></textarea>
         </div>
       </div>
-      <div class="form-group row">
-        <div class="col-md-12 col-sm-12">
-          <label class="col-form-label">Meta Title</label>
-          <input class="form-control" type="text" name="meta_title" />
-        </div>
-      </div>
-      <div class="form-group row">
-        <div class="col-md-12 col-sm-12">
-          <label class="col-form-label">Meta Keywords</label>
-          <input class="form-control" type="text" name="meta_keywords" />
-        </div>
-      </div>
-      <div class="form-group row">
-        <div class="col-md-12 col-sm-12">
-          <label class="col-form-label">Meta Description</label>
-          <textarea name="meta_description" class="form-control" id="" cols="30" rows="10"></textarea>
-        </div>
-
-
         <div id="actions" class="row">
           <div class="col-md-12">
             <button type="submit" class="btn btn-primary">Salvar</button>
             <a href="noticias.php" class="btn btn-default">Cancelar</a>
           </div>
         </div>
-        <input type="hidden" name="acao" value="addBlog">
+        <input type="hidden" name="acao" value="addPost">
     </form>
 
   </main>

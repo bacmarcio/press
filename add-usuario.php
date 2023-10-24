@@ -66,6 +66,7 @@ if (is_string($resultado)) {
           </div>
         </div>
         <input type="hidden" name="acao" value="addUsuario">
+        <input type="hidden" name="adm" value="S">
     </form>
 
   </main>

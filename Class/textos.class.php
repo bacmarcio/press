@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Classe Posts
+ * Classe Textos
  *
- * Essa classe representa a entidade de Posts e fornece métodos para interagir com o banco de dados.
+ * Essa classe representa a entidade de Textos e fornece métodos para interagir com o banco de dados.
  *
  * @package Press Release
  * @category Modelos
@@ -12,7 +12,7 @@
  * @access public
  */
 
-class Posts
+class Textos
 {
     /**
      * @var PDO Uma instância da conexão PDO.
@@ -21,7 +21,7 @@ class Posts
     private $pdo;
 
     /**
-     * @var Posts|null Uma instância única da classe Posts.
+     * @var Textos|null Uma instância única da classe Textos.
      */
 
     private static $instance = null;
@@ -38,16 +38,16 @@ class Posts
     }
 
     /**
-     * Obtém uma instância única da classe Posts.
+     * Obtém uma instância única da classe Textos.
      *
      * @param PDO $conexao Uma instância da conexão PDO.
-     * @return Posts Uma instância da classe Posts.
+     * @return Textos Uma instância da classe Textos.
      */
 
     public static function getInstance($conn)
     {
         if (self::$instance === null) {
-            self::$instance = new Posts($conn);
+            self::$instance = new Textos($conn);
         }
         return self::$instance;
     }
@@ -63,7 +63,7 @@ class Posts
         return $this->pdo;
     }
 
-    public function dadosPosts($id = '', $destaque = '', $categoria = '', $orderBy = '', $limite = '', $search = '')
+    public function dadosTextos($id = '', $ativo = '',  $orderBy = '', $limite = '')
     {
         $filtro = [];
         $parametros = [];
@@ -73,21 +73,9 @@ class Posts
             $parametros[] = $id;
         }
 
-        if (!empty($destaque)) {
-            $filtro[] = 'destaque = ?';
-            $parametros[] = $destaque;
-        }
-
-        if (!empty($categoria)) {
-            $filtro[] = 'categoria = ?';
-            $parametros[] = $categoria;
-        }
-
-        if (!empty($search)) {
-            $filtro[] = '(titulo LIKE ? OR conteudo LIKE ? OR postado_por LIKE ?)';
-            $parametros[] = "%$search%";
-            $parametros[] = "%$search%";
-            $parametros[] = "%$search%";
+        if (!empty($ativo)) {
+            $filtro[] = 'ativo = ?';
+            $parametros[] = $ativo;
         }
 
         $sqlFiltro = !empty($filtro) ? 'WHERE ' . implode(' AND ', $filtro) : '';
@@ -95,7 +83,7 @@ class Posts
         $sqlLimite = !empty($limite) ? "LIMIT 0,{$limite}" : '';
 
         try {
-            $sql = "SELECT * FROM posts {$sqlFiltro} {$sqlOrdem} {$sqlLimite}";
+            $sql = "SELECT * FROM textos {$sqlFiltro} {$sqlOrdem} {$sqlLimite}";
             $stm = $this->pdo->prepare($sql);
 
             for ($i = 1; $i <= count($parametros); $i++) {
@@ -103,12 +91,12 @@ class Posts
             }
 
             $stm->execute();
-            $posts = $stm->fetchAll(PDO::FETCH_OBJ);
+            $textos = $stm->fetchAll(PDO::FETCH_OBJ);
 
             if (!empty($id) || $limite == 1) {
-                return (!empty($posts[0])) ? $posts[0] : null;
+                return (!empty($textos[0])) ? $textos[0] : null;
             } else {
-                return $posts;
+                return $textos;
             }
         } catch (PDOException $erro) {
             echo $erro->getMessage();
@@ -117,46 +105,31 @@ class Posts
 
     public function add()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao']) && $_POST['acao'] === 'addPost') {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao']) && $_POST['acao'] === 'addTexto') {
             $titulo = filter_input(INPUT_POST, 'titulo', FILTER_SANITIZE_SPECIAL_CHARS);
-            
             $conteudo = $_POST['conteudo']; // Recebe o conteúdo do campo textarea
             $conteudo = strip_tags($conteudo);
             $conteudo = preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', '', $conteudo);
             $conteudo = htmlentities($conteudo, ENT_QUOTES, 'UTF-8');
-            $postado_por = filter_input(INPUT_POST, 'postado_por', FILTER_SANITIZE_SPECIAL_CHARS);
-            $resumo = filter_input(INPUT_POST, 'resumo', FILTER_SANITIZE_SPECIAL_CHARS);
-            $id_categoria = filter_input(INPUT_POST, 'id_categoria', FILTER_SANITIZE_SPECIAL_CHARS);
-            $legenda = filter_input(INPUT_POST, 'legenda', FILTER_SANITIZE_SPECIAL_CHARS);
             $ativo = filter_input(INPUT_POST, 'ativo', FILTER_SANITIZE_SPECIAL_CHARS);
-            $destaque = filter_input(INPUT_POST, 'destaque', FILTER_SANITIZE_SPECIAL_CHARS);
-            $created_at = date("Y-m-d H:i:s");
-            $updated_at = date("Y-m-d H:i:s");
             $url_amigavel = gerarTituloSEO($titulo);
 
             $diretorioFotos = 'post-images';
             
             try {
-                $sql = "INSERT INTO posts (titulo, conteudo, postado_por, resumo, url_amigavel, legenda, ativo, destaque, id_categoria, foto, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                $sql = "INSERT INTO textos (titulo, conteudo, url_amigavel, ativo, foto) VALUES (?, ?, ?, ?, ?)";
                 $stm = $this->pdo->prepare($sql);
                 $stm->bindValue(1, $titulo, PDO::PARAM_STR);
                 $stm->bindValue(2, $conteudo, PDO::PARAM_STR);
-                $stm->bindValue(3, $postado_por, PDO::PARAM_STR);
-                $stm->bindValue(4, $resumo, PDO::PARAM_STR);
-                $stm->bindValue(5, $url_amigavel, PDO::PARAM_STR);
-                $stm->bindValue(6, $legenda, PDO::PARAM_STR);
-                $stm->bindValue(7, $ativo, PDO::PARAM_STR);
-                $stm->bindValue(8, $destaque, PDO::PARAM_STR);
-                $stm->bindValue(9, $id_categoria, PDO::PARAM_STR);
-                $stm->bindValue(10, upload('foto', $diretorioFotos, 'POST'), PDO::PARAM_STR);
-                $stm->bindValue(11, $created_at, PDO::PARAM_STR);
-                $stm->bindValue(12, $updated_at, PDO::PARAM_STR);
+                $stm->bindValue(3, $url_amigavel, PDO::PARAM_STR);
+                $stm->bindValue(4, $ativo, PDO::PARAM_STR);
+                $stm->bindValue(5, upload('foto', $diretorioFotos, 'N'), PDO::PARAM_STR);
                 
 
                 $stm->execute();
-                $ultimoIdPost = $this->pdo->lastInsertId();
+                $ultimoIdTexto = $this->pdo->lastInsertId();
 
-                header('Location: noticias.php');
+                header('Location: textos.php');
                 exit;
             } catch (PDOException $erro) {
                 echo $erro->getMessage();
@@ -166,44 +139,32 @@ class Posts
     
     public function editar()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao']) && $_POST['acao'] === 'editarPost') {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao']) && $_POST['acao'] === 'editarTexto') {
             $titulo = filter_input(INPUT_POST, 'titulo', FILTER_SANITIZE_SPECIAL_CHARS);
-            
             $conteudo = $_POST['conteudo']; // Recebe o conteúdo do campo textarea
             $conteudo = strip_tags($conteudo);
             $conteudo = preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', '', $conteudo);
             $conteudo = htmlentities($conteudo, ENT_QUOTES, 'UTF-8');
-            $postado_por = filter_input(INPUT_POST, 'postado_por', FILTER_SANITIZE_SPECIAL_CHARS);
-            $resumo = filter_input(INPUT_POST, 'resumo', FILTER_SANITIZE_SPECIAL_CHARS);
-            $id_categoria = filter_input(INPUT_POST, 'id_categoria', FILTER_SANITIZE_SPECIAL_CHARS);
-            $legenda = filter_input(INPUT_POST, 'legenda', FILTER_SANITIZE_SPECIAL_CHARS);
             $ativo = filter_input(INPUT_POST, 'ativo', FILTER_SANITIZE_SPECIAL_CHARS);
-            $destaque = filter_input(INPUT_POST, 'destaque', FILTER_SANITIZE_SPECIAL_CHARS);
             $url_amigavel = gerarTituloSEO($titulo);
-            $updated_at = date("Y-m-d H:i:s");
             $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
 
             $diretorioFotos = 'post-images';
             
             try {
-                $sql = "UPDATE posts SET titulo=?, conteudo=?, postado_por=?, resumo=?, url_amigavel=?, legenda=?, ativo=?,  destaque=?, id_categoria=?, updated_at=?, foto=? WHERE id=?";
+                $sql = "UPDATE textos SET titulo=?, conteudo=?, url_amigavel=?, ativo=?, foto=? WHERE id=?";
                 $stm = $this->pdo->prepare($sql);
                 $stm->bindValue(1, $titulo, PDO::PARAM_STR);
                 $stm->bindValue(2, $conteudo, PDO::PARAM_STR);
-                $stm->bindValue(3, $postado_por, PDO::PARAM_STR);
-                $stm->bindValue(4, $resumo, PDO::PARAM_STR);
-                $stm->bindValue(5, $url_amigavel, PDO::PARAM_STR);
-                $stm->bindValue(6, $legenda, PDO::PARAM_STR);
-                $stm->bindValue(7, $ativo, PDO::PARAM_STR);
-                $stm->bindValue(8, $destaque, PDO::PARAM_STR);
-                $stm->bindValue(9, $id_categoria, PDO::PARAM_STR);
-                $stm->bindValue(10, $updated_at, PDO::PARAM_STR);
-                $stm->bindValue(11, upload('foto', $diretorioFotos, 'POST'), PDO::PARAM_STR);
-                $stm->bindValue(12, $id, PDO::PARAM_STR);
+                $stm->bindValue(3, $url_amigavel, PDO::PARAM_STR);
+                $stm->bindValue(4, $ativo, PDO::PARAM_STR);
+                $stm->bindValue(5, upload('foto', $diretorioFotos, 'N'), PDO::PARAM_STR);
+                $stm->bindValue(6, $id, PDO::PARAM_STR);
                 
+
                 $stm->execute();
 
-                header('Location: noticias.php');
+                header('Location: textos.php');
                 exit;
             } catch (PDOException $erro) {
                 echo $erro->getMessage();
@@ -213,7 +174,7 @@ class Posts
 
     public function excluir()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['acao']) && $_GET['acao'] === 'excluirPost' && isset($_GET['id'])) {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['acao']) && $_GET['acao'] === 'excluirTexto' && isset($_GET['id'])) {
             
             $nomeArquivo = $_GET['foto']; // Substitua pelo nome do arquivo que você deseja excluir
             $caminhoArquivo = "post-images/" . $nomeArquivo; // Substitua pelo caminho correto
@@ -226,7 +187,7 @@ class Posts
                 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
                 if ($id !== false) {
-                    $sql = "DELETE FROM posts WHERE id=?";
+                    $sql = "DELETE FROM textos WHERE id=?";
                     $stm = $this->pdo->prepare($sql);
                     $stm->bindValue(1, $id, PDO::PARAM_INT);
                     $stm->execute();
@@ -236,7 +197,7 @@ class Posts
                 }
 
                 // Redirecionamento após a exclusão
-                header('Location: noticias.php');
+                header('Location: textos.php');
                 exit;
             } catch (PDOException $erro) {
                 echo $erro->getMessage();
@@ -245,5 +206,4 @@ class Posts
             }
         }
     }
-
 }

@@ -80,7 +80,7 @@ class Acesso
         }
         
         try {
-            $sql = "SELECT * FROM tbl_usuarios WHERE email = :login ";
+            $sql = "SELECT * FROM usuarios WHERE email = :login ";
             $stm = $this->pdo->prepare($sql);
             $stm->bindParam(':login', $login, PDO::PARAM_STR);
             $stm->execute();
@@ -94,7 +94,7 @@ class Acesso
                     session_start();
                     $_SESSION['usuarioLogado'] = true;
                     $_SESSION['dadosUsuario'] = $usuario;
-                    header("Location: usuarios.php");
+                    header("Location: index.php");
                     exit;
                 } else {
                     // Senha incorreta
