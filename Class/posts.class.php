@@ -134,7 +134,7 @@ class Posts
             $updated_at = date("Y-m-d H:i:s");
             $url_amigavel = gerarTituloSEO($titulo);
 
-            $diretorioFotos = 'post-images';
+            $diretorioFotos = '/projetos/press/post-images';
             
             try {
                 $sql = "INSERT INTO posts (titulo, conteudo, postado_por, resumo, url_amigavel, legenda, ativo, destaque, id_categoria, foto, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -148,7 +148,7 @@ class Posts
                 $stm->bindValue(7, $ativo, PDO::PARAM_STR);
                 $stm->bindValue(8, $destaque, PDO::PARAM_STR);
                 $stm->bindValue(9, $id_categoria, PDO::PARAM_STR);
-                $stm->bindValue(10, upload('foto', $diretorioFotos, 'POST'), PDO::PARAM_STR);
+                $stm->bindValue(10, upload('foto', $diretorioFotos, 'N'), PDO::PARAM_STR);
                 $stm->bindValue(11, $created_at, PDO::PARAM_STR);
                 $stm->bindValue(12, $updated_at, PDO::PARAM_STR);
                 
@@ -156,7 +156,7 @@ class Posts
                 $stm->execute();
                 $ultimoIdPost = $this->pdo->lastInsertId();
 
-                header('Location: noticias.php');
+                header('Location: /projetos/press/noticias');
                 exit;
             } catch (PDOException $erro) {
                 echo $erro->getMessage();
@@ -183,7 +183,7 @@ class Posts
             $updated_at = date("Y-m-d H:i:s");
             $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
 
-            $diretorioFotos = 'post-images';
+            $diretorioFotos = '/projetos/press/post-images';
             
             try {
                 $sql = "UPDATE posts SET titulo=?, conteudo=?, postado_por=?, resumo=?, url_amigavel=?, legenda=?, ativo=?,  destaque=?, id_categoria=?, updated_at=?, foto=? WHERE id=?";
@@ -198,12 +198,12 @@ class Posts
                 $stm->bindValue(8, $destaque, PDO::PARAM_STR);
                 $stm->bindValue(9, $id_categoria, PDO::PARAM_STR);
                 $stm->bindValue(10, $updated_at, PDO::PARAM_STR);
-                $stm->bindValue(11, upload('foto', $diretorioFotos, 'POST'), PDO::PARAM_STR);
+                $stm->bindValue(11, upload('foto', $diretorioFotos, 'N'), PDO::PARAM_STR);
                 $stm->bindValue(12, $id, PDO::PARAM_STR);
                 
                 $stm->execute();
 
-                header('Location: noticias.php');
+                header('Location: /projetos/press/noticias');
                 exit;
             } catch (PDOException $erro) {
                 echo $erro->getMessage();
@@ -216,7 +216,7 @@ class Posts
         if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['acao']) && $_GET['acao'] === 'excluirPost' && isset($_GET['id'])) {
             
             $nomeArquivo = $_GET['foto']; // Substitua pelo nome do arquivo que você deseja excluir
-            $caminhoArquivo = "post-images/" . $nomeArquivo; // Substitua pelo caminho correto
+            $caminhoArquivo = "/projetos/press/post-images/" . $nomeArquivo; // Substitua pelo caminho correto
 
             if (file_exists($caminhoArquivo)) {
                     unlink($caminhoArquivo);
@@ -236,7 +236,7 @@ class Posts
                 }
 
                 // Redirecionamento após a exclusão
-                header('Location: noticias.php');
+                header('Location: /projetos/press/noticias');
                 exit;
             } catch (PDOException $erro) {
                 echo $erro->getMessage();

@@ -91,8 +91,8 @@ $posts->excluir();
 
                 <div class="col-sm-6 text-right h2">
                     <a class="btn btn-success" href="categorias.php"><i class="fa fa-plus"></i> Categoria</a>
-                    <a class="btn btn-primary" href="add-noticia.php"><i class="fa fa-plus"></i> Nova Notícia</a>
-                    <a class="btn btn-default" href="noticias.php"><i class="fa fa-refresh"></i> Atualizar</a>
+                    <a class="btn btn-primary" href="add-noticia"><i class="fa fa-plus"></i> Nova Notícia</a>
+                    <a class="btn btn-default" href="noticias"><i class="fa fa-refresh"></i> Atualizar</a>
                 </div>
             </div>
         </header>
@@ -116,7 +116,7 @@ $posts->excluir();
                         <tr>
                             <td><?php echo $blog->id; ?></td>
                             <td> <?php if (isset($blog->foto) && !empty($blog->foto)) { ?>
-                                    <img src="post-images/<?php echo $blog->foto; ?>" width="50">
+                                    <img src="/projetos/press/post-images/<?php echo $blog->foto; ?>" width="50">
                                 <?php } ?>
                             </td>
                             <td><?php echo $blog->titulo; ?></td>
@@ -127,8 +127,8 @@ $posts->excluir();
                             </td>
                                                                                                                                                     
                             <td class="actions text-right">
-                                <a href="view-noticia.php?id=<?php echo $blog->id; ?>" class="btn btn-sm btn-success"><i class="fa fa-eye"></i> Visualizar</a>
-                                <a href="editar-noticia.php?id=<?php echo $blog->id; ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i> Editar</a>
+                                <!-- <a href="view-noticia.php?id=<?php echo $blog->id; ?>" class="btn btn-sm btn-success"><i class="fa fa-eye"></i> Visualizar</a> -->
+                                <a href="editar-noticia/<?php echo $blog->id; ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i> Editar</a>
 
                                 <a href="javascript:;" class="btn btn-sm btn-danger" onclick="if(confirm('Tem certeza que deseja excluir <?php echo preg_replace('~[\r\n]+~', '', $blog->titulo); ?>?')) { window.location='noticias.php?acao=excluirPost&id=<?php echo $blog->id;?>&foto=<?php echo $blog->foto;?>'; } ">
                                     <i class="fa fa-trash"></i> Excluir

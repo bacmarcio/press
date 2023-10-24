@@ -1,7 +1,8 @@
 <?php
-// ini_set('display_errors', 1);
-// ini_set('display_startup_erros', 1);
-// error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_erros', 1);
+error_reporting(E_ALL);
+print_r($_GET);
 include "verifica.php";
 
 $acesso-> restritoAdmin();
@@ -136,7 +137,7 @@ $acesso->logout();
 
 			<div class="col-xs-6 col-sm-3 col-md-2">
 
-				<a href="noticias.php" class="btn btn-primary">
+				<a href="noticias" class="btn btn-primary">
 
 					<div class="row">
 

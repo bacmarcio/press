@@ -20,7 +20,7 @@ $posts->add();
 </head>
 
 <body>
-  <?php include "header.php"; ?>
+  <?php //include "header.php"; ?>
 
   <!--//----CONTEUDO---//-->
   <main class="container">
@@ -40,7 +40,7 @@ $posts->add();
           <select name="categoria" id="categoria" class="form-control">
             <option value="">SELECIONE</option>
             <?php foreach ($dadosCategorias as $categoria) : ?>
-              <option value="<?php echo $categoria->id; ?>"><?php echo $categoria->nome; ?></option>
+              <option value="<?php echo $categoria->id; ?>"><?php echo $categoria->titulo; ?></option>
             <?php endforeach; ?>
           </select>
 
@@ -116,11 +116,11 @@ $posts->add();
   </main>
   <!--//----FIM DO CONTEUDO---//-->
   <hr>
-  <?php include "footer.php"; ?>
+  <?php //include "footer.php"; ?>
 
 </body>
 <!--Ultima versão do jquery-->
 
-<script src="vendor/ckeditor/ckeditor.js"></script>
+<script src="gerenciador/vendor/ckeditor/ckeditor.js"></script>
 
 </html>

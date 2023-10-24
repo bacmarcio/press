@@ -122,14 +122,16 @@ class Acesso
     public function logout()
     {
         if (isset($_GET['acao']) && $_GET['acao'] == 'logout') {
+            echo "deseja mesmo sair?";
             // Certifique-se de que o usuário realmente deseja sair
             session_start();
-        
-            if (isset($_SESSION['admLogado'])) {
+            
+               
+            if (isset($_SESSION)) {
                 // Encerra a sessão
                 session_unset();
                 session_destroy();
-            
+                
                 // Redireciona para a página de login ou para onde for apropriado
                 header("Location: login.php");
                 exit;
