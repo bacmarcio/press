@@ -136,7 +136,7 @@ class Artigos
             $destaque = filter_input(INPUT_POST, 'destaque', FILTER_SANITIZE_SPECIAL_CHARS);
             $url_amigavel = gerarTituloSEO($titulo);
 
-            $diretorioFotos = '../post-images';
+            $diretorioFotos = SITE_URL.'post-images';
             
             try {
                 $sql = "INSERT INTO artigos (titulo, conteudo, postado_por, resumo, url_amigavel, legenda, ativo, destaque, id_categoria, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -156,7 +156,7 @@ class Artigos
                 $stm->execute();
                 $ultimoIdArtigo = $this->pdo->lastInsertId();
 
-                header('Location: artigos.php');
+                header('Location:'.SITE_URL.'artigos');
                 exit;
             } catch (PDOException $erro) {
                 echo $erro->getMessage();
@@ -181,7 +181,7 @@ class Artigos
             $url_amigavel = gerarTituloSEO($titulo);
             $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
 
-            $diretorioFotos = '../post-images';
+            $diretorioFotos = SITE_URL.'post-images';
             
             try {
                 $sql = "UPDATE artigos SET titulo=?, conteudo=?, postado_por=?, resumo=?, legenda=?, ativo=?, destaque=?, id_categoria=?, foto=? WHERE id=?";
@@ -201,7 +201,7 @@ class Artigos
 
                 $stm->execute();
 
-                header('Location: noticias.php');
+                header('Location:'.SITE_URL.'artigos');
                 exit;
             } catch (PDOException $erro) {
                 echo $erro->getMessage();
@@ -214,7 +214,7 @@ class Artigos
         if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['acao']) && $_GET['acao'] === 'excluirArtigo' && isset($_GET['id'])) {
             
             $nomeArquivo = $_GET['foto']; // Substitua pelo nome do arquivo que você deseja excluir
-            $caminhoArquivo = "../post-images/" . $nomeArquivo; // Substitua pelo caminho correto
+            $caminhoArquivo = SITE_URL.'post-images' . $nomeArquivo; // Substitua pelo caminho correto
 
             if (file_exists($caminhoArquivo)) {
                     unlink($caminhoArquivo);
@@ -234,7 +234,7 @@ class Artigos
                 }
 
                 // Redirecionamento após a exclusão
-                header('Location: artigos.php');
+                header('Location:'.SITE_URL.'artigos');
                 exit;
             } catch (PDOException $erro) {
                 echo $erro->getMessage();

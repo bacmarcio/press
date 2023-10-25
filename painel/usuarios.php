@@ -33,8 +33,8 @@ $dadosUsuarios = $usuarios->dadosUsuarios();
 					<h2>Editores</h2>
 				</div>
 				<div class="col-sm-6 text-right h2">
-					<a class="btn btn-primary" href="add-usuario.php"><i class="fa fa-plus"></i> Novo Editor</a>
-					<a class="btn btn-default" href="usuarios.php"><i class="fa fa-refresh"></i> Atualizar</a>
+					<a class="btn btn-primary" href="add-usuario"><i class="fa fa-plus"></i> Novo Editor</a>
+					<a class="btn btn-default" href="usuarios"><i class="fa fa-refresh"></i> Atualizar</a>
 				</div>
 			</div>
 		</header>
@@ -56,7 +56,7 @@ $dadosUsuarios = $usuarios->dadosUsuarios();
 							<td><?php echo $usuario->id; ?></td>
 							<td><?php echo $usuario->nome; ?></td>
 							<td class="actions text-right">
-								<a href="editar-usuario.php?id=<?php echo $usuario->id; ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i> Editar</a>
+								<a href="editar-usuario/<?php echo $usuario->id; ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i> Editar</a>
 								<a href="javascript:;" class="btn btn-sm btn-danger" onclick="if(confirm('Tem certeza que deseja excluir <?php echo preg_replace('~[\r\n]+~', '', $usuario->nome); ?>?')) { window.location='usuarios.php?acao=excluirUsuarios&id=<?php echo $usuario->id; ?>'; } ">
 									<i class="fa fa-trash"></i> Excluir
 								</a>

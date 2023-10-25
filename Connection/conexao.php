@@ -1,5 +1,5 @@
 <?php
-include "Class/conexao.class.php";
+require_once("../Class/conexao.class.php");
 
 define('HOST', 'localhost'); // O endereço do servidor de banco de dados
 define('DBNAME', 'press_releases'); // O nome do banco de dados

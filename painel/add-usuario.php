@@ -62,7 +62,7 @@ if (is_string($resultado)) {
         <div id="actions" class="row">
           <div class="col-md-12">
             <button type="submit" class="btn btn-primary">Salvar</button>
-            <a href="usuarios.php" class="btn btn-default">Cancelar</a>
+            <a href="<?php echo SITE_URL?>usuarios" class="btn btn-default">Cancelar</a>
           </div>
         </div>
         <input type="hidden" name="acao" value="addUsuario">

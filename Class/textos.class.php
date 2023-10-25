@@ -114,7 +114,7 @@ class Textos
             $ativo = filter_input(INPUT_POST, 'ativo', FILTER_SANITIZE_SPECIAL_CHARS);
             $url_amigavel = gerarTituloSEO($titulo);
 
-            $diretorioFotos = 'post-images';
+            $diretorioFotos = SITE_URL.'post-images';
             
             try {
                 $sql = "INSERT INTO textos (titulo, conteudo, url_amigavel, ativo, foto) VALUES (?, ?, ?, ?, ?)";
@@ -129,7 +129,7 @@ class Textos
                 $stm->execute();
                 $ultimoIdTexto = $this->pdo->lastInsertId();
 
-                header('Location: textos.php');
+                header('Location:'.SITE_URL.'textos');
                 exit;
             } catch (PDOException $erro) {
                 echo $erro->getMessage();
@@ -149,7 +149,7 @@ class Textos
             $url_amigavel = gerarTituloSEO($titulo);
             $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
 
-            $diretorioFotos = 'post-images';
+            $diretorioFotos = SITE_URL.'post-images';
             
             try {
                 $sql = "UPDATE textos SET titulo=?, conteudo=?, url_amigavel=?, ativo=?, foto=? WHERE id=?";
@@ -164,7 +164,7 @@ class Textos
 
                 $stm->execute();
 
-                header('Location: textos.php');
+                header('Location:'.SITE_URL.'textos');
                 exit;
             } catch (PDOException $erro) {
                 echo $erro->getMessage();
@@ -177,7 +177,7 @@ class Textos
         if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['acao']) && $_GET['acao'] === 'excluirTexto' && isset($_GET['id'])) {
             
             $nomeArquivo = $_GET['foto']; // Substitua pelo nome do arquivo que você deseja excluir
-            $caminhoArquivo = "post-images/" . $nomeArquivo; // Substitua pelo caminho correto
+            $caminhoArquivo = SITE_URL."post-images/" . $nomeArquivo; // Substitua pelo caminho correto
 
             if (file_exists($caminhoArquivo)) {
                     unlink($caminhoArquivo);
@@ -197,7 +197,7 @@ class Textos
                 }
 
                 // Redirecionamento após a exclusão
-                header('Location: textos.php');
+                header('Location:'.SITE_URL.'textos');
                 exit;
             } catch (PDOException $erro) {
                 echo $erro->getMessage();

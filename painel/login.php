@@ -13,7 +13,17 @@ if (is_string($resultado)) {
     // A função retornou um sucesso (o redirecionamento é feito no próprio login)
 }
 
-$acesso->logout();
+$url = isset($_GET['url']) ? $_GET['url'] : '';
+
+if ($url === 'logout') {
+    // Lógica de logout
+    // Execute ação de logout
+    session_start(); // Inicie a sessão (se não estiver iniciada)
+    session_destroy(); // Destrua a sessão
+    // Redirecione para a página de login ou qualquer outra página desejada
+    header('Location:'.SITE_URL.'login');
+    exit();
+}
 
 ?>
 <!DOCTYPE html>

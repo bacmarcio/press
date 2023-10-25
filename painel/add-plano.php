@@ -1,22 +1,13 @@
 <?php
 include "verifica.php";
 $acesso->restritoAdmin();
-if (isset($_GET['id'])) {
-    if (empty($_GET['id'])) {
-        header('Location: categorias.php');
-    } else {
-        $id = $_GET['id'];
-    }
-}
-
-$categorias->editar();
-$dadosCategoria = $categorias->dadosCategorias($id);
+$planos->add();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
-  <title>Editar Categoria</title>
+  <title>Adicionar Plano</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="css/style.css" rel="stylesheet">
@@ -28,47 +19,70 @@ $dadosCategoria = $categorias->dadosCategorias($id);
 </head>
 
 <body>
-  <?php //include "header.php"; ?>
+  <?php //include "header.php"; 
+  ?>
 
   <!--//----CONTEUDO---//-->
   <main class="container">
     <br><br><br>
 
-    <h2>Editar Categoria</h2>
+    <h2>Adicionar Plano</h2>
 
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
       <!-- area de campos do form -->
       <hr />
       <div class="row">
         <div class="form-group col-md-12">
           <label for="name">Titulo</label>
-          <input type="text" class="form-control" name="titulo" value="<?php echo $dadosCategoria->titulo; ?>">
+          <input type="text" class="form-control" name="titulo" value="">
         </div>
+
       </div>
       <div class="row">
-        <div class="form-group col-md-12">
-          <label for="name">Ordem</label>
-          <input type="text" class="form-control" name="ordem" value="<?php echo $dadosCategoria->ordem; ?>">
+
+        <div class="form-group col-md-6">
+          <label for="campo1">Valor</label>
+          <input type="text" class="form-control" name="valor" value="">
         </div>
+
       </div>
+      <div class="row">
+
+        <div class="form-group col-md-6">
+          <label for="campo1">Foto</label>
+          <input type="file" class="form-control" name="foto">
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="form-group col-md-12">
+          <label for="campo3">Descrição</label>
+          <textarea name="conteudo" id="ckeditor" class="ckeditor" cols="30" rows="10"></textarea>
+        </div>
+
+      </div>
+
       <div id="actions" class="row">
         <div class="col-md-12">
           <button type="submit" class="btn btn-primary">Salvar</button>
-          <a href="categorias.php" class="btn btn-default">Cancelar</a>
+          <a href="<?php echo SITE_URL ?>planos" class="btn btn-default">Cancelar</a>
         </div>
       </div>
-      <input type="hidden" name="acao" value="editarCategoria">
-      <input type="hidden" name="id" value="<?php echo $dadosCategoria->id; ?>">
+      <input type="hidden" name="acao" value="addPlano">
+      <input type="hidden" name="ativo" value="S">
     </form>
 
   </main>
   <!--//----FIM DO CONTEUDO---//-->
   <hr>
-  <?php //include "footer.php"; ?>
+  <?php //include "footer.php"; 
+  ?>
 
 </body>
 <!--Ultima versão do jquery-->
 
-<!-- <script src="vendor/ckeditor/ckeditor.js"></script> -->
+<script src="../../gerenciador/vendor/ckeditor/ckeditor.js"></script>
 
 </html>

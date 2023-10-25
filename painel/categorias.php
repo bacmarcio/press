@@ -33,8 +33,8 @@ $dadosCategorias = $categorias->dadosCategorias();
 					<h2>Categorias</h2>
 				</div>
 				<div class="col-sm-7 text-right h2">
-					<a class="btn btn-primary" href="add-categoria.php"><i class="fa fa-plus"></i> Nova Categoria</a>
-					<a class="btn btn-default" href="categorias.php"><i class="fa fa-refresh"></i> Atualizar</a>
+					<a class="btn btn-primary" href="add-categoria"><i class="fa fa-plus"></i> Nova Categoria</a>
+					<a class="btn btn-default" href="categorias"><i class="fa fa-refresh"></i> Atualizar</a>
 				</div>
 			</div>
 		</header>
@@ -58,7 +58,7 @@ $dadosCategorias = $categorias->dadosCategorias();
 							<td><?php echo $categoria->id; ?></td>
 							<td><?php echo $categoria->titulo; ?></td>
 							<td class="actions text-right">
-								<a href="editar-categoria.php?id=<?php echo $categoria->id; ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i> Editar</a>
+								<a href="editar-categoria/<?php echo $categoria->id; ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i> Editar</a>
 								<a href="javascript:;" class="btn btn-sm btn-danger" onclick="if(confirm('Tem certeza que deseja excluir <?php echo preg_replace('~[\r\n]+~', '', $categoria->titulo); ?>?')) { window.location='categorias.php?acao=excluirCategoria&id=<?php echo $categoria->id; ?>'; } ">
 									<i class="fa fa-trash"></i> Excluir
 								</a>

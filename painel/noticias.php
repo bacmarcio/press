@@ -90,7 +90,7 @@ $posts->excluir();
                 <div class="col-sm-2">&nbsp;</div>
 
                 <div class="col-sm-6 text-right h2">
-                    <a class="btn btn-success" href="categorias.php"><i class="fa fa-plus"></i> Categoria</a>
+                    <a class="btn btn-success" href="categorias"><i class="fa fa-plus"></i> Categoria</a>
                     <a class="btn btn-primary" href="add-noticia"><i class="fa fa-plus"></i> Nova Notícia</a>
                     <a class="btn btn-default" href="noticias"><i class="fa fa-refresh"></i> Atualizar</a>
                 </div>
@@ -116,7 +116,7 @@ $posts->excluir();
                         <tr>
                             <td><?php echo $blog->id; ?></td>
                             <td> <?php if (isset($blog->foto) && !empty($blog->foto)) { ?>
-                                    <img src="/projetos/press/post-images/<?php echo $blog->foto; ?>" width="50">
+                                    <img src="../post-images/<?php echo $blog->foto; ?>" width="50">
                                 <?php } ?>
                             </td>
                             <td><?php echo $blog->titulo; ?></td>

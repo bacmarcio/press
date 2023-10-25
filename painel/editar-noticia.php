@@ -3,7 +3,7 @@ include "verifica.php";
 $acesso->restritoAdmin();
 if (isset($_GET['id'])) {
     if (empty($_GET['id'])) {
-        header('Location: noticias.php');
+        header('Location:'.SITE_URL.'noticias');
     } else {
         $id = $_GET['id'];
     }
@@ -94,11 +94,14 @@ $dadosCategorias = $categorias->dadosCategorias();
       </div>
 
       <div class="row">
-        <div class="form-group col-md-6">
+      <div class="form-group col-md-2">
+          <img src="../post-images/<?php echo $editaPost->foto; ?>" alt="" width="60">
+        </div>
+        <div class="form-group col-md-5">
           <label for="campo1">Foto</label>
           <input type="file" class="form-control" name="foto">
         </div>
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-5">
           <label for="campo1">Legenda Foto</label>
           <input type="text" class="form-control" name="legenda" value="<?php echo $editaPost->legenda; ?>">
         </div>
@@ -120,7 +123,9 @@ $dadosCategorias = $categorias->dadosCategorias();
       <div class="row">
         <div class="form-group col-md-12">
           <label for="campo2">Descrição</label>
-          <textarea name="conteudo" id="ckeditor" class="ckeditor" cols="30" rows="10"><?php echo $editaPost->conteudo; ?></textarea>
+          <textarea name="conteudo" id="ckeditor" class="ckeditor" cols="30" rows="10">
+            <?php echo html_entity_decode($editaPost->conteudo,ENT_COMPAT); ?>
+          </textarea>
           
         </div>
       </div>
@@ -128,7 +133,7 @@ $dadosCategorias = $categorias->dadosCategorias();
       <div id="actions" class="row">
         <div class="col-md-12">
           <button type="submit" class="btn btn-primary">Salvar</button>
-          <a href="/projetos/press/noticias" class="btn btn-default">Cancelar</a>
+          <a href="<?php echo SITE_URL?>noticias" class="btn btn-default">Cancelar</a>
         </div>
       </div>
       <input type="hidden" name="acao" value="editarPost">
@@ -144,9 +149,10 @@ $dadosCategorias = $categorias->dadosCategorias();
 </body>
 <!--Ultima versão do jquery-->
 
-<script src="gerenciador/vendor/ckeditor/ckeditor.js"></script>
+<script src="<?php echo SITE_URL?>gerenciador/vendor/ckeditor/ckeditor.js"></script>
 <script>
   $("#data").datepicker("setDate", <?php echo ($editaPost->updated_at) ? $editaPost->updated_at : ''; ?>);
 </script>
 
 </html>
+Lorem ipsum dolor, sit amet consectetur adipisicing elit. Beatae officiis voluptates laborum sunt labore eos voluptas cumque non quis magnam, soluta dolore sapiente! Quibusdam sit asperiores, distinctio hic deleniti perferendis!

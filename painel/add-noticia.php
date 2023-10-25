@@ -107,7 +107,7 @@ $posts->add();
         <div id="actions" class="row">
           <div class="col-md-12">
             <button type="submit" class="btn btn-primary">Salvar</button>
-            <a href="noticias.php" class="btn btn-default">Cancelar</a>
+            <a href="<?php echo SITE_URL?>noticias" class="btn btn-default">Cancelar</a>
           </div>
         </div>
         <input type="hidden" name="acao" value="addPost">

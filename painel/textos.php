@@ -63,14 +63,14 @@ $dadosTextos = $textos->dadosTextos();
 						<td><?php echo $texto->id; ?></td>
 						<td>
 							<?php if ($texto->foto) : ?>
-								<img src="post-images/<?php echo $texto->foto; ?>" width="100" alt="">
+								<img src="../post-images/<?php echo $texto->foto; ?>" width="60" alt="">
 							<?php endif; ?>
 						</td>
 
 						<td><?php echo $texto->titulo; ?></td>
 						<td class="actions text-right">
-							<a href="view-texto.php?id=<?php echo $texto->id; ?>" class="btn btn-sm btn-success"><i class="fa fa-eye"></i> Visualizar</a>
-							<a href="editar-texto.php?id=<?php echo $texto->id; ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i> Editar</a>
+							<!-- <a href="view-texto.php?id=<?php echo $texto->id; ?>" class="btn btn-sm btn-success"><i class="fa fa-eye"></i> Visualizar</a> -->
+							<a href="editar-texto/<?php echo $texto->id; ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i> Editar</a>
 						</td>
 					</tr>
 				<?php endforeach;

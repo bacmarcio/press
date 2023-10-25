@@ -134,7 +134,7 @@ class Posts
             $updated_at = date("Y-m-d H:i:s");
             $url_amigavel = gerarTituloSEO($titulo);
 
-            $diretorioFotos = '/projetos/press/post-images';
+            $diretorioFotos = 'post-images';
             
             try {
                 $sql = "INSERT INTO posts (titulo, conteudo, postado_por, resumo, url_amigavel, legenda, ativo, destaque, id_categoria, foto, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -156,7 +156,7 @@ class Posts
                 $stm->execute();
                 $ultimoIdPost = $this->pdo->lastInsertId();
 
-                header('Location: /projetos/press/noticias');
+                header('Location:'.SITE_URL.'noticias');
                 exit;
             } catch (PDOException $erro) {
                 echo $erro->getMessage();
@@ -183,7 +183,7 @@ class Posts
             $updated_at = date("Y-m-d H:i:s");
             $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
 
-            $diretorioFotos = '/projetos/press/post-images';
+            $diretorioFotos = 'post-images';
             
             try {
                 $sql = "UPDATE posts SET titulo=?, conteudo=?, postado_por=?, resumo=?, url_amigavel=?, legenda=?, ativo=?,  destaque=?, id_categoria=?, updated_at=?, foto=? WHERE id=?";
@@ -203,7 +203,7 @@ class Posts
                 
                 $stm->execute();
 
-                header('Location: /projetos/press/noticias');
+                header('Location:'.SITE_URL.'noticias');
                 exit;
             } catch (PDOException $erro) {
                 echo $erro->getMessage();
@@ -216,7 +216,7 @@ class Posts
         if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['acao']) && $_GET['acao'] === 'excluirPost' && isset($_GET['id'])) {
             
             $nomeArquivo = $_GET['foto']; // Substitua pelo nome do arquivo que você deseja excluir
-            $caminhoArquivo = "/projetos/press/post-images/" . $nomeArquivo; // Substitua pelo caminho correto
+            $caminhoArquivo = 'post-images' . $nomeArquivo; // Substitua pelo caminho correto
 
             if (file_exists($caminhoArquivo)) {
                     unlink($caminhoArquivo);
@@ -236,7 +236,7 @@ class Posts
                 }
 
                 // Redirecionamento após a exclusão
-                header('Location: /projetos/press/noticias');
+                header('Location:'.SITE_URL.'noticias');
                 exit;
             } catch (PDOException $erro) {
                 echo $erro->getMessage();

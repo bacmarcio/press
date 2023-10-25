@@ -153,7 +153,7 @@ class Usuarios
                 $stm->execute();
                 $ultimoIdUsuario = $this->pdo->lastInsertId();
 
-                header('Location: usuarios.php');
+                header('Location:'.SITE_URL.'usuarios');
                 exit;
             } catch (PDOException $erro) {
                 echo $erro->getMessage();
@@ -197,7 +197,7 @@ class Usuarios
 
                 $stm->execute();
 
-                header('Location: usuarios.php');
+                header('Location:'.SITE_URL.'usuarios');
                 exit;
             } catch (PDOException $erro) {
                 echo $erro->getMessage();
@@ -222,7 +222,7 @@ class Usuarios
                 }
 
                 // Redirecionamento após a exclusão
-                header('Location: usuarios.php');
+                header('Location:'.SITE_URL.'usuarios');
                 exit;
             } catch (PDOException $erro) {
                 echo $erro->getMessage();

@@ -88,13 +88,13 @@ class Acesso
            
             
             if ($usuario) {
-                
+                    $dataUsuario = ['id'=>$usuario->id, 'nome'=>$usuario->nome, 'adm'=>$usuario->adm,];
                 if (password_verify($senha, $usuario->senha)) {
                     // Senha correta, proceda com o login
                     session_start();
                     $_SESSION['usuarioLogado'] = true;
-                    $_SESSION['dadosUsuario'] = $usuario;
-                    header("Location: index.php");
+                    $_SESSION['dadosUsuario'] = $dataUsuario;
+                    header('Location:'.SITE_URL);
                     exit;
                 } else {
                     // Senha incorreta
@@ -119,31 +119,31 @@ class Acesso
      * @return void
      */
     
-    public function logout()
-    {
-        if (isset($_GET['acao']) && $_GET['acao'] == 'logout') {
-            echo "deseja mesmo sair?";
-            // Certifique-se de que o usuário realmente deseja sair
-            session_start();
+    // public function logout()
+    // {
+    //     if (isset($_GET['acao']) && $_GET['acao'] == 'logout') {
+            
+    //         // Certifique-se de que o usuário realmente deseja sair
+    //         session_start();
             
                
-            if (isset($_SESSION)) {
-                // Encerra a sessão
-                session_unset();
-                session_destroy();
+    //         if (isset($_SESSION)) {
+    //             // Encerra a sessão
+    //             session_unset();
+    //             session_destroy();
                 
-                // Redireciona para a página de login ou para onde for apropriado
-                header("Location: login.php");
-                exit;
-            }
-        }
-    }
+    //             // Redireciona para a página de login ou para onde for apropriado
+    //             header('Location:'.SITE_URL.'login');
+    //             exit;
+    //         }
+    //     }
+    // }
 
     public function restritoAdmin()
     {
         session_start();
-        if (empty($_SESSION['usuarioLogado'])&& $_SESSION['usuarioLogado']['adm'] !== 'S') {
-            echo "<script>window.location='login.php'</script>";
+        if (empty($_SESSION['usuarioLogado'])||$_SESSION['dadosUsuario']['adm'] != 'S') {
+            header('Location:'.SITE_URL.'login');
             exit;
         }
     }

@@ -3,20 +3,20 @@ include "verifica.php";
 $acesso->restritoAdmin();
 if (isset($_GET['id'])) {
   if (empty($_GET['id'])) {
-      header('Location: textos.php');
+      header('Location:'.SITE_URL.'planos');
   } else {
       $id = $_GET['id'];
   }
 }
 
-$textos->editar();
-$dadosTextos = $textos->dadosTextos($id);
+$planos->editar();
+$dadosPlanos = $planos->dadosPlanos($id);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
-  <title>Editar Texto</title>
+  <title>Editar Plano</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="css/style.css" rel="stylesheet">
@@ -34,7 +34,7 @@ $dadosTextos = $textos->dadosTextos($id);
   <main class="container">
     <br><br><br>
 
-    <h2>Atualizar Texto</h2>
+    <h2>Atualizar Plano</h2>
 
     <form action="" method="post" enctype="multipart/form-data">
       <!-- area de campos do form -->
@@ -42,24 +42,35 @@ $dadosTextos = $textos->dadosTextos($id);
       <div class="row">
         <div class="form-group col-md-12">
           <label for="name">Titulo</label>
-          <input type="text" class="form-control" name="titulo" value="<?php echo $dadosTextos->titulo; ?>">
+          <input type="text" class="form-control" name="titulo" value="<?php echo $dadosPlanos->titulo; ?>">
         </div>
 
       </div>
 
       <div class="row">
+        <div class="form-group col-md-12">
+          <label for="name">Valor</label>
+          <input type="text" class="form-control" name="valor" value="<?php echo $dadosPlanos->valor; ?>">
+        </div>
+
+      </div>
+
+      <div class="row">
+      <div class="form-group col-md-6">
+          <img src="../../post-images/<?php echo $dadosPlanos->foto; ?>" alt="" width="60">
+          </div>
         <div class="form-group col-md-6">
           <label for="campo1">Foto</label>
           <input type="file" class="form-control" name="foto">
         </div>
-
+        
       </div>
 
       <div class="row">
 
         <div class="form-group col-md-12">
           <label for="campo3">Descrição</label>
-          <textarea name="conteudo" id="ckeditor" class="ckeditor" cols="30" rows="10"><?php echo $dadosTextos->conteudo; ?></textarea>
+          <textarea name="conteudo" id="ckeditor" class="ckeditor" cols="30" rows="10"><?php echo $dadosPlanos->conteudo; ?></textarea>
         </div>
 
       </div>
@@ -67,12 +78,12 @@ $dadosTextos = $textos->dadosTextos($id);
       <div id="actions" class="row">
         <div class="col-md-12">
           <button type="submit" class="btn btn-primary">Salvar</button>
-          <a href="textos.php" class="btn btn-default">Cancelar</a>
+          <a href="<?php echo SITE_URL?>planos" class="btn btn-default">Cancelar</a>
         </div>
       </div>
-      <input type="hidden" name="acao" value="editarTexto">
-      <input type="hidden" name="id" value="<?php echo $dadosTextos->id; ?>">
-      <input type="hidden" name="foto_Atual" value="<?php echo $dadosTextos->foto; ?>">
+      <input type="hidden" name="acao" value="editarPlano">
+      <input type="hidden" name="id" value="<?php echo $dadosPlanos->id; ?>">
+      <input type="hidden" name="foto_Atual" value="<?php echo $dadosPlanos->foto; ?>">
       <input type="hidden" name="ativo" value="S">
     </form>
 
@@ -84,6 +95,6 @@ $dadosTextos = $textos->dadosTextos($id);
 </body>
 <!--Ultima versão do jquery-->
 
-<script src="vendor/ckeditor/ckeditor.js"></script>
+<script src="../../gerenciador/vendor/ckeditor/ckeditor.js"></script>
 
 </html>
