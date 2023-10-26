@@ -93,6 +93,5 @@ $dados = $usuarios->dadosUsuarios($id);
 <script src="//code.jquery.com/jquery.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="js/main.js"></script>
-<script src="vendor/ckeditor/ckeditor.js"></script>
 
 </html>

@@ -149,7 +149,7 @@ $dadosCategorias = $categorias->dadosCategorias();
 </body>
 <!--Ultima versão do jquery-->
 
-<script src="vendor/ckeditor/ckeditor.js"></script>
+<script src="../vendor/ckeditor/ckeditor.js"></script>
 <script>
   $("#data").datepicker("setDate", <?php echo ($editaPost->updated_at) ? $editaPost->updated_at : ''; ?>);
 </script>
