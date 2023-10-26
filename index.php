@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="painel/">clique aqui</a>
-    <a href="painel-2/">clique aqui</a>
+    <a href="painel/">adm</a>
+    <a href="area-cliente/">cliente</a>
 </body>
 </html>

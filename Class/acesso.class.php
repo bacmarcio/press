@@ -112,33 +112,7 @@ class Acesso
         return '<div class="alert alert-danger text-center" role="alert">Erro desconhecido.</div>';
     }
 
-    /**
-     * Realiza o processo de logout do usuário.
-     * Verifica se a ação 'logout' foi solicitada e, em caso afirmativo, encerra a sessão do usuário.
-     *
-     * @return void
-     */
     
-    // public function logout()
-    // {
-    //     if (isset($_GET['acao']) && $_GET['acao'] == 'logout') {
-            
-    //         // Certifique-se de que o usuário realmente deseja sair
-    //         session_start();
-            
-               
-    //         if (isset($_SESSION)) {
-    //             // Encerra a sessão
-    //             session_unset();
-    //             session_destroy();
-                
-    //             // Redireciona para a página de login ou para onde for apropriado
-    //             header('Location:'.SITE_URL.'login');
-    //             exit;
-    //         }
-    //     }
-    // }
-
     public function restritoAdmin()
     {
         session_start();
