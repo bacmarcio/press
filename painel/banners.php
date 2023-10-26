@@ -1,7 +1,7 @@
 <?php
 include "verifica.php";
 $banners->excluir();
-$dadosConteudos = $banners->dadosBanners();
+$dadosConteudos = $banners->rsDados();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -17,7 +17,7 @@ $dadosConteudos = $banners->dadosBanners();
         
     </head>
     <body>
-<?php //include('header.php');?>
+<?php include('header.php');?>
 
     <!--//----CONTEUDO---//-->
     <main class="container">
@@ -30,8 +30,8 @@ $dadosConteudos = $banners->dadosBanners();
 			<h2>Banners</h2>
 		</div>
 		<div class="col-sm-7 text-right h2">
-    		<a class="btn btn-primary" href="add-banner"><i class="fa fa-plus"></i> Novo Banner</a>
-	    	<a class="btn btn-default" href="banners"><i class="fa fa-refresh"></i> Atualizar</a>
+    		<a class="btn btn-primary" href="add-banner.php"><i class="fa fa-plus"></i> Novo Banner</a>
+	    	<a class="btn btn-default" href="banners.php"><i class="fa fa-refresh"></i> Atualizar</a>
 	    </div>
 	</div>
 </header>
@@ -53,13 +53,13 @@ $dadosConteudos = $banners->dadosBanners();
 <?php foreach ($dadosConteudos as $conteudo) : ?>
 	<tr>
 		<td><?php echo $conteudo->id; ?></td>
-		<td> <img src="../post-images/<?php echo $conteudo->foto; ?>" width="60" alt=""></td>
+		<td> <img src="../img/<?php echo $conteudo->foto; ?>" width="100" alt=""></td>
 		<td><?php echo $conteudo->titulo; ?></td>
 		
 		<td class="actions text-right">
 			<!--<a href="view-banner.php?id=<?php echo $conteudo->id; ?>" class="btn btn-sm btn-success"><i class="fa fa-eye"></i> Visualizar</a>-->
-			<a href="editar-banner/<?php echo $conteudo->id; ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i> Editar</a>
-			<a href="javascript:;" class="btn btn-sm btn-danger" onclick="if(confirm('Tem certeza que deseja excluir <?php echo preg_replace('~[\r\n]+~', '', $conteudo->titulo); ?>?')) { window.location='banners.php?acao=excluirBanner&id=<?php echo $conteudo->id; ?>&img=<?php echo $conteudo->foto; ?>'; } ">
+			<a href="editar-banner.php?id=<?php echo $conteudo->id; ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i> Editar</a>
+			<a href="javascript:;" class="btn btn-sm btn-danger" onclick="if(confirm('Tem certeza que deseja excluir <?php echo preg_replace('~[\r\n]+~', '', $conteudo->titulo); ?>?')) { window.location='banners.php?acao=excluirBanners&id=<?php echo $conteudo->id; ?>&img=<?php echo $conteudo->foto; ?>'; } ">
 				<i class="fa fa-trash"></i> Excluir
 			</a>
 		</td>

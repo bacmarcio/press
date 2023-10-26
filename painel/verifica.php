@@ -27,4 +27,7 @@ $textos = Textos::getInstance(Conexao::getInstance());
 include ("../Class/planos.class.php");
 $planos = Planos::getInstance(Conexao::getInstance());
 
+include ("../Class/banners.class.php");
+$banners = Banners::getInstance(Conexao::getInstance());
+
 

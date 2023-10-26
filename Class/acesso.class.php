@@ -76,7 +76,7 @@ class Acesso
         if (empty($login) || empty($senha)) {
             
             // Verifique se tanto o login quanto a senha são fornecidos
-            return "Por favor, preencha ambos os campos.";
+            return '<div class="alert alert-primary text-center" role="alert"> Por favor, preencha ambos os campos.</div>';
         }
         
         try {
@@ -98,18 +98,18 @@ class Acesso
                     exit;
                 } else {
                     // Senha incorreta
-                    return "Senha incorreta. Tente novamente.";
+                    return '<div class="alert alert-danger text-center" role="alert"> Senha incorreta. Tente novamente.</div>';
                 }
             } else {
                 // Dados inválidos
-                return "Usuário não encontrado.";
+                return '<div class="alert alert-danger text-center" role="alert">Usuário não encontrado.</div>';
             }
         } catch (PDOException $erro) {
             // Lida com erros de banco de dados
             return "Erro no banco de dados: " . $erro->getMessage();
         }
 
-        return "Erro desconhecido.";
+        return '<div class="alert alert-danger text-center" role="alert">Erro desconhecido.</div>';
     }
 
     /**

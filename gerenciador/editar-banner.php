@@ -1,8 +1,17 @@
 <?php
 include "verifica.php";
+
+if (isset($_GET['id'])) {
+  if (empty($_GET['id'])) {
+      header('Location:'.SITE_URL.'banners');
+  } else {
+      $id = $_GET['id'];
+  }
+}
+
 $banners->editar();
 
-$descBanner = $banners->rsDados(intval($_GET['id']));
+$descBanner = $banners->dadosBanners($id);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -76,10 +85,10 @@ $descBanner = $banners->rsDados(intval($_GET['id']));
   <div id="actions" class="row">
     <div class="col-md-12">
       <button type="submit" class="btn btn-primary">Salvar</button>
-      <a href="banners.php" class="btn btn-default">Cancelar</a>
+      <a href="<?php echo SITE_URL?>banners" class="btn btn-default">Cancelar</a>
     </div>
   </div>
-  <input type="hidden" name="acao" value="editarBanners">
+  <input type="hidden" name="acao" value="editarBanner">
   <input type="hidden" name="id" value="<?php echo $descBanner->id; ?>">
   <input type="hidden" name="foto_Atual" value="<?php echo $descBanner->foto; ?>">
  
@@ -88,7 +97,7 @@ $descBanner = $banners->rsDados(intval($_GET['id']));
 </main> 
  <!--//----FIM DO CONTEUDO---//-->
 	<hr>
-<?php include('footer.php'); ?>
+<?php //include('footer.php'); ?>
 
     </body>
     <!--Ultima versão do jquery-->

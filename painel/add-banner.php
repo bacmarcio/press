@@ -1,5 +1,8 @@
 <?php
 include "verifica.php";
+
+//echo $_POST['codigo_fonte'];
+//exit;
 $banners->add();
 ?>
 <!DOCTYPE html>
@@ -24,7 +27,7 @@ $banners->add();
 
 <h2>Novo Banner</h2>
 
-<form action="" method="post" enctype="multipart/form-data">
+<form action="add-banner.php" method="post" enctype="multipart/form-data">
   <!-- area de campos do form -->
   <hr />
  
@@ -70,7 +73,7 @@ $banners->add();
   <div id="actions" class="row">
     <div class="col-md-12">
       <button type="submit" class="btn btn-primary">Salvar</button>
-      <a href="banners" class="btn btn-default">Cancelar</a>
+      <a href="banners.php" class="btn btn-default">Cancelar</a>
     </div>
   </div>
   <input type="hidden" name="acao" value="addBanner">
@@ -79,7 +82,7 @@ $banners->add();
 </main> 
  <!--//----FIM DO CONTEUDO---//-->
 	<hr>
-<?php //include('footer.php'); ?>
+<?php include('footer.php'); ?>
 
     </body>
     <!--Ultima versão do jquery-->

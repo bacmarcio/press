@@ -3,7 +3,7 @@ include "verifica.php";
 
 if (isset($_GET['id'])) {
     if (empty($_GET['id'])) {
-        header('Location: categorias.php');
+        header('Location:'.SITE_URL.'categorias');
     } else {
         $id = $_GET['id'];
     }

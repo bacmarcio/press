@@ -19,8 +19,12 @@ $routes = [
     'planos'           => 'planos.php',
     'add-plano'        => 'add-plano.php',
     'editar-plano'     => 'editar-plano.php',
+    'banners'          => 'banners.php',
+    'add-banner'       => 'add-banner.php',
+    'editar-banner'    => 'editar-banner.php',
     'login'            => 'login.php',
     'logout'           => 'login.php',
+    'cadastro'         => 'cadastro.php',
 ];
 
 // Verifique se a URL corresponde a uma rota válida
@@ -57,6 +61,12 @@ elseif (preg_match('/^editar-plano\/([a-zA-Z-0-9-_]+)$/', $url, $matches))
     // Tratar URLs do tipo "editar-texto/algum-id"
     $id = $matches[1];
     $file = 'editar-plano.php';
+}
+elseif (preg_match('/^editar-banner\/([a-zA-Z-0-9-_]+)$/', $url, $matches)) 
+{
+    // Tratar URLs do tipo "editar-texto/algum-id"
+    $id = $matches[1];
+    $file = 'editar-banner.php';
 }  
 else 
 {
