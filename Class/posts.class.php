@@ -63,7 +63,7 @@ class Posts
         return $this->pdo;
     }
 
-    public function dadosPosts($id = '', $destaque = '', $categoria = '', $orderBy = '', $limite = '', $search = '')
+    public function dadosPosts($id = '', $destaque = '', $categoria = '', $usuario = '', $orderBy = '', $limite = '', $search = '')
     {
         $filtro = [];
         $parametros = [];
@@ -81,6 +81,11 @@ class Posts
         if (!empty($categoria)) {
             $filtro[] = 'categoria = ?';
             $parametros[] = $categoria;
+        }
+
+        if (!empty($usuario)) {
+            $filtro[] = 'usuario = ?';
+            $parametros[] = $usuario;
         }
 
         if (!empty($search)) {
@@ -130,14 +135,15 @@ class Posts
             $legenda = filter_input(INPUT_POST, 'legenda', FILTER_SANITIZE_SPECIAL_CHARS);
             $ativo = filter_input(INPUT_POST, 'ativo', FILTER_SANITIZE_SPECIAL_CHARS);
             $destaque = filter_input(INPUT_POST, 'destaque', FILTER_SANITIZE_SPECIAL_CHARS);
+            $usuario = filter_input(INPUT_POST, 'id_usuario', FILTER_SANITIZE_SPECIAL_CHARS);
             $created_at = date("Y-m-d H:i:s");
             $updated_at = date("Y-m-d H:i:s");
             $url_amigavel = gerarTituloSEO($titulo);
 
-            $diretorioFotos = 'post-images';
+            $diretorioFotos = '../post-images';
             
             try {
-                $sql = "INSERT INTO posts (titulo, conteudo, postado_por, resumo, url_amigavel, legenda, ativo, destaque, id_categoria, foto, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                $sql = "INSERT INTO posts (titulo, conteudo, postado_por, resumo, url_amigavel, legenda, ativo, destaque, id_categoria, foto, id_usuario, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 $stm = $this->pdo->prepare($sql);
                 $stm->bindValue(1, $titulo, PDO::PARAM_STR);
                 $stm->bindValue(2, $conteudo, PDO::PARAM_STR);
@@ -149,8 +155,9 @@ class Posts
                 $stm->bindValue(8, $destaque, PDO::PARAM_STR);
                 $stm->bindValue(9, $id_categoria, PDO::PARAM_STR);
                 $stm->bindValue(10, upload('foto', $diretorioFotos, 'N'), PDO::PARAM_STR);
-                $stm->bindValue(11, $created_at, PDO::PARAM_STR);
-                $stm->bindValue(12, $updated_at, PDO::PARAM_STR);
+                $stm->bindValue(11, $usuario, PDO::PARAM_STR);
+                $stm->bindValue(12, $created_at, PDO::PARAM_STR);
+                $stm->bindValue(13, $updated_at, PDO::PARAM_STR);
                 
 
                 $stm->execute();
@@ -179,14 +186,15 @@ class Posts
             $legenda = filter_input(INPUT_POST, 'legenda', FILTER_SANITIZE_SPECIAL_CHARS);
             $ativo = filter_input(INPUT_POST, 'ativo', FILTER_SANITIZE_SPECIAL_CHARS);
             $destaque = filter_input(INPUT_POST, 'destaque', FILTER_SANITIZE_SPECIAL_CHARS);
+            $usuario = filter_input(INPUT_POST, 'usuario', FILTER_SANITIZE_SPECIAL_CHARS);
             $url_amigavel = gerarTituloSEO($titulo);
             $updated_at = date("Y-m-d H:i:s");
             $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
 
-            $diretorioFotos = 'post-images';
+            $diretorioFotos = '../post-images';
             
             try {
-                $sql = "UPDATE posts SET titulo=?, conteudo=?, postado_por=?, resumo=?, url_amigavel=?, legenda=?, ativo=?,  destaque=?, id_categoria=?, updated_at=?, foto=? WHERE id=?";
+                $sql = "UPDATE posts SET titulo=?, conteudo=?, postado_por=?, resumo=?, url_amigavel=?, legenda=?, ativo=?, destaque=?, id_categoria=?, id_usuario=?, updated_at=?, foto=? WHERE id=?";
                 $stm = $this->pdo->prepare($sql);
                 $stm->bindValue(1, $titulo, PDO::PARAM_STR);
                 $stm->bindValue(2, $conteudo, PDO::PARAM_STR);
@@ -197,9 +205,10 @@ class Posts
                 $stm->bindValue(7, $ativo, PDO::PARAM_STR);
                 $stm->bindValue(8, $destaque, PDO::PARAM_STR);
                 $stm->bindValue(9, $id_categoria, PDO::PARAM_STR);
-                $stm->bindValue(10, $updated_at, PDO::PARAM_STR);
-                $stm->bindValue(11, upload('foto', $diretorioFotos, 'N'), PDO::PARAM_STR);
-                $stm->bindValue(12, $id, PDO::PARAM_STR);
+                $stm->bindValue(10, $usuario, PDO::PARAM_STR);
+                $stm->bindValue(11, $updated_at, PDO::PARAM_STR);
+                $stm->bindValue(12, upload('foto', $diretorioFotos, 'N'), PDO::PARAM_STR);
+                $stm->bindValue(13, $id, PDO::PARAM_STR);
                 
                 $stm->execute();
 
@@ -216,7 +225,7 @@ class Posts
         if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['acao']) && $_GET['acao'] === 'excluirPost' && isset($_GET['id'])) {
             
             $nomeArquivo = $_GET['foto']; // Substitua pelo nome do arquivo que você deseja excluir
-            $caminhoArquivo = 'post-images' . $nomeArquivo; // Substitua pelo caminho correto
+            $caminhoArquivo = '../post-images' . $nomeArquivo; // Substitua pelo caminho correto
 
             if (file_exists($caminhoArquivo)) {
                     unlink($caminhoArquivo);

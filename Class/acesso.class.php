@@ -94,7 +94,11 @@ class Acesso
                     session_start();
                     $_SESSION['usuarioLogado'] = true;
                     $_SESSION['dadosUsuario'] = $dataUsuario;
-                    header('Location:'.SITE_URL);
+                    if($usuario->adm == 'S'){
+                        header('Location:/projetos/press/painel/');
+                    }else{
+                        header('Location:/projetos/press/area-cliente/');
+                    }
                     exit;
                 } else {
                     // Senha incorreta

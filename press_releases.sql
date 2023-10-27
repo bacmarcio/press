@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 25/10/2023 às 23:22
+-- Tempo de geração: 27/10/2023 às 22:35
 -- Versão do servidor: 10.4.22-MariaDB
 -- Versão do PHP: 8.1.2
 
@@ -75,7 +75,36 @@ CREATE TABLE `categorias` (
 --
 
 INSERT INTO `categorias` (`id`, `titulo`, `ordem`, `url_amigavel`) VALUES
-(1, 'teste1', 1, 'teste1');
+(11, 'Direito e Justiça', 1, 'direito-e-justica'),
+(12, 'Saúde', 2, 'saude'),
+(13, 'Eventos e Cursos', 3, 'eventos-e-concursos'),
+(14, 'Seguros', 4, 'seguros'),
+(15, 'Livros e Editoras', 5, 'livros-e-editoras'),
+(16, 'Esporte', 6, 'esporte'),
+(17, 'Franquias', 7, 'franquias'),
+(18, 'Educação', 8, 'educacao'),
+(19, 'Economia e Empresa', 9, 'economia-e-empresas'),
+(20, 'Ciência e Meio Ambiente', 10, 'ciencia-meio-ambiente'),
+(21, 'Geral', 11, 'geral'),
+(22, 'Hotelaria', 12, 'hotelaria'),
+(23, 'Transportes', 13, 'transportes'),
+(24, 'Entretenimento e Arte', 14, 'entretenimento-e-arte'),
+(25, 'Tecnologia e Serviços', 15, 'tecnologia-e-servicos'),
+(26, 'Direito e Justiça', 1, 'direito-e-justica'),
+(27, 'Saúde', 2, 'saude'),
+(28, 'Eventos e Cursos', 3, 'eventos-e-concursos'),
+(29, 'Seguros', 4, 'seguros'),
+(30, 'Livros e Editoras', 5, 'livros-e-editoras'),
+(31, 'Esporte', 6, 'esporte'),
+(32, 'Franquias', 7, 'franquias'),
+(33, 'Educação', 8, 'educacao'),
+(34, 'Economia e Empresa', 9, 'economia-e-empresas'),
+(35, 'Ciência e Meio Ambiente', 10, 'ciencia-meio-ambiente'),
+(36, 'Geral', 11, 'geral'),
+(37, 'Hotelaria', 12, 'hotelaria'),
+(38, 'Transportes', 13, 'transportes'),
+(39, 'Entretenimento e Arte', 14, 'entretenimento-e-arte'),
+(40, 'Tecnologia e Serviços', 15, 'tecnologia-e-servicos');
 
 -- --------------------------------------------------------
 
@@ -163,10 +192,18 @@ CREATE TABLE `posts` (
   `legenda` varchar(255) DEFAULT NULL,
   `destaque` enum('S','N') NOT NULL DEFAULT 'N',
   `url_amigavel` varchar(255) DEFAULT NULL,
+  `postado_por` varchar(255) DEFAULT NULL,
+  `id_usuario` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `postado_por` varchar(255) DEFAULT NULL
+  `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Despejando dados para a tabela `posts`
+--
+
+INSERT INTO `posts` (`id`, `titulo`, `conteudo`, `foto`, `resumo`, `id_categoria`, `ativo`, `legenda`, `destaque`, `url_amigavel`, `postado_por`, `id_usuario`, `created_at`, `updated_at`) VALUES
+(5, 'teste', '&amp;lt;p&amp;gt;teste&amp;lt;/p&amp;gt;\r\n', '1698438542.4362-foto-N.png', 'teste', NULL, 'N', 'teste', 'N', 'teste', 'teste', 1, '2023-10-27 22:29:02', '2023-10-27 22:29:02');
 
 -- --------------------------------------------------------
 
@@ -212,7 +249,7 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`id`, `nome`, `email`, `cpf`, `telefone`, `senha`, `adm`) VALUES
 (1, 'Marcio Maia', 'adm@grupoavs.com', NULL, NULL, '$2y$10$t.s.qDHhP4Jyvo0pPNluxufJjlSahpd55HM3o58MR5LUQ1XXDJNdC', 'S'),
-(2, 'teste', 'teste@teste.com', NULL, NULL, '$2y$10$Kk4tswA7Uv8f.JsbJIvsCevVg8pksxkg9lrjRpEc1aIBAYRP0Qpne', 'N');
+(4, 'Teste 2', NULL, NULL, NULL, '$2y$10$zPg2VEyM/lberTyEV0v9UOpg/wxz434PD8f5wWhIcJ/SKJMn5iLj2', 'N');
 
 --
 -- Índices para tabelas despejadas
@@ -280,7 +317,7 @@ ALTER TABLE `banners`
 -- AUTO_INCREMENT de tabela `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT de tabela `colunistas`
@@ -304,7 +341,7 @@ ALTER TABLE `planos`
 -- AUTO_INCREMENT de tabela `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `textos`
@@ -316,7 +353,7 @@ ALTER TABLE `textos`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -170,9 +170,6 @@ class Usuarios
             $telefone = filter_input(INPUT_POST, 'telefone', FILTER_SANITIZE_SPECIAL_CHARS);
             $cpf = filter_input(INPUT_POST, 'cpf', FILTER_SANITIZE_SPECIAL_CHARS);
             
-            
-
-
             if ($_POST['senha']==='') {
                 $sqlVerificaSenha = "SELECT senha FROM usuarios WHERE id = ?";
                 $stmVerificaSenha = $this->pdo->prepare($sqlVerificaSenha);

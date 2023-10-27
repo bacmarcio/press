@@ -1,5 +1,29 @@
+<?php
+
+include "verifica.php";
+
+$resultado = $usuarios->editar();
+
+if (is_string($resultado)) {
+    // A função retornou uma mensagem de erro
+    echo $resultado;
+} else {
+    // A função retornou um sucesso (o redirecionamento é feito no próprio login)
+}
+
+if (isset($_GET['id'])) {
+    if (empty($_GET['id'])) {
+        header('Location:'.SITE_URL);
+    } else {
+        $id = $_GET['id'];
+    }
+}
+
+$dados = $usuarios->dadosUsuarios($id);
+
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,47 +42,37 @@
 					</div>
 					<div class="card shadow-lg">
 						<div class="card-body p-5">
-							<h1 class="fs-4 card-title fw-bold mb-4">Register</h1>
-							<form method="POST" class="needs-validation" novalidate="" autocomplete="off">
+							<h1 class="fs-4 card-title fw-bold mb-4">Atualizar Perfil</h1>
+							<form method="POST" autocomplete="off">
 								<div class="mb-3">
-									<label class="mb-2 text-muted" for="name">Name</label>
-									<input id="name" type="text" class="form-control" name="name" value="" required autofocus>
-									<div class="invalid-feedback">
-										Name is required	
-									</div>
+									<label class="mb-2 text-muted" for="nome">Name</label>
+									<input id="nome" type="text" class="form-control" name="nome" value="<?php echo $dados->nome?>">
 								</div>
 
 								<div class="mb-3">
-									<label class="mb-2 text-muted" for="email">E-Mail Address</label>
-									<input id="email" type="email" class="form-control" name="email" value="" required>
-									<div class="invalid-feedback">
-										Email is invalid
-									</div>
+									<label class="mb-2 text-muted" for="showEmail">E-Mail Address</label>
+									<input id="showEmail" type="email" disabled class="form-control" name="showEmail" value="<?php echo $dados->email?>">
+								</div>
+								
+								<div class="mb-3">
+									<label class="mb-2 text-muted" for="cpf">CPF</label>
+									<input id="cpf" type="text" class="form-control" name="cpf" value="<?php echo $dados->cpf?>">
 								</div>
 
 								<div class="mb-3">
-									<label class="mb-2 text-muted" for="password">Password</label>
-									<input id="password" type="password" class="form-control" name="password" required>
-								    <div class="invalid-feedback">
-								    	Password is required
-							    	</div>
+									<label class="mb-2 text-muted" for="telefone">Telefone</label>
+									<input id="telefone" type="text" class="form-control" name="telefone" value="<?php echo $dados->telefone?>">
 								</div>
-
-								<p class="form-text text-muted mb-3">
-									By registering you agree with our terms and condition.
-								</p>
 
 								<div class="align-items-center d-flex">
 									<button type="submit" class="btn btn-primary ms-auto">
-										Register	
+										Confirmar	
 									</button>
 								</div>
+								<input type="hidden" name="id" value="<?php echo $dados->id?>">
+								<input type="hidden" name="acao" value="editarUsuario">
+								<input type="hidden" name="email" value="<?php echo $dados->email?>">
 							</form>
-						</div>
-						<div class="card-footer py-3 border-0">
-							<div class="text-center">
-								Already have an account? <a href="index.html" class="text-dark">Login</a>
-							</div>
 						</div>
 					</div>
 					<div class="text-center mt-5 text-muted">

@@ -67,17 +67,19 @@ if ($url === 'logout') {
 								<div class="mb-3">
 									<div class="mb-2 w-100">
 										<label class="text-muted" for="validationPassword">Senha</label>
-										<a href="recuperar-senha" class="float-end">
-											Esqueceu a senha?
-										</a>
+										
 									</div>
 									<input id="validationPassword" type="password" class="form-control" name="senha" required>
 								    <div class="invalid-feedback">
 								    	Preencha esse campo
 							    	</div>
+									
 								</div>
 
 								<div class="d-flex align-items-center">
+								<a href="recuperar-senha" class="float-end">
+											Esqueceu a senha?
+										</a>
 									<!-- <div class="form-check">
 										<input type="checkbox" name="remember" id="remember" class="form-check-input">
 										<label for="remember" class="form-check-label">Remember Me</label>
