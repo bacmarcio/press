@@ -64,8 +64,10 @@ $dados = $usuarios->dadosUsuarios($id);
 									<input id="telefone" type="text" class="form-control" name="telefone" value="<?php echo $dados->telefone?>">
 								</div>
 
-								<div class="align-items-center d-flex">
-									<button type="submit" class="btn btn-primary ms-auto">
+								<div class="d-flex justify-content-between">
+									
+									<a href="<?php echo SITE_URL?>" class="btn btn-primary">Voltar</a>
+									<button type="submit" class="btn btn-success">
 										Confirmar	
 									</button>
 								</div>

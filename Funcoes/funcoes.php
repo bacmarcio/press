@@ -13,7 +13,7 @@
          return ''; // Retorna uma string vazia se $data estiver vazia
      }
  
-     $dateTime = DateTime::createFromFormat('Y-m-d', $data);
+     $dateTime = DateTime::createFromFormat('Y-m-d H:i:s', $data);
  
      if ($dateTime === false) {
          return 'Data inválida'; // Retorna uma mensagem de erro se $data não for uma data válida

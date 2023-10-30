@@ -112,16 +112,18 @@ class Planos
             $conteudo = preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', '', $conteudo);
             $conteudo = htmlentities($conteudo, ENT_QUOTES, 'UTF-8');
             $valor = filter_input(INPUT_POST, 'valor', FILTER_SANITIZE_SPECIAL_CHARS);
+            $creditos = filter_input(INPUT_POST, 'creditos', FILTER_SANITIZE_SPECIAL_CHARS);
 
             $diretorioFotos = '../post-images';
             
             try {
-                $sql = "INSERT INTO planos (titulo, conteudo, valor, foto) VALUES (?, ?, ?, ?)";
+                $sql = "INSERT INTO planos (titulo, conteudo, valor, foto, creditos) VALUES (?, ?, ?, ?, ?)";
                 $stm = $this->pdo->prepare($sql);
                 $stm->bindValue(1, $titulo, PDO::PARAM_STR);
                 $stm->bindValue(2, $conteudo, PDO::PARAM_STR);
                 $stm->bindValue(3, valorCalculavel($valor), PDO::PARAM_STR);
                 $stm->bindValue(4, upload('foto', $diretorioFotos, 'N'), PDO::PARAM_STR);
+                $stm->bindValue(5, $creditos, PDO::PARAM_STR);
                 
                 $stm->execute();
                 $ultimoIdPlano = $this->pdo->lastInsertId();
@@ -143,18 +145,20 @@ class Planos
             $conteudo = preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', '', $conteudo);
             $conteudo = htmlentities($conteudo, ENT_QUOTES, 'UTF-8');
             $valor = filter_input(INPUT_POST, 'valor', FILTER_SANITIZE_SPECIAL_CHARS);
+            $creditos = filter_input(INPUT_POST, 'creditos', FILTER_SANITIZE_SPECIAL_CHARS);
             $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
 
             $diretorioFotos = '../post-images';
             
             try {
-                $sql = "UPDATE planos SET titulo=?, conteudo=?, valor=?, foto=? WHERE id=?";
+                $sql = "UPDATE planos SET titulo=?, conteudo=?, valor=?, foto=?, creditos=? WHERE id=?";
                 $stm = $this->pdo->prepare($sql);
                 $stm->bindValue(1, $titulo, PDO::PARAM_STR);
                 $stm->bindValue(2, $conteudo, PDO::PARAM_STR);
                 $stm->bindValue(3, valorCalculavel($valor), PDO::PARAM_STR);
                 $stm->bindValue(4, upload('foto', $diretorioFotos, 'N'), PDO::PARAM_STR);
-                $stm->bindValue(5, $id, PDO::PARAM_STR);
+                $stm->bindValue(5, $creditos, PDO::PARAM_STR);
+                $stm->bindValue(6, $id, PDO::PARAM_STR);
                 
                 $stm->execute();
 
@@ -201,5 +205,24 @@ class Planos
         }
     }
 
+    public function comprarPlano($idPlano, $idUser)
+    {
+    
+        try {
+            $sql = "UPDATE usuarios SET id_plano=? WHERE id=?";
+            $stm = $this->pdo->prepare($sql);
+            $stm->bindValue(1, $idPlano, PDO::PARAM_STR);
+            $stm->bindValue(2, $idUser, PDO::PARAM_STR);
+            
+            $stm->execute();
+            $ultimoIdPlano = $this->pdo->lastInsertId();
+
+            header('Location:'.SITE_URL);
+            exit;
+        } catch (PDOException $erro) {
+            echo $erro->getMessage();
+        }
+        
+    }
 
 }

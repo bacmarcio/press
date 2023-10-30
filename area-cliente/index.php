@@ -111,17 +111,20 @@ $dados = $posts->dadosPosts();
                             </tr>
                         </thead>
                         <tbody>
+                            <?php foreach ($dados as $item) {?>
+                               
                             <tr>
-                                <th>1</th>
-                                <td>Otto</td>
-                                <td>@mdo</td>
+                                <th><?php echo $item->id?></th>
+                                <td><img src="../post-images/<?php echo $item->foto?>" alt="" width="60"></td>
+                                <td><?php echo $item->titulo?></td>
                                 <td class="ultima-coluna">
-                                    <a href="editar-noticia" class="btn btn-outline-warning">Editar</a>
-                                    <!-- <a href="#" onclick="if(confirm('Tem certeza que deseja excluir <?php echo preg_replace('~[\r\n]+~', '', $conteudo->titulo); ?>?')) { window.location='banners.php?acao=excluirBanners&id=<?php echo $conteudo->id; ?>&img=<?php echo $conteudo->foto; ?>'; } " class="btn btn-outline-danger">Excluir</a> -->
+                                    <a href="editar-noticia/<?php echo $item->id?>" class="btn btn-outline-warning">Editar</a>
+                                    <a href="#" onclick="if(confirm('Tem certeza que deseja excluir <?php echo preg_replace('~[\r\n]+~', '', $item->titulo); ?>?')) { window.location='index.php?acao=excluirPosts&id=<?php echo $item->id; ?>&foto=<?php echo $item->foto; ?>'; } " class="btn btn-outline-danger">Excluir</a>
                                 </td>
                             </tr>
+                            <?php }?>
                         </tbody>
-                    </table>
+                    </table> 70s dark fantasy art, illustration of the Jersey devil in the pine barrens
                 </div>
                 <?php }else echo "<h6 class='text-center'>Nenhuma release encontrada!</h6>";?>
             </div>

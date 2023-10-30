@@ -68,7 +68,7 @@ $dados = $usuarios->dadosUsuarios($id);
 
         <div class="form-group col-md-6">
           <label for="campo2">Senha</label>
-          <input type="password" class="form-control" name="senha">
+          <input type="password" class="form-control" name="senha" value="<?php echo $dados->senha?>">
         </div>
 
         <div id="actions" class="row">

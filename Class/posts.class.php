@@ -163,7 +163,7 @@ class Posts
                 $stm->execute();
                 $ultimoIdPost = $this->pdo->lastInsertId();
 
-                header('Location:'.SITE_URL.'noticias');
+                header('Location:'.SITE_URL);
                 exit;
             } catch (PDOException $erro) {
                 echo $erro->getMessage();
@@ -212,7 +212,7 @@ class Posts
                 
                 $stm->execute();
 
-                header('Location:'.SITE_URL.'noticias');
+                header('Location:'.SITE_URL);
                 exit;
             } catch (PDOException $erro) {
                 echo $erro->getMessage();
@@ -245,7 +245,7 @@ class Posts
                 }
 
                 // Redirecionamento após a exclusão
-                header('Location:'.SITE_URL.'noticias');
+                header('Location:'.SITE_URL);
                 exit;
             } catch (PDOException $erro) {
                 echo $erro->getMessage();
