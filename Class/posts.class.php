@@ -234,16 +234,19 @@ class Posts
             try {
                 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
+                
+
                 if ($id !== false) {
-                    $sql = "DELETE FROM posts WHERE id=?";
+                    echo $sql = "UPDATE posts SET excluido=? WHERE id=?";
                     $stm = $this->pdo->prepare($sql);
-                    $stm->bindValue(1, $id, PDO::PARAM_INT);
+                    $stm->bindValue(1, 'S');
+                    $stm->bindValue(2, $id, PDO::PARAM_INT);
                     $stm->execute();
                 } else {
                     // Tratamento para o caso de 'id' não ser um inteiro válido
                     throw new Exception('ID inválido.');
                 }
-
+                
                 // Redirecionamento após a exclusão
                 header('Location:'.SITE_URL);
                 exit;

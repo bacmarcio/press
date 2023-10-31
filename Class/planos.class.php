@@ -115,7 +115,7 @@ class Planos
             $creditos = filter_input(INPUT_POST, 'creditos', FILTER_SANITIZE_SPECIAL_CHARS);
 
             $diretorioFotos = '../post-images';
-            
+
             try {
                 $sql = "INSERT INTO planos (titulo, conteudo, valor, foto, creditos) VALUES (?, ?, ?, ?, ?)";
                 $stm = $this->pdo->prepare($sql);
@@ -124,18 +124,18 @@ class Planos
                 $stm->bindValue(3, valorCalculavel($valor), PDO::PARAM_STR);
                 $stm->bindValue(4, upload('foto', $diretorioFotos, 'N'), PDO::PARAM_STR);
                 $stm->bindValue(5, $creditos, PDO::PARAM_STR);
-                
+
                 $stm->execute();
                 $ultimoIdPlano = $this->pdo->lastInsertId();
 
-                header('Location:'.SITE_URL.'planos');
+                header('Location:' . SITE_URL . 'planos');
                 exit;
             } catch (PDOException $erro) {
                 echo $erro->getMessage();
             }
         }
     }
-    
+
     public function editar()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao']) && $_POST['acao'] === 'editarPlano') {
@@ -149,7 +149,7 @@ class Planos
             $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
 
             $diretorioFotos = '../post-images';
-            
+
             try {
                 $sql = "UPDATE planos SET titulo=?, conteudo=?, valor=?, foto=?, creditos=? WHERE id=?";
                 $stm = $this->pdo->prepare($sql);
@@ -159,10 +159,10 @@ class Planos
                 $stm->bindValue(4, upload('foto', $diretorioFotos, 'N'), PDO::PARAM_STR);
                 $stm->bindValue(5, $creditos, PDO::PARAM_STR);
                 $stm->bindValue(6, $id, PDO::PARAM_STR);
-                
+
                 $stm->execute();
 
-                header('Location:'.SITE_URL.'planos');
+                header('Location:' . SITE_URL . 'planos');
                 exit;
             } catch (PDOException $erro) {
                 echo $erro->getMessage();
@@ -173,12 +173,12 @@ class Planos
     public function excluir()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['acao']) && $_GET['acao'] === 'excluirPlano' && isset($_GET['id'])) {
-            
+
             $nomeArquivo = $_GET['foto']; // Substitua pelo nome do arquivo que você deseja excluir
             $caminhoArquivo = "../post-images/" . $nomeArquivo; // Substitua pelo caminho correto
 
             if (file_exists($caminhoArquivo)) {
-                    unlink($caminhoArquivo);
+                unlink($caminhoArquivo);
             }
 
             try {
@@ -195,7 +195,7 @@ class Planos
                 }
 
                 // Redirecionamento após a exclusão
-                header('Location:'.SITE_URL.'planos');
+                header('Location:' . SITE_URL . 'planos');
                 exit;
             } catch (PDOException $erro) {
                 echo $erro->getMessage();
@@ -207,22 +207,78 @@ class Planos
 
     public function comprarPlano($idPlano, $idUser)
     {
-    
+
         try {
             $sql = "UPDATE usuarios SET id_plano=? WHERE id=?";
             $stm = $this->pdo->prepare($sql);
             $stm->bindValue(1, $idPlano, PDO::PARAM_STR);
             $stm->bindValue(2, $idUser, PDO::PARAM_STR);
-            
+
             $stm->execute();
             $ultimoIdPlano = $this->pdo->lastInsertId();
 
-            header('Location:'.SITE_URL);
+            header('Location:' . SITE_URL);
             exit;
         } catch (PDOException $erro) {
             echo $erro->getMessage();
         }
-        
     }
 
+    public function contarCreditos($idUser)
+    {
+        $sqlverificaCredito = "SELECT planos.creditos FROM usuarios LEFT JOIN planos on planos.id = usuarios.id_plano WHERE usuarios.plano_ativo = 'N' AND usuarios.id = ?";
+        $stmVerificaCredito = $this->pdo->prepare($sqlverificaCredito);
+        $stmVerificaCredito->bindValue(1, $idUser, PDO::PARAM_STR);
+        $stmVerificaCredito->execute();
+        $creditoExistente = $stmVerificaCredito->fetchColumn();
+        $credito = $creditoExistente;
+
+        if (isset($credito) && $credito > 0) {
+            
+
+            $sqlContaPosts = "SELECT COUNT(*) FROM posts WHERE posts.id_usuario = ?";
+            $stmContaPosts = $this->pdo->prepare($sqlContaPosts);
+            $stmContaPosts->bindValue(1, $idUser, PDO::PARAM_STR);
+            $stmContaPosts->execute();
+            $postsExistente = $stmContaPosts->fetchColumn();
+            $totalPosts = $postsExistente;
+
+            $updateCreditos = $credito - $totalPosts;
+            
+
+            try {
+                $sql = "UPDATE usuarios SET creditos =? WHERE id=?";
+                $stm = $this->pdo->prepare($sql);
+                $stm->bindValue(1, $updateCreditos, PDO::PARAM_STR);
+                $stm->bindValue(2, $idUser, PDO::PARAM_STR);
+                $stm->execute();
+                
+                $result = array(['creditos' => $updateCreditos, 'mensagem' => '<div class="alert alert-primary text-center" role="alert"> Você ainda possui ' . $updateCreditos . ' creditos</div>']);
+
+                return $result;
+
+            } catch (PDOException $erro) {
+                echo $erro->getMessage();
+            }
+
+        } else {
+            return '<div class="alert alert-danger text-center" role="alert"> Seus creditos acabaram. Solicite mais creditos.</div>';
+        }
+
+        // try {
+        //     $sql = "UPDATE usuarios SET id_plano=? WHERE id=?";
+        //     $stm = $this->pdo->prepare($sql);
+        //     $stm->bindValue(1, $idPlano, PDO::PARAM_STR);
+        //     $stm->bindValue(2, $idUser, PDO::PARAM_STR);
+
+        //     $stm->execute();
+        //     $ultimoIdPlano = $this->pdo->lastInsertId();
+
+        //     header('Location:'.SITE_URL);
+        //     exit;
+        // } catch (PDOException $erro) {
+        //     echo $erro->getMessage();
+        // }
+
+    }
 }

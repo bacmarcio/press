@@ -9,7 +9,14 @@ if(!empty($_SESSION)||$_SESSION['dadosUsuario']['adm']=='N'){
     exit;
 }
 
+$posts->excluir();
+
 $dados = $posts->dadosPosts();
+
+$resultado = $planos->contarCreditos($id);
+
+$creditos = $resultado[0]['creditos'];
+$mensagem = $resultado[0]['mensagem'];
 
 ?>
 <!DOCTYPE html>
@@ -56,6 +63,7 @@ $dados = $posts->dadosPosts();
     <section class="h-100 mt-3">
         <div class="container">
             <div class="row">
+            
                 <div class="col-sm-4">
                     <div class="card rounded">
                         <div class="card-body">
@@ -82,8 +90,9 @@ $dados = $posts->dadosPosts();
                     <div class="card rounded">
                         <div class="card-body">
                             <h5 class="card-title">Creditos</h5>
-                            
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <p>Você possui <?php echo $creditos?> </p>
+                            <div class="clearfix">&nbsp;</div>
+                           
                             <a href="#" class="card-link">Adquirir Créditos</a>
                         </div>
                     </div>
@@ -112,19 +121,20 @@ $dados = $posts->dadosPosts();
                         </thead>
                         <tbody>
                             <?php foreach ($dados as $item) {?>
-                               
+                            <?php if($item->excluido != "S"){?>  
                             <tr>
                                 <th><?php echo $item->id?></th>
                                 <td><img src="../post-images/<?php echo $item->foto?>" alt="" width="60"></td>
                                 <td><?php echo $item->titulo?></td>
                                 <td class="ultima-coluna">
                                     <a href="editar-noticia/<?php echo $item->id?>" class="btn btn-outline-warning">Editar</a>
-                                    <a href="#" onclick="if(confirm('Tem certeza que deseja excluir <?php echo preg_replace('~[\r\n]+~', '', $item->titulo); ?>?')) { window.location='index.php?acao=excluirPosts&id=<?php echo $item->id; ?>&foto=<?php echo $item->foto; ?>'; } " class="btn btn-outline-danger">Excluir</a>
+                                    <a href="#" onclick="if(confirm('Tem certeza que deseja excluir <?php echo preg_replace('~[\r\n]+~', '', $item->titulo); ?>?')) { window.location='index.php?acao=excluirPost&id=<?php echo $item->id?>&foto=<?php echo $item->foto; ?>'; } " class="btn btn-outline-danger">Excluir</a>
                                 </td>
                             </tr>
                             <?php }?>
+                            <?php }?>
                         </tbody>
-                    </table> 70s dark fantasy art, illustration of the Jersey devil in the pine barrens
+                    </table>
                 </div>
                 <?php }else echo "<h6 class='text-center'>Nenhuma release encontrada!</h6>";?>
             </div>

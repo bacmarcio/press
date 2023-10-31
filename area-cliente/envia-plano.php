@@ -8,4 +8,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $idUser = $_SESSION['dadosUsuario']['id'];
 
     $planos->comprarPlano($idPlano, $idUser);
+    
 }
