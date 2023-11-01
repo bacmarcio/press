@@ -47,7 +47,7 @@ $dadosCategorias = $categorias->dadosCategorias();
 
         <div class="form-group col-md-3">
           <label for="campo1">Categoria</label>
-          <select name="categoria" id="categoria" class="form-control">
+          <select name="id_categoria" id="categoria" class="form-control">
             <option value="">SELECIONE</option>
             <?php foreach ($dadosCategorias as $categoria) { ?>
               <option value="<?php echo $categoria->id; ?>" <?php if ($editaPost->id_categoria == $categoria->id) {
@@ -138,9 +138,9 @@ $dadosCategorias = $categorias->dadosCategorias();
       </div>
       <input type="hidden" name="acao" value="editarPost">
       <input type="hidden" name="id" value="<?php echo $editaPost->id; ?>">
+      <input type="teste" name="id_usuario" value="<?php echo $editaPost->id_usuario; ?>">
       <input type="hidden" name="foto_Atual" value="<?php echo $editaPost->foto; ?>">
     </form>
-
   </main>
   <!--//----FIM DO CONTEUDO---//-->
   <hr>
@@ -149,10 +149,9 @@ $dadosCategorias = $categorias->dadosCategorias();
 </body>
 <!--Ultima versão do jquery-->
 
-<script src="<?php echo SITE_URL?>gerenciador/vendor/ckeditor/ckeditor.js"></script>
+<script src="../../vendor/ckeditor/ckeditor.js"></script>
 <script>
   $("#data").datepicker("setDate", <?php echo ($editaPost->updated_at) ? $editaPost->updated_at : ''; ?>);
 </script>
 
 </html>
-Lorem ipsum dolor, sit amet consectetur adipisicing elit. Beatae officiis voluptates laborum sunt labore eos voluptas cumque non quis magnam, soluta dolore sapiente! Quibusdam sit asperiores, distinctio hic deleniti perferendis!

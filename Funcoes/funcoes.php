@@ -149,6 +149,16 @@ function valorCalculavel($valor)
     }
 }
 
+
+function converterTextoHTML($texto) {
+    // Decodifica as entidades HTML
+    $texto_decodificado = html_entity_decode($texto, ENT_COMPAT, 'UTF-8');
+    // Remove quaisquer entidades HTML restantes que não foram decodificadas
+    $texto_limpo = strip_tags($texto_decodificado);
+    $texto_final = htmlspecialchars_decode($texto_limpo);
+    return $texto_final;
+}
+
 /**
  * Saudações Automaticas. Bom dia, boa tarde e boa noite
  *

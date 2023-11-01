@@ -84,7 +84,7 @@ class Posts
         }
 
         if (!empty($usuario)) {
-            $filtro[] = 'usuario = ?';
+            $filtro[] = 'id_usuario = ?';
             $parametros[] = $usuario;
         }
 
@@ -186,7 +186,7 @@ class Posts
             $legenda = filter_input(INPUT_POST, 'legenda', FILTER_SANITIZE_SPECIAL_CHARS);
             $ativo = filter_input(INPUT_POST, 'ativo', FILTER_SANITIZE_SPECIAL_CHARS);
             $destaque = filter_input(INPUT_POST, 'destaque', FILTER_SANITIZE_SPECIAL_CHARS);
-            $usuario = filter_input(INPUT_POST, 'usuario', FILTER_SANITIZE_SPECIAL_CHARS);
+            $usuario = filter_input(INPUT_POST, 'id_usuario', FILTER_SANITIZE_SPECIAL_CHARS);
             $url_amigavel = gerarTituloSEO($titulo);
             $updated_at = date("Y-m-d H:i:s");
             $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);

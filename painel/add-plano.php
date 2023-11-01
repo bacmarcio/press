@@ -45,10 +45,15 @@ $planos->add();
           <input type="text" class="form-control" name="valor" value="">
         </div>
 
+        <div class="form-group col-md-6">
+          <label for="campo1">Créditos</label>
+          <input type="text" class="form-control" name="creditos" value="">
+        </div>
+
       </div>
       <div class="row">
 
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-12">
           <label for="campo1">Foto</label>
           <input type="file" class="form-control" name="foto">
         </div>
@@ -83,6 +88,6 @@ $planos->add();
 </body>
 <!--Ultima versão do jquery-->
 
-<script src="../../gerenciador/vendor/ckeditor/ckeditor.js"></script>
+<script src="../vendor/ckeditor/ckeditor.js"></script>
 
 </html>

@@ -1,8 +1,8 @@
 <?php
 include "verifica.php";
 $acesso->restritoAdmin();
-$dadosPosts = $posts->dadosPosts();
 $posts->excluir();
+
 
 ?>
 <!DOCTYPE html>
@@ -98,7 +98,10 @@ $posts->excluir();
         </header>
 
         <hr>
-
+        <?php $listaUsuarios = $usuarios->dadosUsuarios();
+              foreach ($listaUsuarios as $itemUsuarios) {
+        ?>
+        <h3><?php echo $itemUsuarios->nome;?> - Créditos <?php echo $itemUsuarios->creditos;?></h3>
         <table class="table table-hover" border="1">
             <thead>
                 <tr>
@@ -111,8 +114,8 @@ $posts->excluir();
                 </tr>
             </thead>
             <tbody>
-                <?php if (count($dadosPosts) > 0) {
-                    foreach ($dadosPosts as $blog) { ?>
+                <?php $dadosPosts = $posts->dadosPosts('','','',$itemUsuarios->id);
+                      foreach ($dadosPosts as $blog) { ?>
                         <tr>
                             <td><?php echo $blog->id; ?></td>
                             <td> <?php if (isset($blog->foto) && !empty($blog->foto)) { ?>
@@ -121,13 +124,13 @@ $posts->excluir();
                             </td>
                             <td><?php echo $blog->titulo; ?></td>
                             <td>
-                                <a class="btn azm-social azm-btn azm-border-bottom azm-facebook" target="_blank" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fjornalbrasil.com.br%2Fsite%2Fnoticias%2F<?php echo $blog->url_amigavel; ?>"><i class="fa fa-facebook"></i> </a>
-                                <a class="btn azm-social azm-btn azm-border-bottom azm-twitter" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fjornalbrasil.com.br%2Fsite%2Fnoticias%2F<?php echo $blog->url_amigavel; ?>"><i class="fa fa-twitter"></i> </a>
-                                <a class="btn azm-social azm-btn azm-border-bottom azm-whatsapp" id="by-popup" target="_blank" href="https://api.whatsapp.com/send?text= https://jornalbrasil.com.br/noticias/<?php echo $blog->url_amigavel; ?>"><i class="fa fa-whatsapp"></i> </a>
+                                <a class="btn azm-social azm-btn azm-border-bottom azm-facebook" target="_blank" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fpressrelease.com.br%2Fsite%2Fnoticias%2F<?php echo $blog->url_amigavel; ?>"><i class="fa fa-facebook"></i> </a>
+                                <a class="btn azm-social azm-btn azm-border-bottom azm-twitter" target="_blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2F2Fpressrelease.com.br%2Fsite%2Fnoticias%2F<?php echo $blog->url_amigavel; ?>"><i class="fa fa-twitter"></i> </a>
+                                <a class="btn azm-social azm-btn azm-border-bottom azm-whatsapp" id="by-popup" target="_blank" href="https://api.whatsapp.com/send?text= https://2Fpressrelease.com.br/noticias/<?php echo $blog->url_amigavel; ?>"><i class="fa fa-whatsapp"></i> </a>
                             </td>
                                                                                                                                                     
                             <td class="actions text-right">
-                                <!-- <a href="view-noticia.php?id=<?php echo $blog->id; ?>" class="btn btn-sm btn-success"><i class="fa fa-eye"></i> Visualizar</a> -->
+                                <a href="view-noticia.php?id=<?php echo $blog->id; ?>" class="btn btn-sm btn-success"><i class="fa fa-eye"></i> Publicar</a>
                                 <a href="editar-noticia/<?php echo $blog->id; ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i> Editar</a>
 
                                 <a href="javascript:;" class="btn btn-sm btn-danger" onclick="if(confirm('Tem certeza que deseja excluir <?php echo preg_replace('~[\r\n]+~', '', $blog->titulo); ?>?')) { window.location='noticias.php?acao=excluirPost&id=<?php echo $blog->id;?>&foto=<?php echo $blog->foto;?>'; } ">
@@ -136,11 +139,12 @@ $posts->excluir();
                             </td>
                         </tr>
                     <?php } ?>
-                <?php } ?>
+                    
+
             </tbody>
         </table>
-
-        </ul>
+        <?php }?>                            
+        
         <?php //include('modal.php'); ?>
     </main>
     <!--//----FIM DO CONTEUDO---//-->

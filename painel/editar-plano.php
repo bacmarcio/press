@@ -48,9 +48,14 @@ $dadosPlanos = $planos->dadosPlanos($id);
       </div>
 
       <div class="row">
-        <div class="form-group col-md-12">
+        <div class="form-group col-md-6">
           <label for="name">Valor</label>
           <input type="text" class="form-control" name="valor" value="<?php echo $dadosPlanos->valor; ?>">
+        </div>
+
+        <div class="form-group col-md-6">
+          <label for="campo1">Créditos</label>
+          <input type="text" class="form-control" name="creditos" value="<?php echo $dadosPlanos->creditos; ?>">
         </div>
 
       </div>
