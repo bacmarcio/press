@@ -11,7 +11,9 @@ if (isset($_GET['id'])) {
 $posts->editar();
 $publicaPost = $posts->dadosPosts($id);
 $dadosCategorias = $categorias->dadosCategorias($publicaPost->id_categoria);
+$publicados->add();
 
+$dadosPublicados = $publicados->dadosPublicados('',$id);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -68,24 +70,26 @@ $dadosCategorias = $categorias->dadosCategorias($publicaPost->id_categoria);
                         <form action="" method="post">
                             <div class="card-body">
                                 
-                                    <label for="">Justiça em Foco</label>
-                                    <input class="form-control" type="text"/>
+                                    <label for=""><?php if(isset($dadosPublicados[0]->titulo)) {echo $dadosPublicados[0]->titulo;}else echo "Justiça em Foco"; ?></label>
+                                    <input class="form-control" name="link[]" type="text" value="<?php if(isset($dadosPublicados[0]->link)) {echo $dadosPublicados[0]->link;}?>"/>
+                                    <input class="form-control" name="titulo[]" type="hidden" value="Justiça em Foco"/>
                                 
+                                    <label for=""><?php if(isset($dadosPublicados[1]->titulo)) {echo $dadosPublicados[1]->titulo;}else echo "Jornal Brasil"; ?></label>
+                                    <input class="form-control" name="link[]" type="text" value="<?php if(isset($dadosPublicados[1]->link)) {echo $dadosPublicados[1]->link;}?>"/>
+                                    <input class="form-control" name="titulo[]" type="hidden" value="Jornal Brasil"/>
                                 
-                                    <label for="">Jornal Brasil</label>
-                                    <input class="form-control" type="text"/>
+                                    <label for=""><?php if(isset($dadosPublicados[2]->titulo)) {echo $dadosPublicados[2]->titulo;}else echo "Revista Brasilia"; ?></label>
+                                    <input class="form-control" name="link[]" type="text" value="<?php if(isset($dadosPublicados[2]->link)) {echo $dadosPublicados[2]->link;}?>"/>
+                                    <input class="form-control" name="titulo[]" type="hidden" value="Revista Brasilia"/>
                                 
-                                
-                                    <label for="">Revista Brasilia</label>
-                                    <input class="form-control" type="text"/>
-                                
-                                
-                                    <label for="">Rede News</label>
-                                    <input class="form-control" type="text"/>
-
-                                    <button type="button" class="btn btn-primary mt-5">Voltar</button>
-                                    <button type="button" class="btn btn-primary mt-5">Confirmar</button>
+                                    <label for=""><?php if(isset($dadosPublicados[3]->titulo)) {echo $dadosPublicados[3]->titulo;}else echo "Rede News"; ?></label>
+                                    <input class="form-control" name="link[]" type="text" value="<?php if(isset($dadosPublicados[3]->link)) {echo $dadosPublicados[3]->link;}?>"/>
+                                    <input class="form-control" name="titulo[]" type="hidden" value="Rede News"/>
                                     
+                                    <button type="button" class="btn btn-primary mt-5" onclick="window.location='<?php echo SITE_URL?>noticias'">Voltar</button>
+                                    <button type="submit" class="btn btn-primary mt-5">Confirmar</button>
+                                    <input type="hidden" name="idPost" value="<?php echo $publicaPost->id?>">
+                                    <input type="hidden" name="acao" value="publicar">
                             </div>
                         </form>
                     </div>

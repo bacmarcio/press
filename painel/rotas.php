@@ -5,9 +5,9 @@ $url = isset($_GET['url']) ? $_GET['url'] : '';
 
 // Defina rotas para URLs específicas
 $routes = [
-    'noticias'         => 'noticias.php',
-    'add-noticia'      => 'add-noticia.php',
-    'editar-noticia'   => 'editar-noticia.php',
+    'releases'         => 'noticias.php',
+    'add-release'      => 'add-noticia.php',
+    'editar-release'   => 'editar-noticia.php',
     'textos'           => 'textos.php',
     'editar-texto'     => 'editar-texto.php',
     'categorias'       => 'categorias.php',
@@ -25,6 +25,7 @@ $routes = [
     'login'            => 'login.php',
     'logout'           => 'login.php',
     'cadastro'         => 'cadastro.php',
+    'publicar-release' => 'publicar-post.php',
 ];
 
 // Verifique se a URL corresponde a uma rota válida
@@ -32,7 +33,7 @@ if (array_key_exists($url, $routes))
 {
     $file = $routes[$url];
 } 
-elseif (preg_match('/^editar-noticia\/([a-zA-Z-0-9-_]+)$/', $url, $matches)) 
+elseif (preg_match('/^editar-release\/([a-zA-Z-0-9-_]+)$/', $url, $matches)) 
 {
     // Tratar URLs do tipo "editar-noticia/algum-id"
     $id = $matches[1];
@@ -67,7 +68,13 @@ elseif (preg_match('/^editar-banner\/([a-zA-Z-0-9-_]+)$/', $url, $matches))
     // Tratar URLs do tipo "editar-texto/algum-id"
     $id = $matches[1];
     $file = 'editar-banner.php';
-}  
+} 
+elseif (preg_match('/^publicar-release\/([a-zA-Z-0-9-_]+)$/', $url, $matches)) 
+{
+    // Tratar URLs do tipo "editar-texto/algum-id"
+    $id = $matches[1];
+    $file = 'publicar-post.php';
+}   
 else 
 {
     // Lógica padrão para URLs não reconhecidas

@@ -135,7 +135,7 @@ $acesso-> restritoAdmin();
 
 			<div class="col-xs-6 col-sm-3 col-md-2">
 
-				<a href="<?php echo SITE_URL?>noticias" class="btn btn-primary">
+				<a href="<?php echo SITE_URL?>releases" class="btn btn-primary">
 
 					<div class="row">
 
@@ -147,7 +147,7 @@ $acesso-> restritoAdmin();
 
 						<div class="col-xs-12 text-center">
 
-							<p>Notícias</p>
+							<p>Releases</p>
 
 						</div>
 

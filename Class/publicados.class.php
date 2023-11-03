@@ -63,47 +63,72 @@ class Publicados
         return $this->pdo;
     }
 
+    public function dadosPublicados($id = '', $idPost= '', $orderBy='', $limite = '')
+    {
+        $filtro = [];
+        $parametros = [];
+
+        if (!empty($id)) {
+            $filtro[] = 'id = ?';
+            $parametros[] = $id;
+        }
+
+        if (!empty($idPost)) {
+            $filtro[] = 'id_post = ?';
+            $parametros[] = $idPost;
+        }
+
+        $sqlFiltro = !empty($filtro) ? 'WHERE ' . implode(' AND ', $filtro) : '';
+        $sqlOrdem = !empty($orderBy) ? "ORDER BY {$orderBy}" : '';
+        $sqlLimite = !empty($limite) ? "LIMIT 0,{$limite}" : '';
+
+        try {
+            $sql = "SELECT * FROM publicados {$sqlFiltro} {$sqlOrdem} {$sqlLimite}";
+            $stm = $this->pdo->prepare($sql);
+
+            for ($i = 1; $i <= count($parametros); $i++) {
+                $stm->bindValue($i, $parametros[$i - 1]);
+            }
+
+            $stm->execute();
+            $publicados = $stm->fetchAll(PDO::FETCH_OBJ);
+
+            if (!empty($id) || $limite == 1) {
+                return (!empty($publicados[0])) ? $publicados[0] : null;
+            } else {
+                return $publicados;
+            }
+        } catch (PDOException $erro) {
+            echo $erro->getMessage();
+        }
+    }
+
     public function add()
     {
+        
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao']) && $_POST['acao'] === 'publicar') {
-            $link = filter_input(INPUT_POST, 'link', FILTER_SANITIZE_SPECIAL_CHARS);
-            $idPost = filter_input(INPUT_POST, 'idPost', FILTER_SANITIZE_SPECIAL_CHARS);
-            
             try {
-                $sql = "INSERT INTO publicados (link, id_post) VALUES (?, ?)";
+                $sql = "INSERT INTO publicados (link, id_post, titulo) VALUES (?, ?, ?)";
                 $stm = $this->pdo->prepare($sql);
-                $stm->bindValue(1, $link, PDO::PARAM_STR);
-                $stm->bindValue(2, $idPost, PDO::PARAM_STR);
-                
-                $stm->execute();
-                $ultimoIdPost = $this->pdo->lastInsertId();
-
+        
+                // Supondo que $_POST['link'], $_POST['idPost'] e $_POST['titulo'] são arrays
+                for ($i = 0; $i < count($_POST['link']); $i++) {
+                    $link = $_POST['link'][$i];
+                    $idPost = $_POST['idPost'];
+                    $titulo = $_POST['titulo'][$i];
+        
+                    $stm->bindValue(1, $link, PDO::PARAM_STR);
+                    $stm->bindValue(2, $idPost, PDO::PARAM_INT); // Supondo que idPost é um número inteiro
+                    $stm->bindValue(3, $titulo, PDO::PARAM_STR);
+        
+                    $stm->execute();
+                }
             } catch (PDOException $erro) {
                 echo $erro->getMessage();
             }
-            
-            $sqlVerificaSenha = "SELECT senha FROM usuarios WHERE id = ?";
-                $stmVerificaSenha = $this->pdo->prepare($sqlVerificaSenha);
-                $stmVerificaSenha->bindValue(1, $id, PDO::PARAM_STR);
-                $stmVerificaSenha->execute();
-                $senhaExistente = $stmVerificaSenha->fetchColumn();
-                $senha = $senhaExistente;
-
-
-            try {
-                $sql = "UPDATE posts SET publicado=? WHERE id=?";
-                $stm = $this->pdo->prepare($sql);
-                $stm->bindValue(1, 'S', PDO::PARAM_STR);
-                $stm->bindValue(2, $idPost, PDO::PARAM_STR);
-                
-                $stm->execute();
-                $ultimoIdPost = $this->pdo->lastInsertId();
-                
-            } catch (PDOException $erro) {
-                echo $erro->getMessage();
-            }
-
         }
+        
+        
     }
 
 }

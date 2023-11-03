@@ -85,6 +85,7 @@ $dadosPlanos = $planos->dadosPlanos();
 			<?php endif; ?>
 			</tbody>
 		</table>
+		<a href="<?php echo SITE_URL?>" class="btn btn-sm btn-warning"> Voltar</a>
 	</main>
 	<!--//----FIM DO CONTEUDO---//-->
 	<hr>

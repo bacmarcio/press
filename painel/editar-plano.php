@@ -100,6 +100,6 @@ $dadosPlanos = $planos->dadosPlanos($id);
 </body>
 <!--Ultima versão do jquery-->
 
-<script src="../../gerenciador/vendor/ckeditor/ckeditor.js"></script>
+<script src="../../vendor/ckeditor/ckeditor.js"></script>
 
 </html>

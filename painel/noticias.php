@@ -9,7 +9,7 @@ $posts->excluir();
 <html lang="pt-br">
 
 <head>
-    <title>Notícias</title>
+    <title>Releases</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/style.css" rel="stylesheet">
@@ -75,23 +75,24 @@ $posts->excluir();
 
 <body>
     <?php //include "header.php"; ?>
-
+    
     <!--//----CONTEUDO---//-->
     <main class="container">
         <br><br><br>
         <div class="clearfix">&nbsp;</div>
         <div class="clearfix">&nbsp;</div>
+
         <header>
             <div class="row">
                 <div class="col-sm-2">
-                    <h2>Notícias</h2>
+                    <h2>Releases</h2>
                 </div>
                 <div class="col-sm-2">&nbsp;</div>
                 <div class="col-sm-2">&nbsp;</div>
 
                 <div class="col-sm-6 text-right h2">
                     <a class="btn btn-success" href="categorias"><i class="fa fa-plus"></i> Categoria</a>
-                    <a class="btn btn-primary" href="add-noticia"><i class="fa fa-plus"></i> Nova Notícia</a>
+                    <a class="btn btn-primary" href="add-noticia"><i class="fa fa-plus"></i> Nova Release</a>
                     <a class="btn btn-default" href="noticias"><i class="fa fa-refresh"></i> Atualizar</a>
                 </div>
             </div>
@@ -130,7 +131,12 @@ $posts->excluir();
                             </td>
                                                                                                                                                     
                             <td class="actions text-right">
-                                <a href="view-noticia.php?id=<?php echo $blog->id; ?>" class="btn btn-sm btn-success"><i class="fa fa-eye"></i> Publicar</a>
+                            <button class="btn btn-sm btn-success" id="button-<?php echo $blog->id; ?>" onclick="toggleAtivo(<?php echo $blog->id; ?>)">
+                                    <?php echo ($blog->ativo === 'S') ? 'Ativado' : 'Desativado'; ?>
+                            </button>
+                            
+        
+                            <a href="publicar-release/<?php echo $blog->id; ?>" class="btn btn-sm btn-success"><i class="fa fa-eye"></i> Publicar</a>
                                 <a href="editar-noticia/<?php echo $blog->id; ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i> Editar</a>
 
                                 <a href="javascript:;" class="btn btn-sm btn-danger" onclick="if(confirm('Tem certeza que deseja excluir <?php echo preg_replace('~[\r\n]+~', '', $blog->titulo); ?>?')) { window.location='noticias.php?acao=excluirPost&id=<?php echo $blog->id;?>&foto=<?php echo $blog->foto;?>'; } ">
@@ -154,6 +160,23 @@ $posts->excluir();
 
 </body>
 <!--Ultima versão do jquery-->
+<script>
+        function toggleAtivo(postId) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState === 4 && this.status === 200) {
+                    var button = document.getElementById("button-" + postId);
+                    if (this.responseText === 'S') {
+                        button.innerHTML = 'Ativado';
+                    } else {
+                        button.innerHTML = 'Desativado';
+                    }
+                }
+            };
+            xhttp.open("GET", "ativar-post.php?id=" + postId, true);
+            xhttp.send();
+        }
+    </script>
 
 
 </html>

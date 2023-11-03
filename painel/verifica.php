@@ -30,4 +30,7 @@ $planos = Planos::getInstance(Conexao::getInstance());
 include ("../Class/banners.class.php");
 $banners = Banners::getInstance(Conexao::getInstance());
 
+include ("../Class/publicados.class.php");
+$publicados = Publicados::getInstance(Conexao::getInstance());
+
 

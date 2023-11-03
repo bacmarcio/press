@@ -220,6 +220,38 @@ class Posts
         }
     }
 
+    public function ativar(){
+       
+       
+        if (isset($_GET['id'])){
+            
+            $idPost = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+
+            $sqlVerificaAtivo = "SELECT ativo FROM posts WHERE id = ?";
+            $stmVerificaAtivo = $this->pdo->prepare($sqlVerificaAtivo);
+            $stmVerificaAtivo->bindValue(1, $idPost, PDO::PARAM_STR);
+            $stmVerificaAtivo->execute();
+            $ativoExistente = $stmVerificaAtivo->fetchColumn();
+
+            
+
+            $novoAtivo = ($ativoExistente === 'S') ? 'N' : 'S';
+           
+
+            try {
+                $sql = "UPDATE posts SET ativo=? WHERE id=?";
+                $stm = $this->pdo->prepare($sql);
+                $stm->bindValue(1, $novoAtivo, PDO::PARAM_STR);
+                $stm->bindValue(2, $idPost, PDO::PARAM_STR);
+                
+                $stm->execute();
+                return "post ativado com sucesso!";
+            } catch (PDOException $erro) {
+                echo $erro->getMessage();
+            }
+        }
+    }
+
     public function excluir()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['acao']) && $_GET['acao'] === 'excluirPost' && isset($_GET['id'])) {
