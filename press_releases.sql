@@ -1,0 +1,361 @@
+-- phpMyAdmin SQL Dump
+-- version 5.1.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost
+-- Tempo de geração: 27/10/2023 às 22:35
+-- Versão do servidor: 10.4.22-MariaDB
+-- Versão do PHP: 8.1.2
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Banco de dados: `press_releases`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `artigos`
+--
+
+CREATE TABLE `artigos` (
+  `id` int(11) NOT NULL,
+  `titulo` varchar(150) DEFAULT NULL,
+  `conteudo` text DEFAULT NULL,
+  `foto` varchar(150) DEFAULT NULL,
+  `resumo` text DEFAULT NULL,
+  `postado_por` varchar(255) NOT NULL,
+  `id_categoria` int(11) DEFAULT NULL,
+  `ativo` enum('S','N') NOT NULL DEFAULT 'N',
+  `url_amigavel` varchar(255) DEFAULT NULL,
+  `destaque` enum('S','N') NOT NULL DEFAULT 'N',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `banners`
+--
+
+CREATE TABLE `banners` (
+  `id` int(11) NOT NULL,
+  `foto` varchar(200) DEFAULT NULL,
+  `titulo` varchar(250) DEFAULT NULL,
+  `posicao` varchar(4) DEFAULT NULL,
+  `descricao` text DEFAULT NULL,
+  `link` varchar(250) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `categorias`
+--
+
+CREATE TABLE `categorias` (
+  `id` int(11) NOT NULL,
+  `titulo` varchar(255) DEFAULT NULL,
+  `ordem` int(11) DEFAULT NULL,
+  `url_amigavel` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Despejando dados para a tabela `categorias`
+--
+
+INSERT INTO `categorias` (`id`, `titulo`, `ordem`, `url_amigavel`) VALUES
+(11, 'Direito e Justiça', 1, 'direito-e-justica'),
+(12, 'Saúde', 2, 'saude'),
+(13, 'Eventos e Cursos', 3, 'eventos-e-concursos'),
+(14, 'Seguros', 4, 'seguros'),
+(15, 'Livros e Editoras', 5, 'livros-e-editoras'),
+(16, 'Esporte', 6, 'esporte'),
+(17, 'Franquias', 7, 'franquias'),
+(18, 'Educação', 8, 'educacao'),
+(19, 'Economia e Empresa', 9, 'economia-e-empresas'),
+(20, 'Ciência e Meio Ambiente', 10, 'ciencia-meio-ambiente'),
+(21, 'Geral', 11, 'geral'),
+(22, 'Hotelaria', 12, 'hotelaria'),
+(23, 'Transportes', 13, 'transportes'),
+(24, 'Entretenimento e Arte', 14, 'entretenimento-e-arte'),
+(25, 'Tecnologia e Serviços', 15, 'tecnologia-e-servicos'),
+(26, 'Direito e Justiça', 1, 'direito-e-justica'),
+(27, 'Saúde', 2, 'saude'),
+(28, 'Eventos e Cursos', 3, 'eventos-e-concursos'),
+(29, 'Seguros', 4, 'seguros'),
+(30, 'Livros e Editoras', 5, 'livros-e-editoras'),
+(31, 'Esporte', 6, 'esporte'),
+(32, 'Franquias', 7, 'franquias'),
+(33, 'Educação', 8, 'educacao'),
+(34, 'Economia e Empresa', 9, 'economia-e-empresas'),
+(35, 'Ciência e Meio Ambiente', 10, 'ciencia-meio-ambiente'),
+(36, 'Geral', 11, 'geral'),
+(37, 'Hotelaria', 12, 'hotelaria'),
+(38, 'Transportes', 13, 'transportes'),
+(39, 'Entretenimento e Arte', 14, 'entretenimento-e-arte'),
+(40, 'Tecnologia e Serviços', 15, 'tecnologia-e-servicos');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `colunistas`
+--
+
+CREATE TABLE `colunistas` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(250) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `telefone` varchar(30) DEFAULT NULL,
+  `login` varchar(255) DEFAULT NULL,
+  `senha` varchar(255) DEFAULT NULL,
+  `foto` varchar(100) DEFAULT NULL,
+  `descricao` text DEFAULT NULL,
+  `facebook` varchar(255) DEFAULT NULL,
+  `twitter` varchar(255) DEFAULT NULL,
+  `instagram` varchar(255) DEFAULT NULL,
+  `youtube` varchar(255) DEFAULT NULL,
+  `linkedin` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `depoimentos`
+--
+
+CREATE TABLE `depoimentos` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(150) DEFAULT NULL,
+  `depoimento` text DEFAULT NULL,
+  `foto` varchar(150) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `newsletters`
+--
+
+CREATE TABLE `newsletters` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(200) DEFAULT NULL,
+  `email` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `planos`
+--
+
+CREATE TABLE `planos` (
+  `id` int(11) NOT NULL,
+  `titulo` varchar(255) DEFAULT NULL,
+  `valor` float DEFAULT NULL,
+  `conteudo` text DEFAULT NULL,
+  `foto` varchar(255) DEFAULT NULL,
+  `id_usuario` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Despejando dados para a tabela `planos`
+--
+
+INSERT INTO `planos` (`id`, `titulo`, `valor`, `conteudo`, `foto`, `id_usuario`) VALUES
+(1, 'teste', 405.5, 'teste', '1698268306.2835-foto-N.png', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `posts`
+--
+
+CREATE TABLE `posts` (
+  `id` int(11) NOT NULL,
+  `titulo` varchar(150) DEFAULT NULL,
+  `conteudo` text DEFAULT NULL,
+  `foto` varchar(150) DEFAULT NULL,
+  `resumo` text DEFAULT NULL,
+  `id_categoria` int(11) DEFAULT NULL,
+  `ativo` enum('S','N') NOT NULL DEFAULT 'N',
+  `legenda` varchar(255) DEFAULT NULL,
+  `destaque` enum('S','N') NOT NULL DEFAULT 'N',
+  `url_amigavel` varchar(255) DEFAULT NULL,
+  `postado_por` varchar(255) DEFAULT NULL,
+  `id_usuario` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Despejando dados para a tabela `posts`
+--
+
+INSERT INTO `posts` (`id`, `titulo`, `conteudo`, `foto`, `resumo`, `id_categoria`, `ativo`, `legenda`, `destaque`, `url_amigavel`, `postado_por`, `id_usuario`, `created_at`, `updated_at`) VALUES
+(5, 'teste', '&amp;lt;p&amp;gt;teste&amp;lt;/p&amp;gt;\r\n', '1698438542.4362-foto-N.png', 'teste', NULL, 'N', 'teste', 'N', 'teste', 'teste', 1, '2023-10-27 22:29:02', '2023-10-27 22:29:02');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `textos`
+--
+
+CREATE TABLE `textos` (
+  `id` int(11) NOT NULL,
+  `titulo` varchar(250) DEFAULT NULL,
+  `conteudo` text DEFAULT NULL,
+  `foto` varchar(150) DEFAULT NULL,
+  `ativo` enum('S','N') NOT NULL DEFAULT 'N',
+  `url_amigavel` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Despejando dados para a tabela `textos`
+--
+
+INSERT INTO `textos` (`id`, `titulo`, `conteudo`, `foto`, `ativo`, `url_amigavel`) VALUES
+(5, 'Teste 2', 'teste', '1698177348.2428-foto-N.png', 'S', 'teste-2');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `cpf` varchar(80) DEFAULT NULL,
+  `telefone` varchar(255) DEFAULT NULL,
+  `senha` varchar(255) DEFAULT NULL,
+  `adm` enum('S','N') NOT NULL DEFAULT 'N'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Despejando dados para a tabela `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `nome`, `email`, `cpf`, `telefone`, `senha`, `adm`) VALUES
+(1, 'Marcio Maia', 'adm@grupoavs.com', NULL, NULL, '$2y$10$t.s.qDHhP4Jyvo0pPNluxufJjlSahpd55HM3o58MR5LUQ1XXDJNdC', 'S'),
+(4, 'Teste 2', NULL, NULL, NULL, '$2y$10$zPg2VEyM/lberTyEV0v9UOpg/wxz434PD8f5wWhIcJ/SKJMn5iLj2', 'N');
+
+--
+-- Índices para tabelas despejadas
+--
+
+--
+-- Índices de tabela `banners`
+--
+ALTER TABLE `banners`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `categorias`
+--
+ALTER TABLE `categorias`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `colunistas`
+--
+ALTER TABLE `colunistas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `newsletters`
+--
+ALTER TABLE `newsletters`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `planos`
+--
+ALTER TABLE `planos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `posts`
+--
+ALTER TABLE `posts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `textos`
+--
+ALTER TABLE `textos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT para tabelas despejadas
+--
+
+--
+-- AUTO_INCREMENT de tabela `banners`
+--
+ALTER TABLE `banners`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+--
+-- AUTO_INCREMENT de tabela `categorias`
+--
+ALTER TABLE `categorias`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+
+--
+-- AUTO_INCREMENT de tabela `colunistas`
+--
+ALTER TABLE `colunistas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `newsletters`
+--
+ALTER TABLE `newsletters`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `planos`
+--
+ALTER TABLE `planos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de tabela `posts`
+--
+ALTER TABLE `posts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de tabela `textos`
+--
+ALTER TABLE `textos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de tabela `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
