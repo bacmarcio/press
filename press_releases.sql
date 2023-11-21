@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Tempo de geração: 27/10/2023 às 22:35
--- Versão do servidor: 10.4.22-MariaDB
--- Versão do PHP: 8.1.2
+-- Host: localhost:3306
+-- Generation Time: Nov 21, 2023 at 12:28 PM
+-- Server version: 8.0.30
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,23 +18,23 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Banco de dados: `press_releases`
+-- Database: `press_releases`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `artigos`
+-- Table structure for table `artigos`
 --
 
 CREATE TABLE `artigos` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `titulo` varchar(150) DEFAULT NULL,
-  `conteudo` text DEFAULT NULL,
+  `conteudo` text,
   `foto` varchar(150) DEFAULT NULL,
-  `resumo` text DEFAULT NULL,
+  `resumo` text,
   `postado_por` varchar(255) NOT NULL,
-  `id_categoria` int(11) DEFAULT NULL,
+  `id_categoria` int DEFAULT NULL,
   `ativo` enum('S','N') NOT NULL DEFAULT 'N',
   `url_amigavel` varchar(255) DEFAULT NULL,
   `destaque` enum('S','N') NOT NULL DEFAULT 'N',
@@ -45,33 +45,33 @@ CREATE TABLE `artigos` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `banners`
+-- Table structure for table `banners`
 --
 
 CREATE TABLE `banners` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `foto` varchar(200) DEFAULT NULL,
   `titulo` varchar(250) DEFAULT NULL,
   `posicao` varchar(4) DEFAULT NULL,
-  `descricao` text DEFAULT NULL,
+  `descricao` text,
   `link` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `categorias`
+-- Table structure for table `categorias`
 --
 
 CREATE TABLE `categorias` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `titulo` varchar(255) DEFAULT NULL,
-  `ordem` int(11) DEFAULT NULL,
+  `ordem` int DEFAULT NULL,
   `url_amigavel` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Despejando dados para a tabela `categorias`
+-- Dumping data for table `categorias`
 --
 
 INSERT INTO `categorias` (`id`, `titulo`, `ordem`, `url_amigavel`) VALUES
@@ -109,18 +109,18 @@ INSERT INTO `categorias` (`id`, `titulo`, `ordem`, `url_amigavel`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `colunistas`
+-- Table structure for table `colunistas`
 --
 
 CREATE TABLE `colunistas` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `nome` varchar(250) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `telefone` varchar(30) DEFAULT NULL,
   `login` varchar(255) DEFAULT NULL,
   `senha` varchar(255) DEFAULT NULL,
   `foto` varchar(100) DEFAULT NULL,
-  `descricao` text DEFAULT NULL,
+  `descricao` text,
   `facebook` varchar(255) DEFAULT NULL,
   `twitter` varchar(255) DEFAULT NULL,
   `instagram` varchar(255) DEFAULT NULL,
@@ -131,24 +131,24 @@ CREATE TABLE `colunistas` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `depoimentos`
+-- Table structure for table `depoimentos`
 --
 
 CREATE TABLE `depoimentos` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `nome` varchar(150) DEFAULT NULL,
-  `depoimento` text DEFAULT NULL,
+  `depoimento` text,
   `foto` varchar(150) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `newsletters`
+-- Table structure for table `newsletters`
 --
 
 CREATE TABLE `newsletters` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `nome` varchar(200) DEFAULT NULL,
   `email` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -156,72 +156,112 @@ CREATE TABLE `newsletters` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `planos`
+-- Table structure for table `planos`
 --
 
 CREATE TABLE `planos` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `titulo` varchar(255) DEFAULT NULL,
   `valor` float DEFAULT NULL,
-  `conteudo` text DEFAULT NULL,
+  `conteudo` text,
   `foto` varchar(255) DEFAULT NULL,
-  `id_usuario` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `creditos` int DEFAULT NULL,
+  `id_usuario` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Despejando dados para a tabela `planos`
+-- Dumping data for table `planos`
 --
 
-INSERT INTO `planos` (`id`, `titulo`, `valor`, `conteudo`, `foto`, `id_usuario`) VALUES
-(1, 'teste', 405.5, 'teste', '1698268306.2835-foto-N.png', NULL);
+INSERT INTO `planos` (`id`, `titulo`, `valor`, `conteudo`, `foto`, `creditos`, `id_usuario`) VALUES
+(1, 'teste', 405.5, 'teste', '1698268306.2835-foto-N.png', 100, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `posts`
+-- Table structure for table `posts`
 --
 
 CREATE TABLE `posts` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `titulo` varchar(150) DEFAULT NULL,
-  `conteudo` text DEFAULT NULL,
+  `conteudo` text,
   `foto` varchar(150) DEFAULT NULL,
-  `resumo` text DEFAULT NULL,
-  `id_categoria` int(11) DEFAULT NULL,
+  `resumo` text,
+  `id_categoria` int DEFAULT NULL,
   `ativo` enum('S','N') NOT NULL DEFAULT 'N',
   `legenda` varchar(255) DEFAULT NULL,
   `destaque` enum('S','N') NOT NULL DEFAULT 'N',
   `url_amigavel` varchar(255) DEFAULT NULL,
   `postado_por` varchar(255) DEFAULT NULL,
-  `id_usuario` int(11) DEFAULT NULL,
+  `id_usuario` int DEFAULT NULL,
+  `excluido` enum('S','N') NOT NULL DEFAULT 'N',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Despejando dados para a tabela `posts`
+-- Dumping data for table `posts`
 --
 
-INSERT INTO `posts` (`id`, `titulo`, `conteudo`, `foto`, `resumo`, `id_categoria`, `ativo`, `legenda`, `destaque`, `url_amigavel`, `postado_por`, `id_usuario`, `created_at`, `updated_at`) VALUES
-(5, 'teste', '&amp;lt;p&amp;gt;teste&amp;lt;/p&amp;gt;\r\n', '1698438542.4362-foto-N.png', 'teste', NULL, 'N', 'teste', 'N', 'teste', 'teste', 1, '2023-10-27 22:29:02', '2023-10-27 22:29:02');
+INSERT INTO `posts` (`id`, `titulo`, `conteudo`, `foto`, `resumo`, `id_categoria`, `ativo`, `legenda`, `destaque`, `url_amigavel`, `postado_por`, `id_usuario`, `excluido`, `created_at`, `updated_at`) VALUES
+(5, 'teste', '&amp;lt;p&amp;gt;teste&amp;lt;/p&amp;gt;\r\n', '1698438542.4362-foto-N.png', 'teste', 14, 'S', 'teste', 'N', 'teste', 'teste', 1, 'N', '2023-10-27 22:29:02', '2023-10-27 22:29:02'),
+(6, 'teste', '&amp;lt;p&amp;gt;Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos itaque expedita temporibus at non error, molestiae dolorum illo commodi, harum porro labore explicabo inventore repellat aspernatur fugiat ad sequi. Velit architecto recusandae aliquid necessitatibus porro repudiandae? Expedita aspernatur iusto impedit labore, magnam suscipit ab odit officiis perspiciatis molestias nisi, fugiat, ad natus cum sint sed neque voluptate asperiores nulla! Esse qui temporibus consectetur iusto corrupti? Molestias aliquid tenetur, beatae obcaecati porro sit nemo! Fugiat repellendus dolor in nemo rerum dolorum distinctio eligendi laboriosam cum illo obcaecati voluptatibus mollitia earum, perferendis culpa tempora facere impedit dolores veritatis deleniti quas doloremque adipisci.&amp;lt;/p&amp;gt;\r\n', '1699978814.9566-foto-N.jpeg', 'teste', 11, 'S', 'teste', 'N', 'teste', 'teste', 4, 'N', '2023-11-14 16:20:14', '2023-11-14 16:20:14'),
+(7, 'teste', '&amp;lt;p&amp;gt;Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos itaque expedita temporibus at non error, molestiae dolorum illo commodi, harum porro labore explicabo inventore repellat aspernatur fugiat ad sequi. Velit architecto recusandae aliquid necessitatibus porro repudiandae? Expedita aspernatur iusto impedit labore, magnam suscipit ab odit officiis perspiciatis molestias nisi, fugiat, ad natus cum sint sed neque voluptate asperiores nulla! Esse qui temporibus consectetur iusto corrupti? Molestias aliquid tenetur, beatae obcaecati porro sit nemo! Fugiat repellendus dolor in nemo rerum dolorum distinctio eligendi laboriosam cum illo obcaecati voluptatibus mollitia earum, perferendis culpa tempora facere impedit dolores veritatis deleniti quas doloremque adipisci.&amp;lt;/p&amp;gt;\r\n', '1699979258.313-foto-N.jpeg', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos itaque expedita temporibus at non error, molestiae dolorum illo commodi, harum porro labore explicabo inventore repellat aspernatur fugiat ad sequi. Velit architecto recusandae aliquid necessitatibus porro repudiandae? Expedita aspernatur iusto impedit labore, magnam suscipit ab odit officiis perspiciatis molestias nisi, fugiat, ad natus cum sint sed neque voluptate asperiores nulla! Esse qui temporibus consectetur iusto corrupti? Molestias aliquid tenetur, beatae obcaecati porro sit nemo! Fugiat repellendus dolor in nemo rerum dolorum distinctio eligendi laboriosam cum illo obcaecati voluptatibus mollitia earum, perferendis culpa tempora facere impedit dolores veritatis deleniti quas doloremque adipisci.', 15, 'S', 'teste', 'N', 'teste', 'teste', 4, 'N', '2023-11-14 16:27:38', '2023-11-14 16:27:38'),
+(8, 'teste', '&amp;lt;p&amp;gt;Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente libero nobis vel natus, at laborum doloribus quo ducimus nam veritatis ab sunt obcaecati culpa maiores facere, harum et perspiciatis neque possimus hic esse! Minus voluptatum, officiis reprehenderit impedit amet ipsum sed aut. Iure debitis voluptatum vitae? Libero doloribus pariatur ea hic rem ad vitae, labore id dolor expedita sed numquam! Aliquam iure vero expedita obcaecati esse at accusamus perferendis totam modi laudantium. Molestias cupiditate molestiae, dicta ipsam blanditiis odio iusto. Optio error vitae aliquid voluptatum rerum consequuntur commodi cum quo harum, fuga qui excepturi aut velit ducimus est laudantium quasi?&amp;lt;/p&amp;gt;\r\n', '1699979510.9711-foto-N.jpeg', 'teste', 20, 'S', 'teste', 'N', 'teste', 'teste', 4, 'N', '2023-11-14 16:31:50', '2023-11-14 16:31:50');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `textos`
+-- Table structure for table `publicados`
+--
+
+CREATE TABLE `publicados` (
+  `id` int NOT NULL,
+  `id_post` int DEFAULT NULL,
+  `titulo` varchar(255) DEFAULT NULL,
+  `link` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `publicados`
+--
+
+INSERT INTO `publicados` (`id`, `id_post`, `titulo`, `link`) VALUES
+(1, 6, 'Justiça em Foco', 'https://www.justicaemfoco.com.br/desc-noticia.php?id=147476&nome=jfsc_encerra_xviii_semana_nacional_da_conciliacao_com_mais_de_r_21_milhoes_em_acordos_homologados'),
+(2, 6, 'Jornal Brasil', 'https://jornalbrasil.com.br/noticias/presidente-lula-recebe-brasileiros-resgatados-faixa-gaza--entre-eles-17-criancas-adolescentes'),
+(3, 6, 'Revista Brasilia', 'https://revistabrasilia.com.br/desc-noticia.php?id=2944'),
+(4, 6, 'Rede News', 'https://rede.news/desc-noticia.php?id=980&nome=Uni%C3%A3o%20Brasil:%20Luciano%20Bivar%20anuncia%20candidatura%20%C3%A0%20reelei%C3%A7%C3%A3o'),
+(13, 7, 'Justiça em Foco', 'https://www.justicaemfoco.com.br/desc-noticia.php?id=147476&nome=jfsc_encerra_xviii_semana_nacional_da_conciliacao_com_mais_de_r_21_milhoes_em_acordos_homologados'),
+(14, 7, 'Jornal Brasil', 'https://www.justicaemfoco.com.br/desc-noticia.php?id=147476&nome=jfsc_encerra_xviii_semana_nacional_da_conciliacao_com_mais_de_r_21_milhoes_em_acordos_homologados'),
+(15, 7, 'Revista Brasilia', 'https://www.justicaemfoco.com.br/desc-noticia.php?id=147476&nome=jfsc_encerra_xviii_semana_nacional_da_conciliacao_com_mais_de_r_21_milhoes_em_acordos_homologados'),
+(16, 7, 'Rede News', 'https://www.justicaemfoco.com.br/desc-noticia.php?id=147476&nome=jfsc_encerra_xviii_semana_nacional_da_conciliacao_com_mais_de_r_21_milhoes_em_acordos_homologados'),
+(17, 8, 'Justiça em Foco', '#'),
+(18, 8, 'Jornal Brasil', '#'),
+(19, 8, 'Revista Brasilia', ''),
+(20, 8, 'Rede News', ''),
+(21, 8, 'Justiça em Foco', '#'),
+(22, 8, 'Jornal Brasil', '#'),
+(23, 8, 'Revista Brasilia', '#'),
+(24, 8, 'Rede News', '#');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `textos`
 --
 
 CREATE TABLE `textos` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `titulo` varchar(250) DEFAULT NULL,
-  `conteudo` text DEFAULT NULL,
+  `conteudo` text,
   `foto` varchar(150) DEFAULT NULL,
   `ativo` enum('S','N') NOT NULL DEFAULT 'N',
   `url_amigavel` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Despejando dados para a tabela `textos`
+-- Dumping data for table `textos`
 --
 
 INSERT INTO `textos` (`id`, `titulo`, `conteudo`, `foto`, `ativo`, `url_amigavel`) VALUES
@@ -230,130 +270,145 @@ INSERT INTO `textos` (`id`, `titulo`, `conteudo`, `foto`, `ativo`, `url_amigavel
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `usuarios`
+-- Table structure for table `usuarios`
 --
 
 CREATE TABLE `usuarios` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `nome` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `cpf` varchar(80) DEFAULT NULL,
   `telefone` varchar(255) DEFAULT NULL,
   `senha` varchar(255) DEFAULT NULL,
+  `plano_ativo` enum('S','N') NOT NULL DEFAULT 'N',
+  `id_plano` int DEFAULT NULL,
+  `creditos` int DEFAULT NULL,
   `adm` enum('S','N') NOT NULL DEFAULT 'N'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Despejando dados para a tabela `usuarios`
+-- Dumping data for table `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nome`, `email`, `cpf`, `telefone`, `senha`, `adm`) VALUES
-(1, 'Marcio Maia', 'adm@grupoavs.com', NULL, NULL, '$2y$10$t.s.qDHhP4Jyvo0pPNluxufJjlSahpd55HM3o58MR5LUQ1XXDJNdC', 'S'),
-(4, 'Teste 2', NULL, NULL, NULL, '$2y$10$zPg2VEyM/lberTyEV0v9UOpg/wxz434PD8f5wWhIcJ/SKJMn5iLj2', 'N');
+INSERT INTO `usuarios` (`id`, `nome`, `email`, `cpf`, `telefone`, `senha`, `plano_ativo`, `id_plano`, `creditos`, `adm`) VALUES
+(1, 'Marcio Maia', 'adm@grupoavs.com', NULL, NULL, '$2y$10$t.s.qDHhP4Jyvo0pPNluxufJjlSahpd55HM3o58MR5LUQ1XXDJNdC', 'N', NULL, NULL, 'S'),
+(4, 'Teste 2', 'teste@teste.com', NULL, NULL, '$2y$10$zPg2VEyM/lberTyEV0v9UOpg/wxz434PD8f5wWhIcJ/SKJMn5iLj2', 'N', 1, 97, 'N');
 
 --
--- Índices para tabelas despejadas
+-- Indexes for dumped tables
 --
 
 --
--- Índices de tabela `banners`
+-- Indexes for table `banners`
 --
 ALTER TABLE `banners`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `categorias`
+-- Indexes for table `categorias`
 --
 ALTER TABLE `categorias`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `colunistas`
+-- Indexes for table `colunistas`
 --
 ALTER TABLE `colunistas`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `newsletters`
+-- Indexes for table `newsletters`
 --
 ALTER TABLE `newsletters`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `planos`
+-- Indexes for table `planos`
 --
 ALTER TABLE `planos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `posts`
+-- Indexes for table `posts`
 --
 ALTER TABLE `posts`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `textos`
+-- Indexes for table `publicados`
+--
+ALTER TABLE `publicados`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `textos`
 --
 ALTER TABLE `textos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `usuarios`
+-- Indexes for table `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT para tabelas despejadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de tabela `banners`
+-- AUTO_INCREMENT for table `banners`
 --
 ALTER TABLE `banners`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
--- AUTO_INCREMENT de tabela `categorias`
+-- AUTO_INCREMENT for table `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
--- AUTO_INCREMENT de tabela `colunistas`
+-- AUTO_INCREMENT for table `colunistas`
 --
 ALTER TABLE `colunistas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `newsletters`
+-- AUTO_INCREMENT for table `newsletters`
 --
 ALTER TABLE `newsletters`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `planos`
+-- AUTO_INCREMENT for table `planos`
 --
 ALTER TABLE `planos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT de tabela `posts`
+-- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT de tabela `textos`
+-- AUTO_INCREMENT for table `publicados`
+--
+ALTER TABLE `publicados`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT for table `textos`
 --
 ALTER TABLE `textos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT de tabela `usuarios`
+-- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
