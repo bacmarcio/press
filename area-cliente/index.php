@@ -151,10 +151,13 @@ $mensagem = $resultado['mensagem'];
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div><a href="#"><img src="https://justicaemfoco.com.br/images/logo.png" alt="" width="50" style="float: left; margin-right: 20px;">Justica em Foco</a></div>
+        <div class="row">
+        <div class=""><a href="#"><img src="https://justicaemfoco.com.br/images/logo.png" alt="" width="50" style="float: left; margin-right: 20px;">Justica em Foco</a></div>
         <div><a href="#"><img src="https://revistabrasilia.com.br/img/logo_revistaa1.png" alt="" width="50" style="float: left; margin-right: 20px;">Revista Brasília</a></div>
         <div><a href="#"><img src="https://jornalbrasil.com.br/img/logo-default-slim.png" alt="" width="50"style="float: left; margin-right: 20px;">Jornal Brasil</a></div>
+        </div>
       </div>
+
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
