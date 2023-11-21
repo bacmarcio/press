@@ -226,15 +226,14 @@ class Planos
 
     public function contarCreditos($idUser)
     {
-        $sqlverificaCredito = "SELECT planos.creditos FROM usuarios LEFT JOIN planos on planos.id = usuarios.id_plano WHERE usuarios.plano_ativo = 'N' AND usuarios.id = ?";
+        $sqlverificaCredito = "SELECT planos.creditos FROM usuarios LEFT JOIN planos on planos.id = usuarios.id_plano WHERE usuarios.plano_ativo = 'S' AND usuarios.id = ?";
         $stmVerificaCredito = $this->pdo->prepare($sqlverificaCredito);
         $stmVerificaCredito->bindValue(1, $idUser, PDO::PARAM_STR);
         $stmVerificaCredito->execute();
         $creditoExistente = $stmVerificaCredito->fetchColumn();
-        $credito = $creditoExistente;
-
+        $credito = ($creditoExistente !== false) ? $creditoExistente : 0;
+        
         if (isset($credito) && $credito > 0) {
-            
             $sqlContaPosts = "SELECT COUNT(*) FROM posts WHERE posts.id_usuario = ?";
             $stmContaPosts = $this->pdo->prepare($sqlContaPosts);
             $stmContaPosts->bindValue(1, $idUser, PDO::PARAM_STR);
@@ -243,28 +242,25 @@ class Planos
             $totalPosts = $postsExistente;
 
             $updateCreditos = $credito - $totalPosts;
-            
+
             try {
                 $sql = "UPDATE usuarios SET creditos=? WHERE id=?";
                 $stm = $this->pdo->prepare($sql);
                 $stm->bindValue(1, $updateCreditos, PDO::PARAM_STR);
                 $stm->bindValue(2, $idUser, PDO::PARAM_STR);
                 $stm->execute();
-                
+
                 $result = array(
                     'creditos' => $updateCreditos,
                     'mensagem' => '<div class="alert alert-primary text-center" role="alert"> Você ainda possui ' . $updateCreditos . ' créditos</div>'
                 );
 
                 return $result;
-
             } catch (PDOException $erro) {
                 echo $erro->getMessage();
             }
-
         } else {
             return '<div class="alert alert-danger text-center" role="alert"> Seus creditos acabaram. Solicite mais creditos.</div>';
         }
-
     }
 }
