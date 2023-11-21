@@ -78,21 +78,13 @@ if ($url === 'logout') {
 								</div>
 
 								<div class="d-flex align-items-center">
-									<!-- <div class="form-check">
-										<input type="checkbox" name="remember" id="remember" class="form-check-input">
-										<label for="remember" class="form-check-label">Remember Me</label>
-									</div> -->
 									<button type="submit" class="btn btn-primary ms-auto">
 										Login
 									</button>
 								</div>
 							</form>
 						</div>
-						<div class="card-footer py-3 border-0">
-							<div class="text-center">
-								Não possui uma conta? <a href="cadastro" class="text-dark">Cadastre-se</a>
-							</div>
-						</div>
+						
 					</div>
 					<div class="text-center mt-5 text-muted">
 						Copyright &copy; 2017-2021 &mdash; Your Company 

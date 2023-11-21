@@ -138,7 +138,7 @@ $dadosCategorias = $categorias->dadosCategorias();
       </div>
       <input type="hidden" name="acao" value="editarPost">
       <input type="hidden" name="id" value="<?php echo $editaPost->id; ?>">
-      <input type="teste" name="id_usuario" value="<?php echo $editaPost->id_usuario; ?>">
+      <input type="hidden" name="id_usuario" value="<?php echo $editaPost->id_usuario; ?>">
       <input type="hidden" name="foto_Atual" value="<?php echo $editaPost->foto; ?>">
     </form>
   </main>

@@ -7,11 +7,7 @@ require_once('../Connection/conexao.php');
 require_once('../Connection/xss-cleaner.php');
 require_once('../Funcoes/funcoes.php');
 
-<<<<<<< HEAD
 define('SITE_URL', 'https://' . $_SERVER['HTTP_HOST'] . '/painel/');
-=======
-define('SITE_URL', 'https://' . $_SERVER['HTTP_HOST'] . '/projetos/press/painel/');
->>>>>>> origin/main
 
 require_once ("../Class/acesso.class.php");
 $acesso = Acesso::getInstance(Conexao::getInstance());

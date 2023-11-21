@@ -1,10 +1,6 @@
 Options +FollowSymLinks -MultiViews
 RewriteEngine On
-<<<<<<< HEAD
 RewriteBase /painel/
-=======
-RewriteBase /projetos/press/painel/
->>>>>>> origin/main
 
 # Reescreva URLs amigáveis
 RewriteCond %{REQUEST_FILENAME} !-f
