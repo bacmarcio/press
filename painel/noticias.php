@@ -116,9 +116,13 @@ $posts->excluir();
             </thead>
             <tbody>
                 <?php $dadosPosts = $posts->dadosPosts('','','',$itemUsuarios->id);
+<<<<<<< HEAD
                       foreach ($dadosPosts as $blog) { 
                         $publicarPost = $publicados->contaLink($blog->id);
                         ?>
+=======
+                      foreach ($dadosPosts as $blog) { ?>
+>>>>>>> origin/main
                         <tr>
                             <td><?php echo $blog->id; ?></td>
                             <td> <?php if (isset($blog->foto) && !empty($blog->foto)) { ?>
@@ -134,11 +138,19 @@ $posts->excluir();
                                                                                                                                                     
                             <td class="actions text-right">
                             <button class="btn btn-sm btn-success" id="button-<?php echo $blog->id; ?>" onclick="toggleAtivo(<?php echo $blog->id; ?>)">
+<<<<<<< HEAD
                                     <?php echo ($blog->ativo === 'S') ? 'Ativo' : 'Desativado'; ?>
                             </button>
                             
                                     
                             <a href="publicar-release/<?php echo $blog->id; ?>" class="btn btn-sm btn-success"><i class="fa fa-eye"></i> <?php echo $publicarPost?></a>
+=======
+                                    <?php echo ($blog->ativo === 'S') ? 'Ativado' : 'Desativado'; ?>
+                            </button>
+                            
+        
+                            <a href="publicar-release/<?php echo $blog->id; ?>" class="btn btn-sm btn-success"><i class="fa fa-eye"></i> Publicar</a>
+>>>>>>> origin/main
                                 <a href="editar-noticia/<?php echo $blog->id; ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i> Editar</a>
 
                                 <a href="javascript:;" class="btn btn-sm btn-danger" onclick="if(confirm('Tem certeza que deseja excluir <?php echo preg_replace('~[\r\n]+~', '', $blog->titulo); ?>?')) { window.location='noticias.php?acao=excluirPost&id=<?php echo $blog->id;?>&foto=<?php echo $blog->foto;?>'; } ">

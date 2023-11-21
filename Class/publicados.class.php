@@ -147,6 +147,7 @@ class Publicados
         
     }
 
+<<<<<<< HEAD
     public function contaLink($idPost)
     {
          // Verifica se o email já existe
@@ -164,4 +165,6 @@ class Publicados
             return $publicado;
          }
     } 
+=======
+>>>>>>> origin/main
 }

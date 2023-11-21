@@ -14,11 +14,14 @@ $dadosCategorias = $categorias->dadosCategorias($publicaPost->id_categoria);
 $publicados->add();
 
 $dadosPublicados = $publicados->dadosPublicados('',$id);
+<<<<<<< HEAD
 
 if (is_string($dadosPublicados)) {
     // A função retornou uma mensagem de erro
     echo $dadosPublicados;
 }
+=======
+>>>>>>> origin/main
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -55,7 +58,11 @@ if (is_string($dadosPublicados)) {
                             <span class="badge bg-secondary text-decoration-none link-light"><?php echo $publicaPost->postado_por?></span>
                         </header>
                         <!-- Preview image figure-->
+<<<<<<< HEAD
                         <figure class="mb-4"><img class="img-fluid rounded" src="/post-images/<?php echo $publicaPost->foto?>" alt="<?php echo $publicaPost->legenda?>" /></figure>
+=======
+                        <figure class="mb-4"><img class="img-fluid rounded" src="../post-images/<?php echo $publicaPost->foto?>" alt="<?php echo $publicaPost->legenda?>" /></figure>
+>>>>>>> origin/main
                         
                         <span class="badge bg-secondary text-decoration-none link-light"><?php echo $publicaPost->legenda?></span>
                         <!-- Post content-->
