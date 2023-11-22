@@ -4,6 +4,7 @@
     $idUser = $_SESSION['dadosUsuario']['id'];
 
     $resultado = $planos->contarCreditos($idUser);
+    $dadosPlanos = $planos->dadosPlanos();
     
     if (is_string($resultado)) {
         // A função retornou uma mensagem de erro
@@ -25,57 +26,23 @@
 <body>
     <main>
         <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-            <div class="col">
-                <div class="card mb-4 rounded-3 shadow-sm">
-                    <div class="card-header py-3">
-                        <h4 class="my-0 fw-normal">Free</h4>
-                    </div>
-                    <div class="card-body">
-                        <h1 class="card-title pricing-card-title">$0<small class="text-body-secondary fw-light">/mo</small></h1>
-                        <ul class="list-unstyled mt-3 mb-4">
-                            <li>10 users included</li>
-                            <li>2 GB of storage</li>
-                            <li>Email support</li>
-                            <li>Help center access</li>
-                        </ul>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-id="1">Open modal for @getbootstrap</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card mb-4 rounded-3 shadow-sm">
-                    <div class="card-header py-3">
-                        <h4 class="my-0 fw-normal">Pro</h4>
-                    </div>
-                    <div class="card-body">
-                        <h1 class="card-title pricing-card-title">$15<small class="text-body-secondary fw-light">/mo</small></h1>
-                        <ul class="list-unstyled mt-3 mb-4">
-                            <li>20 users included</li>
-                            <li>10 GB of storage</li>
-                            <li>Priority email support</li>
-                            <li>Help center access</li>
-                        </ul>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-id="2">Open modal for @fat</button>
+            <?php foreach ($dadosPlanos as $itemPlano) { ?>  
+                <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm">
+                        <div class="card-header py-3">
+                            <h4 class="my-0 fw-normal"><?php echo $itemPlano->titulo?></h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title">R$<?php echo $itemPlano->valor?><small class="text-body-secondary fw-light">/mes</small></h1>
+                            <div class="mt-3 mb-4">
+                            <?php echo html_entity_decode($itemPlano->conteudo,ENT_COMPAT); ?>
+                            </div>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-id="<?php echo $itemPlano->id?>">Adquirir Plano</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col">
-                <div class="card mb-4 rounded-3 shadow-sm border-primary">
-                    <div class="card-header py-3 text-bg-primary border-primary">
-                        <h4 class="my-0 fw-normal">Enterprise</h4>
-                    </div>
-                    <div class="card-body">
-                        <h1 class="card-title pricing-card-title">$29<small class="text-body-secondary fw-light">/mo</small></h1>
-                        <ul class="list-unstyled mt-3 mb-4">
-                            <li>30 users included</li>
-                            <li>15 GB of storage</li>
-                            <li>Phone and email support</li>
-                            <li>Help center access</li>
-                        </ul>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-id="3" data-bs-imagem="qrcode.png" data-bs-link="www.link.com">Open modal for @mdo</button>
-                    </div>
-                </div>
-            </div>
+            <?php }?>
+            
         </div>
     </main>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

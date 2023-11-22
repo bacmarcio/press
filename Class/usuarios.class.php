@@ -141,7 +141,7 @@ class Usuarios
             }
             
             try {
-                $sql = "INSERT INTO usuarios (nome, email, telefone, cpf, senha, adm) VALUES (?, ?, ?, ?, ?, ?)";
+                $sql = "INSERT INTO usuarios (nome, email, telefone, cpf, senha, adm, id_plano, plano_ativo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
                 $stm = $this->pdo->prepare($sql);
                 $stm->bindValue(1, $nome, PDO::PARAM_STR);
                 $stm->bindValue(2, $email, PDO::PARAM_STR);
@@ -149,6 +149,8 @@ class Usuarios
                 $stm->bindValue(4, $cpf, PDO::PARAM_STR);
                 $stm->bindValue(5, $senha, PDO::PARAM_STR);
                 $stm->bindValue(6, $adm, PDO::PARAM_STR);
+                $stm->bindValue(7, '1', PDO::PARAM_STR);
+                $stm->bindValue(8, 'S', PDO::PARAM_STR);
 
                 $stm->execute();
                 $ultimoIdUsuario = $this->pdo->lastInsertId();

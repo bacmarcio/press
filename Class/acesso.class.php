@@ -88,7 +88,7 @@ class Acesso
            
             
             if ($usuario) {
-                    $dataUsuario = ['id'=>$usuario->id, 'nome'=>$usuario->nome, 'adm'=>$usuario->adm,];
+                    $dataUsuario = ['id'=>$usuario->id, 'nome'=>$usuario->nome, 'adm'=>$usuario->adm,'id_plano'=>$usuario->id_plano];
                 if (password_verify($senha, $usuario->senha)) {
                     // Senha correta, proceda com o login
                     session_start();

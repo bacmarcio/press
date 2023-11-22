@@ -1,5 +1,5 @@
 <?php 
 
-print_r($_GET);
+$tituloRelease = isset($_GET['titulo_release']) ? $_GET['titulo_release'] : '';
 
-echo "<h1>OK</h1>";
+echo "<h1>OK o titulo é ".$tituloRelease."</h1>";

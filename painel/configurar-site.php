@@ -1,22 +1,29 @@
 <?php
 include "verifica.php";
 $acesso->restritoAdmin();
-if (isset($_GET['id'])) {
-  if (empty($_GET['id'])) {
-      header('Location:'.SITE_URL.'planos');
-  } else {
-      $id = $_GET['id'];
-  }
-}
 
-$planos->editar();
-$dadosPlanos = $planos->dadosPlanos($id);
+$configuracoes = $config->dadosConfig();
+$nome_empresa = $configuracoes->nome_empresa;
+$favicon = $configuracoes->favicon;
+$facebook = $configuracoes->facebook;
+$twitter = $configuracoes->twitter;
+$instagram = $configuracoes->instagram;
+$linkedln = $configuracoes->linkedln;
+$youtube = $configuracoes->youtube;
+$endereco = $configuracoes->endereco;
+$telefone = $configuracoes->telefone;
+$email1 = $configuracoes->email1;
+$email2 = $configuracoes->email2;
+$cep = $configuracoes->cep;
+$cnpj = $configuracoes->cnpj;
+
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
-  <title>Editar Plano</title>
+  <title>Editar Texto</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="css/style.css" rel="stylesheet">
@@ -34,7 +41,7 @@ $dadosPlanos = $planos->dadosPlanos($id);
   <main class="container">
     <br><br><br>
 
-    <h2>Atualizar Plano</h2>
+    <h2>Configurações do Site</h2>
 
     <form action="" method="post" enctype="multipart/form-data">
       <!-- area de campos do form -->
@@ -42,27 +49,14 @@ $dadosPlanos = $planos->dadosPlanos($id);
       <div class="row">
         <div class="form-group col-md-12">
           <label for="name">Titulo</label>
-          <input type="text" class="form-control" name="titulo" value="<?php echo $dadosPlanos->titulo; ?>">
-        </div>
-
-      </div>
-
-      <div class="row">
-        <div class="form-group col-md-6">
-          <label for="name">Valor</label>
-          <input type="text" class="form-control" name="valor" value="<?php echo $dadosPlanos->valor; ?>">
-        </div>
-
-        <div class="form-group col-md-6">
-          <label for="campo1">Créditos</label>
-          <input type="text" class="form-control" name="creditos" value="<?php echo $dadosPlanos->creditos; ?>">
+          <input type="text" class="form-control" name="titulo" value="<?php echo $nome_empresa ?>">
         </div>
 
       </div>
 
       <div class="row">
       <div class="form-group col-md-6">
-          <img src="../../post-images/<?php echo $dadosPlanos->foto; ?>" alt="" width="60">
+          <img src="../../post-images/<?php //echo $dadosTextos->foto; ?>" alt="" width="60">
           </div>
         <div class="form-group col-md-6">
           <label for="campo1">Foto</label>
@@ -75,7 +69,7 @@ $dadosPlanos = $planos->dadosPlanos($id);
 
         <div class="form-group col-md-12">
           <label for="campo3">Descrição</label>
-          <textarea name="conteudo" id="ckeditor" class="ckeditor" cols="30" rows="10"><?php echo html_entity_decode($dadosPlanos->conteudo,ENT_COMPAT); ?></textarea>
+          <textarea name="conteudo" id="ckeditor" class="ckeditor" cols="30" rows="10"><?php //echo $dadosTextos->conteudo; ?></textarea>
         </div>
 
       </div>
@@ -83,12 +77,12 @@ $dadosPlanos = $planos->dadosPlanos($id);
       <div id="actions" class="row">
         <div class="col-md-12">
           <button type="submit" class="btn btn-primary">Salvar</button>
-          <a href="<?php echo SITE_URL?>planos" class="btn btn-default">Cancelar</a>
+          <a href="<?php echo SITE_URL?>textos" class="btn btn-default">Cancelar</a>
         </div>
       </div>
-      <input type="hidden" name="acao" value="editarPlano">
-      <input type="hidden" name="id" value="<?php echo $dadosPlanos->id; ?>">
-      <input type="hidden" name="foto_Atual" value="<?php echo $dadosPlanos->foto; ?>">
+      <input type="hidden" name="acao" value="editarTexto">
+      <input type="hidden" name="id" value="<?php //echo $dadosTextos->id; ?>">
+      <input type="hidden" name="foto_Atual" value="<?php //echo $dadosTextos->foto; ?>">
       <input type="hidden" name="ativo" value="S">
     </form>
 
@@ -100,6 +94,6 @@ $dadosPlanos = $planos->dadosPlanos($id);
 </body>
 <!--Ultima versão do jquery-->
 
-<script src="../../vendor/ckeditor/ckeditor.js"></script>
+<script src="../../gerenciador/vendor/ckeditor/ckeditor.js"></script>
 
 </html>

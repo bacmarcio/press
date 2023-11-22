@@ -4,6 +4,7 @@ session_start();
 if (!empty($_SESSION) || $_SESSION['dadosUsuario']['adm'] == 'N') {
     $id = $_SESSION['dadosUsuario']['id'];
     $nome = $_SESSION['dadosUsuario']['nome'];
+    $idPlano = $_SESSION['dadosUsuario']['id_plano'];
 } else {
     header('Location:login');
     exit;
@@ -11,7 +12,14 @@ if (!empty($_SESSION) || $_SESSION['dadosUsuario']['adm'] == 'N') {
 
 $posts->excluir();
 
-$dados = $posts->dadosPosts();
+$dados = $posts->dadosPosts('', '', '', $id);
+$dadosPlanos = $planos->dadosPlanos();
+
+if(isset($dadosPlanos[0]->id) && $dadosPlanos[0]->id === $idPlano ){
+    
+    $tituloPlano = $dadosPlanos[0]->titulo;
+    $descPlano = $dadosPlanos[0]->conteudo;
+}
 
 $resultado = $planos->contarCreditos($id);
 
@@ -66,7 +74,7 @@ $mensagem = $resultado['mensagem'];
                 <div class="col-sm-4">
                     <div class="card rounded">
                         <div class="card-body">
-                            <h5 class="card-title">Bem Vindo</h5>
+                            <h5 class="card-title">Bem Vindo <?php echo $nome;?></h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                             <div class="clearfix">&nbsp;</div>
                             <!-- <a href="#" class="card-link">Card link</a>
@@ -77,10 +85,10 @@ $mensagem = $resultado['mensagem'];
                 <div class="col-sm-4">
                     <div class="card rounded">
                         <div class="card-body">
-                            <h5 class="card-title">Plano</h5>
+                            <h5 class="card-title">Plano <?php echo $tituloPlano?></h5>
 
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="card-link">Mudar Plano</a>
+                            <p class="card-text"><?php echo html_entity_decode($descPlano,ENT_COMPAT); ?></p>
+                            <a href="adquirir-plano" class="card-link">Mudar de Plano</a>
 
                         </div>
                     </div>
@@ -92,7 +100,7 @@ $mensagem = $resultado['mensagem'];
                             <p>Você possui <?php echo $creditos ?> </p>
                             <div class="clearfix">&nbsp;</div>
 
-                            <a href="#" class="card-link">Adquirir Créditos</a>
+                            <a href="adquirir-plano" class="card-link">Adquirir Créditos</a>
                         </div>
                     </div>
                 </div>

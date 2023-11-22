@@ -26,6 +26,7 @@ $routes = [
     'logout'           => 'login.php',
     'cadastro'         => 'cadastro.php',
     'publicar-release' => 'publicar-post.php',
+    'configurar-site'  => 'configurar-site.php',
 ];
 
 // Verifique se a URL corresponde a uma rota válida
