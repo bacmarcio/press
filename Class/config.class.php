@@ -60,7 +60,9 @@
                      'email1'       => $config->email1,
                      'email2'       => $config->email2,
                      'cep'          => $config->cep,
-                     'cnpj'          => $config->cnpj,
+                     'cnpj'         => $config->cnpj,
+                     'tiktok'       => $config->tiktok,
+                     'id'           => $config->id,
                  ];
              }
 
@@ -71,6 +73,57 @@
          
          return (object)$this->configuracoes;
      }
+
+     public function editar()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao']) && $_POST['acao'] === 'editarConfig') {
+
+            $nome_empresa = filter_input(INPUT_POST, 'nome_empresa', FILTER_SANITIZE_SPECIAL_CHARS);
+            $facebook     = filter_input(INPUT_POST, 'facebook', FILTER_SANITIZE_SPECIAL_CHARS);
+            $twitter      = filter_input(INPUT_POST, 'twitter', FILTER_SANITIZE_SPECIAL_CHARS);
+            $instagram    = filter_input(INPUT_POST, 'instagram', FILTER_SANITIZE_SPECIAL_CHARS);
+            $linkedln     = filter_input(INPUT_POST, 'linkedln', FILTER_SANITIZE_SPECIAL_CHARS);
+            $youtube      = filter_input(INPUT_POST, 'youtube', FILTER_SANITIZE_SPECIAL_CHARS);
+            $tiktok       = filter_input(INPUT_POST, 'tiktok', FILTER_SANITIZE_SPECIAL_CHARS);
+            $endereco     = filter_input(INPUT_POST, 'endereco', FILTER_SANITIZE_SPECIAL_CHARS);
+            $telefone     = filter_input(INPUT_POST, 'telefone', FILTER_SANITIZE_SPECIAL_CHARS);
+            $email1       = filter_input(INPUT_POST, 'email1', FILTER_SANITIZE_SPECIAL_CHARS);
+            $email2       = filter_input(INPUT_POST, 'email2', FILTER_SANITIZE_SPECIAL_CHARS);
+            $cep          = filter_input(INPUT_POST, 'cep', FILTER_SANITIZE_SPECIAL_CHARS);
+            $cnpj         = filter_input(INPUT_POST, 'cnpj', FILTER_SANITIZE_SPECIAL_CHARS);
+            $id           = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
+
+
+            $diretorioFotos = '../post-images';
+            
+            try {
+                $sql = "UPDATE config SET nome_empresa=?, favicon=?, facebook=?, twitter=?, instagram=?, linkedln=?, youtube=?, tiktok=?, endereco=?, telefone=?, email1=?, email2=?, cep=?, cnpj=?  WHERE id=?";
+                $stm = $this->pdo->prepare($sql);
+                $stm->bindValue(1,  $nome_empresa, PDO::PARAM_STR);
+                $stm->bindValue(2,  upload('favicon', $diretorioFotos, 'N'), PDO::PARAM_STR);
+                $stm->bindValue(3,  $facebook, PDO::PARAM_STR);
+                $stm->bindValue(4,  $twitter, PDO::PARAM_STR);
+                $stm->bindValue(5,  $instagram, PDO::PARAM_STR);
+                $stm->bindValue(6,  $linkedln, PDO::PARAM_STR);
+                $stm->bindValue(7,  $youtube, PDO::PARAM_STR);
+                $stm->bindValue(8,  $tiktok, PDO::PARAM_STR);
+                $stm->bindValue(9,  $endereco, PDO::PARAM_STR);
+                $stm->bindValue(10, $telefone, PDO::PARAM_STR);
+                $stm->bindValue(11, $email1, PDO::PARAM_STR);
+                $stm->bindValue(12, $email2, PDO::PARAM_STR);
+                $stm->bindValue(13, $cep, PDO::PARAM_STR);
+                $stm->bindValue(14, $cnpj, PDO::PARAM_STR);
+                $stm->bindValue(15, $id, PDO::PARAM_STR);
+                
+
+                $stm->execute();
+
+                header('Location:'.SITE_URL);
+                exit;
+            } catch (PDOException $erro) {
+                echo $erro->getMessage();
+            }
+        }
+    }
  
-     // Adicione métodos adicionais ou propriedades conforme necessário
  } 
