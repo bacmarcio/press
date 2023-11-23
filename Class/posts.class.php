@@ -63,7 +63,7 @@ class Posts
         return $this->pdo;
     }
 
-    public function dadosPosts($id = '', $destaque = '', $categoria = '', $usuario = '', $orderBy = '', $limite = '', $search = '')
+    public function dadosPosts($id = '', $destaque = '', $categoria = '', $usuario = '', $url_amigavel = '', $orderBy = '', $limite = '', $search = '')
     {
         $filtro = [];
         $parametros = [];
@@ -86,6 +86,11 @@ class Posts
         if (!empty($usuario)) {
             $filtro[] = 'id_usuario = ?';
             $parametros[] = $usuario;
+        }
+
+        if (!empty($url_amigavel)) {
+            $filtro[] = 'url_amigavel = ?';
+            $parametros[] = $url_amigavel;
         }
 
         if (!empty($search)) {

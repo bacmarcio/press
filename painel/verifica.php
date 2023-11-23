@@ -3,37 +3,37 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-require_once('../Connection/conexao.php');
-require_once('../Connection/xss-cleaner.php');
-require_once('../Funcoes/funcoes.php');
+require_once '../Connection/conexao.php';
+require_once '../Connection/xss-cleaner.php';
+require_once '../Funcoes/funcoes.php';
 
 define('SITE_URL', 'https://' . $_SERVER['HTTP_HOST'] . '/painel/');
 
-require_once ("../Class/acesso.class.php");
+require_once "../Class/acesso.class.php";
 $acesso = Acesso::getInstance(Conexao::getInstance());
 
-include ("../Class/usuarios.class.php");
+include "../Class/usuarios.class.php";
 $usuarios = Usuarios::getInstance(Conexao::getInstance());
 
-include ("../Class/posts.class.php");
+include "../Class/posts.class.php";
 $posts = Posts::getInstance(Conexao::getInstance());
 
-include ("../Class/categorias.class.php");
+include "../Class/categorias.class.php";
 $categorias = Categorias::getInstance(Conexao::getInstance());
 
-include ("../Class/textos.class.php");
+include "../Class/textos.class.php";
 $textos = Textos::getInstance(Conexao::getInstance());
 
-include ("../Class/planos.class.php");
+include "../Class/planos.class.php";
 $planos = Planos::getInstance(Conexao::getInstance());
 
-include ("../Class/banners.class.php");
+include "../Class/banners.class.php";
 $banners = Banners::getInstance(Conexao::getInstance());
 
-include ("../Class/publicados.class.php");
+include "../Class/publicados.class.php";
 $publicados = Publicados::getInstance(Conexao::getInstance());
 
-include ("../Class/config.class.php");
+include "../Class/config.class.php";
 $config = Config::getInstance(Conexao::getInstance());
 
 

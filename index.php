@@ -1,3 +1,6 @@
+<?php include "verifica.php";
+$dadosPost = $posts->dadosPosts();
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -7,6 +10,9 @@
 </head>
 <body>
     <a href="painel/">adm</a>
-    <a href="area-cliente/">cliente</a>
+    <a href="area-cliente/">cliente</a><br> 
+    <?php foreach ($dadosPost as $item) { ?>
+        <a href="releases/<?php echo $item->url_amigavel?>"><?php echo $item->titulo?></a><br>
+    <?php }?>   
 </body>
 </html>

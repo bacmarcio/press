@@ -14,3 +14,6 @@
 
 ## RODAPÉ
 - Criar itens do Rodapé
+
+## PAINEL
+- Botão voltar
