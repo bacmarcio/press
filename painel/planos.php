@@ -1,7 +1,7 @@
 <?php
 include "verifica.php";
 $acesso->restritoAdmin();
-$dadosPlanos = $planos->dadosPlanos();
+$dadosPlanos = $planos->dadosPlanos(); 
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -72,9 +72,9 @@ $dadosPlanos = $planos->dadosPlanos();
 						<td class="actions text-right">
 							<!-- <a href="view-texto.php?id=<?php echo $plano->id; ?>" class="btn btn-sm btn-success"><i class="fa fa-eye"></i> Visualizar</a> -->
 							<a href="editar-plano/<?php echo $plano->id; ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i> Editar</a>
-							<a href="javascript:;" class="btn btn-sm btn-danger" onclick="if(confirm('Tem certeza que deseja excluir <?php echo preg_replace('~[\r\n]+~', '', $plano->titulo); ?>?')) { window.location='planos.php?acao=excluirUsuarios&id=<?php echo $plano->id; ?>'; } ">
+							<a href="javascript:;" class="btn btn-sm btn-danger" onclick="if(confirm('Tem certeza que deseja excluir <?php echo preg_replace('~[\r\n]+~', '', $plano->titulo); ?>?')) { window.location='planos.php?acao=excluirPlano&id=<?php echo $plano->id; ?>'; } ">
 									<i class="fa fa-trash"></i> Excluir
-								</a
+							</a>
 						</td>
 					</tr>
 				<?php endforeach;

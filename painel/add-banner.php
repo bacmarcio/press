@@ -19,7 +19,7 @@ $banners->add();
         
     </head>
     <body>
-<?php include('header.php');?>
+<?php //include('header.php');?>
 
     <!--//----CONTEUDO---//-->
     <main class="container">
@@ -27,7 +27,7 @@ $banners->add();
 
 <h2>Novo Banner</h2>
 
-<form action="add-banner.php" method="post" enctype="multipart/form-data">
+<form action="" method="post" enctype="multipart/form-data">
   <!-- area de campos do form -->
   <hr />
  
@@ -66,14 +66,14 @@ $banners->add();
   <div class="row">
     <div class="form-group col-md-12">
       <label for="name">Descrição</label>
-      <textarea name="codigo_fonte" id="codigo_fonte"  class="form-control ckeditor" cols="30" rows="5"></textarea>
+      <textarea name="conteudo" id="conteudo"  class="form-control ckeditor" cols="30" rows="5"></textarea>
     </div>
   </div>
  
   <div id="actions" class="row">
     <div class="col-md-12">
       <button type="submit" class="btn btn-primary">Salvar</button>
-      <a href="banners.php" class="btn btn-default">Cancelar</a>
+      <a href="banners" class="btn btn-default">Cancelar</a>
     </div>
   </div>
   <input type="hidden" name="acao" value="addBanner">
@@ -82,7 +82,7 @@ $banners->add();
 </main> 
  <!--//----FIM DO CONTEUDO---//-->
 	<hr>
-<?php include('footer.php'); ?>
+<?php //include('footer.php'); ?>
 
     </body>
     <!--Ultima versão do jquery-->

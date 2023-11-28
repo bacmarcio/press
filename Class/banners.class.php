@@ -107,24 +107,26 @@ class Banners
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao']) && $_POST['acao'] === 'addBanner') {
             $titulo = filter_input(INPUT_POST, 'titulo', FILTER_SANITIZE_SPECIAL_CHARS);
+            $posicao = filter_input(INPUT_POST, 'posicao', FILTER_SANITIZE_SPECIAL_CHARS);
             $conteudo = $_POST['conteudo']; // Recebe o conteúdo do campo textarea
             $conteudo = strip_tags($conteudo);
             $conteudo = preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', '', $conteudo);
             $conteudo = htmlentities($conteudo, ENT_QUOTES, 'UTF-8');
-            $valor = filter_input(INPUT_POST, 'valor', FILTER_SANITIZE_SPECIAL_CHARS);
+            $link = filter_input(INPUT_POST, 'link', FILTER_SANITIZE_SPECIAL_CHARS);
 
             $diretorioFotos = '../post-images';
             
             try {
-                $sql = "INSERT INTO banners (titulo, conteudo, valor, foto) VALUES (?, ?, ?, ?)";
+                $sql = "INSERT INTO banners (titulo, descricao, link, posicao, foto) VALUES (?, ?, ?, ?, ?)";
                 $stm = $this->pdo->prepare($sql);
                 $stm->bindValue(1, $titulo, PDO::PARAM_STR);
                 $stm->bindValue(2, $conteudo, PDO::PARAM_STR);
-                $stm->bindValue(3, valorCalculavel($valor), PDO::PARAM_STR);
-                $stm->bindValue(4, upload('foto', $diretorioFotos, 'N'), PDO::PARAM_STR);
+                $stm->bindValue(3, $link, PDO::PARAM_STR);
+                $stm->bindValue(4, $posicao, PDO::PARAM_STR);
+                $stm->bindValue(5, upload('foto', $diretorioFotos, 'N'), PDO::PARAM_STR);
                 
                 $stm->execute();
-                $ultimoIdPlano = $this->pdo->lastInsertId();
+                $ultimoIdBanner = $this->pdo->lastInsertId();
 
                 header('Location:'.SITE_URL.'banners');
                 exit;
@@ -138,23 +140,25 @@ class Banners
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao']) && $_POST['acao'] === 'editarBanner') {
             $titulo = filter_input(INPUT_POST, 'titulo', FILTER_SANITIZE_SPECIAL_CHARS);
+            $posicao = filter_input(INPUT_POST, 'posicao', FILTER_SANITIZE_SPECIAL_CHARS);
             $conteudo = $_POST['conteudo']; // Recebe o conteúdo do campo textarea
             $conteudo = strip_tags($conteudo);
             $conteudo = preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', '', $conteudo);
             $conteudo = htmlentities($conteudo, ENT_QUOTES, 'UTF-8');
-            $valor = filter_input(INPUT_POST, 'valor', FILTER_SANITIZE_SPECIAL_CHARS);
+            $link = filter_input(INPUT_POST, 'link', FILTER_SANITIZE_SPECIAL_CHARS);
             $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
 
             $diretorioFotos = '../post-images';
             
             try {
-                $sql = "UPDATE banners SET titulo=?, conteudo=?, valor=?, foto=? WHERE id=?";
+                $sql = "UPDATE banners SET titulo=?, descricao=?, link=?, foto=?, posicao=? WHERE id=?";
                 $stm = $this->pdo->prepare($sql);
                 $stm->bindValue(1, $titulo, PDO::PARAM_STR);
                 $stm->bindValue(2, $conteudo, PDO::PARAM_STR);
-                $stm->bindValue(3, valorCalculavel($valor), PDO::PARAM_STR);
+                $stm->bindValue(3, $link, PDO::PARAM_STR);
                 $stm->bindValue(4, upload('foto', $diretorioFotos, 'N'), PDO::PARAM_STR);
-                $stm->bindValue(5, $id, PDO::PARAM_STR);
+                $stm->bindValue(5, $posicao, PDO::PARAM_STR);
+                $stm->bindValue(6, $id, PDO::PARAM_STR);
                 
                 $stm->execute();
 
@@ -200,4 +204,5 @@ class Banners
             }
         }
     }
+    
 }

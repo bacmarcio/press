@@ -1,7 +1,8 @@
 <?php
 include "verifica.php";
+$acesso->restritoAdmin();
 $banners->excluir();
-$dadosConteudos = $banners->rsDados();
+$dadosBanners = $banners->dadosBanners(); 
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -17,7 +18,7 @@ $dadosConteudos = $banners->rsDados();
         
     </head>
     <body>
-<?php include('header.php');?>
+<?php //include('header.php');?>
 
     <!--//----CONTEUDO---//-->
     <main class="container">
@@ -49,19 +50,19 @@ $dadosConteudos = $banners->rsDados();
 	</tr>
 </thead>
 <tbody>
-<?php if ($dadosConteudos) : ?>
-<?php foreach ($dadosConteudos as $conteudo) : ?>
+<?php if ($dadosBanners) : ?>
+<?php foreach ($dadosBanners as $banner) : ?>
 	<tr>
-		<td><?php echo $conteudo->id; ?></td>
-		<td> <img src="../img/<?php echo $conteudo->foto; ?>" width="100" alt=""></td>
-		<td><?php echo $conteudo->titulo; ?></td>
+		<td><?php echo $banner->id; ?></td>
+		<td> <img src="../post-images/<?php echo $banner->foto; ?>" width="100" alt=""></td>
+		<td><?php echo $banner->titulo; ?></td>
 		
 		<td class="actions text-right">
-			<!--<a href="view-banner.php?id=<?php echo $conteudo->id; ?>" class="btn btn-sm btn-success"><i class="fa fa-eye"></i> Visualizar</a>-->
-			<a href="editar-banner.php?id=<?php echo $conteudo->id; ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i> Editar</a>
-			<a href="javascript:;" class="btn btn-sm btn-danger" onclick="if(confirm('Tem certeza que deseja excluir <?php echo preg_replace('~[\r\n]+~', '', $conteudo->titulo); ?>?')) { window.location='banners.php?acao=excluirBanners&id=<?php echo $conteudo->id; ?>&img=<?php echo $conteudo->foto; ?>'; } ">
-				<i class="fa fa-trash"></i> Excluir
-			</a>
+			<!--<a href="view-banner.php?id=<?php echo $banner->id; ?>" class="btn btn-sm btn-success"><i class="fa fa-eye"></i> Visualizar</a>-->
+			<a href="editar-banner/<?php echo $banner->id; ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i> Editar</a>
+							<a href="javascript:;" class="btn btn-sm btn-danger" onclick="if(confirm('Tem certeza que deseja excluir <?php echo preg_replace('~[\r\n]+~', '', $banner->titulo); ?>?')) { window.location='banner.php?acao=excluirBanner&id=<?php echo $banner->id; ?>'; } ">
+									<i class="fa fa-trash"></i> Excluir
+							</a>
 		</td>
 	</tr>
 <?php endforeach;
@@ -72,11 +73,11 @@ else : ?>
 <?php endif; ?>
 </tbody>
 </table>
-<?php include('modal.php');?>
+<?php //include('modal.php');?>
 </main> 
  <!--//----FIM DO CONTEUDO---//-->
 	<hr>
-<?php include('footer.php'); ?>
+<?php //include('footer.php'); ?>
 
     </body>
     <!--Ultima versão do jquery-->
