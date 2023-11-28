@@ -3,6 +3,7 @@ include "verifica.php";
 $banners->add();
 $dadosBanners = $banners->dadosBanners();
 $dadosPosts = $posts->dadosPosts();
+$dadosSite = $config->dadosConfig();
 
 
 
@@ -23,8 +24,9 @@ if(isset($dadosBanners[0]->foto)){
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <link rel="icon" type="image/x-icon" href="/post-images/<?php echo $dadosSite->favicon?>">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css">
-  <title>Seu Site</title>
+  <title><?php echo $dadosSite->nome_empresa?></title>
   <style>
     body {
       padding-top: 56px;
@@ -39,7 +41,7 @@ if(isset($dadosBanners[0]->foto)){
     .full-width-banner {
       width: 100%;
       height: 100vh;
-      /* background: url('/post-images/<?php echo $dadosBanners[0]->foto;?>') center/cover no-repeat; */
+      /* background: url('/post-images/<?php echo $dadosBanners[0]->favicon;?>') center/cover no-repeat; */
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -71,7 +73,7 @@ if(isset($dadosBanners[0]->foto)){
   <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="container">
       <a class="navbar-brand" href="#">
-        <img src="https://placehold.co/600x400" alt="Logo" height="40">
+        <img src="/post-images/<?php echo $dadosSite->favicon?>" alt="Logo" height="40">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -147,7 +149,7 @@ if(isset($dadosBanners[0]->foto)){
       <div class="col-lg-4 mb-4">
         <div class="card">
           <img src="/post-images/<?php echo $post->foto;?>" class="card-img-top card-img-clip" alt="<?php echo $post->titulo;?>">
-          <div class="card-body">
+          <div class="card-body text-center">
             <h5 class="card-title"><?php echo $post->titulo;?> </h5>
             <p class="card-text"><?php //echo $post->resumo;?></p>
           </div>
@@ -164,7 +166,7 @@ if(isset($dadosBanners[0]->foto)){
 
   <!-- Rodapé -->
   <footer class="bg-dark text-light text-center p-2">
-    <p>Rodapé - Copyright © 2023 Seu Site</p>
+    <p><?php echo $dadosSite->nome_empresa?> - Copyright © 2023</p>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
