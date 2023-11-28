@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 21, 2023 at 12:28 PM
+-- Generation Time: Nov 28, 2023 at 08:49 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -56,6 +56,13 @@ CREATE TABLE `banners` (
   `descricao` text,
   `link` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `banners`
+--
+
+INSERT INTO `banners` (`id`, `foto`, `titulo`, `posicao`, `descricao`, `link`) VALUES
+(28, '1701198296.0705-foto-N.jpeg', 'teste', 'D', 'teste', 'dsdasdasd');
 
 -- --------------------------------------------------------
 
@@ -131,6 +138,38 @@ CREATE TABLE `colunistas` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `config`
+--
+
+CREATE TABLE `config` (
+  `id` int NOT NULL,
+  `favicon` varchar(255) DEFAULT NULL,
+  `facebook` varchar(255) DEFAULT NULL,
+  `twitter` varchar(255) DEFAULT NULL,
+  `instagram` varchar(255) DEFAULT NULL,
+  `youtube` varchar(255) DEFAULT NULL,
+  `linkedln` varchar(255) DEFAULT NULL,
+  `tiktok` varchar(255) DEFAULT NULL,
+  `nome_empresa` varchar(255) DEFAULT NULL,
+  `endereco` varchar(255) DEFAULT NULL,
+  `telefone` varchar(255) DEFAULT NULL,
+  `email1` varchar(255) DEFAULT NULL,
+  `email2` varchar(255) DEFAULT NULL,
+  `cep` varchar(255) DEFAULT NULL,
+  `cnpj` varchar(250) NOT NULL,
+  `logo` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `config`
+--
+
+INSERT INTO `config` (`id`, `favicon`, `facebook`, `twitter`, `instagram`, `youtube`, `linkedln`, `tiktok`, `nome_empresa`, `endereco`, `telefone`, `email1`, `email2`, `cep`, `cnpj`, `logo`) VALUES
+(1, '1700758175.412-favicon-N.png', '#ertretert', '#retretr', '#ertretert', '#ertertret', '#ertretert', '#retretert', '#retretert', NULL, '#ertretret', '#retretert', '#ertertret', NULL, '#ertretret', NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `depoimentos`
 --
 
@@ -174,7 +213,9 @@ CREATE TABLE `planos` (
 --
 
 INSERT INTO `planos` (`id`, `titulo`, `valor`, `conteudo`, `foto`, `creditos`, `id_usuario`) VALUES
-(1, 'teste', 405.5, 'teste', '1698268306.2835-foto-N.png', 100, NULL);
+(1, 'Gratis', 0, '&amp;lt;p&amp;gt;teste&amp;lt;/p&amp;gt;\r\n', '1698268306.2835-foto-N.png', 5, NULL),
+(2, 'teste1', 500, '&amp;lt;p&amp;gt;teste&amp;lt;/p&amp;gt;\r\n', '1700655917.3112-foto-N.png', 100, NULL),
+(3, 'teste 3', 500, '&amp;lt;p&amp;gt;teste&amp;lt;/p&amp;gt;\r\n', '1700655949.4816-foto-N.png', 100, NULL);
 
 -- --------------------------------------------------------
 
@@ -205,10 +246,10 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`id`, `titulo`, `conteudo`, `foto`, `resumo`, `id_categoria`, `ativo`, `legenda`, `destaque`, `url_amigavel`, `postado_por`, `id_usuario`, `excluido`, `created_at`, `updated_at`) VALUES
-(5, 'teste', '&amp;lt;p&amp;gt;teste&amp;lt;/p&amp;gt;\r\n', '1698438542.4362-foto-N.png', 'teste', 14, 'S', 'teste', 'N', 'teste', 'teste', 1, 'N', '2023-10-27 22:29:02', '2023-10-27 22:29:02'),
-(6, 'teste', '&amp;lt;p&amp;gt;Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos itaque expedita temporibus at non error, molestiae dolorum illo commodi, harum porro labore explicabo inventore repellat aspernatur fugiat ad sequi. Velit architecto recusandae aliquid necessitatibus porro repudiandae? Expedita aspernatur iusto impedit labore, magnam suscipit ab odit officiis perspiciatis molestias nisi, fugiat, ad natus cum sint sed neque voluptate asperiores nulla! Esse qui temporibus consectetur iusto corrupti? Molestias aliquid tenetur, beatae obcaecati porro sit nemo! Fugiat repellendus dolor in nemo rerum dolorum distinctio eligendi laboriosam cum illo obcaecati voluptatibus mollitia earum, perferendis culpa tempora facere impedit dolores veritatis deleniti quas doloremque adipisci.&amp;lt;/p&amp;gt;\r\n', '1699978814.9566-foto-N.jpeg', 'teste', 11, 'S', 'teste', 'N', 'teste', 'teste', 4, 'N', '2023-11-14 16:20:14', '2023-11-14 16:20:14'),
-(7, 'teste', '&amp;lt;p&amp;gt;Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos itaque expedita temporibus at non error, molestiae dolorum illo commodi, harum porro labore explicabo inventore repellat aspernatur fugiat ad sequi. Velit architecto recusandae aliquid necessitatibus porro repudiandae? Expedita aspernatur iusto impedit labore, magnam suscipit ab odit officiis perspiciatis molestias nisi, fugiat, ad natus cum sint sed neque voluptate asperiores nulla! Esse qui temporibus consectetur iusto corrupti? Molestias aliquid tenetur, beatae obcaecati porro sit nemo! Fugiat repellendus dolor in nemo rerum dolorum distinctio eligendi laboriosam cum illo obcaecati voluptatibus mollitia earum, perferendis culpa tempora facere impedit dolores veritatis deleniti quas doloremque adipisci.&amp;lt;/p&amp;gt;\r\n', '1699979258.313-foto-N.jpeg', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos itaque expedita temporibus at non error, molestiae dolorum illo commodi, harum porro labore explicabo inventore repellat aspernatur fugiat ad sequi. Velit architecto recusandae aliquid necessitatibus porro repudiandae? Expedita aspernatur iusto impedit labore, magnam suscipit ab odit officiis perspiciatis molestias nisi, fugiat, ad natus cum sint sed neque voluptate asperiores nulla! Esse qui temporibus consectetur iusto corrupti? Molestias aliquid tenetur, beatae obcaecati porro sit nemo! Fugiat repellendus dolor in nemo rerum dolorum distinctio eligendi laboriosam cum illo obcaecati voluptatibus mollitia earum, perferendis culpa tempora facere impedit dolores veritatis deleniti quas doloremque adipisci.', 15, 'S', 'teste', 'N', 'teste', 'teste', 4, 'N', '2023-11-14 16:27:38', '2023-11-14 16:27:38'),
-(8, 'teste', '&amp;lt;p&amp;gt;Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente libero nobis vel natus, at laborum doloribus quo ducimus nam veritatis ab sunt obcaecati culpa maiores facere, harum et perspiciatis neque possimus hic esse! Minus voluptatum, officiis reprehenderit impedit amet ipsum sed aut. Iure debitis voluptatum vitae? Libero doloribus pariatur ea hic rem ad vitae, labore id dolor expedita sed numquam! Aliquam iure vero expedita obcaecati esse at accusamus perferendis totam modi laudantium. Molestias cupiditate molestiae, dicta ipsam blanditiis odio iusto. Optio error vitae aliquid voluptatum rerum consequuntur commodi cum quo harum, fuga qui excepturi aut velit ducimus est laudantium quasi?&amp;lt;/p&amp;gt;\r\n', '1699979510.9711-foto-N.jpeg', 'teste', 20, 'S', 'teste', 'N', 'teste', 'teste', 4, 'N', '2023-11-14 16:31:50', '2023-11-14 16:31:50');
+(5, 'teste1', '&amp;lt;p&amp;gt;teste&amp;lt;/p&amp;gt;\r\n', '1698438542.4362-foto-N.png', 'teste', 14, 'S', 'teste', 'N', 'teste1', 'teste', 1, 'N', '2023-10-27 22:29:02', '2023-11-22 19:58:46'),
+(6, 'teste 2', '&amp;lt;p&amp;gt;Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos itaque expedita temporibus at non error, molestiae dolorum illo commodi, harum porro labore explicabo inventore repellat aspernatur fugiat ad sequi. Velit architecto recusandae aliquid necessitatibus porro repudiandae? Expedita aspernatur iusto impedit labore, magnam suscipit ab odit officiis perspiciatis molestias nisi, fugiat, ad natus cum sint sed neque voluptate asperiores nulla! Esse qui temporibus consectetur iusto corrupti? Molestias aliquid tenetur, beatae obcaecati porro sit nemo! Fugiat repellendus dolor in nemo rerum dolorum distinctio eligendi laboriosam cum illo obcaecati voluptatibus mollitia earum, perferendis culpa tempora facere impedit dolores veritatis deleniti quas doloremque adipisci.&amp;lt;/p&amp;gt;\r\n', '1699978814.9566-foto-N.jpeg', 'teste', 11, 'S', 'teste', 'N', 'teste-2', 'teste', 4, 'N', '2023-11-14 16:20:14', '2023-11-22 19:59:03'),
+(7, 'teste 3', '&amp;lt;p&amp;gt;Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos itaque expedita temporibus at non error, molestiae dolorum illo commodi, harum porro labore explicabo inventore repellat aspernatur fugiat ad sequi. Velit architecto recusandae aliquid necessitatibus porro repudiandae? Expedita aspernatur iusto impedit labore, magnam suscipit ab odit officiis perspiciatis molestias nisi, fugiat, ad natus cum sint sed neque voluptate asperiores nulla! Esse qui temporibus consectetur iusto corrupti? Molestias aliquid tenetur, beatae obcaecati porro sit nemo! Fugiat repellendus dolor in nemo rerum dolorum distinctio eligendi laboriosam cum illo obcaecati voluptatibus mollitia earum, perferendis culpa tempora facere impedit dolores veritatis deleniti quas doloremque adipisci.&amp;lt;/p&amp;gt;\r\n', '1699979258.313-foto-N.jpeg', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos itaque expedita temporibus at non error, molestiae dolorum illo commodi, harum porro labore explicabo inventore repellat aspernatur fugiat ad sequi. Velit architecto recusandae aliquid necessitatibus porro repudiandae? Expedita aspernatur iusto impedit labore, magnam suscipit ab odit officiis perspiciatis molestias nisi, fugiat, ad natus cum sint sed neque voluptate asperiores nulla! Esse qui temporibus consectetur iusto corrupti? Molestias aliquid tenetur, beatae obcaecati porro sit nemo! Fugiat repellendus dolor in nemo rerum dolorum distinctio eligendi laboriosam cum illo obcaecati voluptatibus mollitia earum, perferendis culpa tempora facere impedit dolores veritatis deleniti quas doloremque adipisci.', 15, 'S', 'teste', 'N', 'teste-3', 'teste', 4, 'N', '2023-11-14 16:27:38', '2023-11-22 19:59:27'),
+(8, 'teste 4', '&amp;lt;p&amp;gt;Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente libero nobis vel natus, at laborum doloribus quo ducimus nam veritatis ab sunt obcaecati culpa maiores facere, harum et perspiciatis neque possimus hic esse! Minus voluptatum, officiis reprehenderit impedit amet ipsum sed aut. Iure debitis voluptatum vitae? Libero doloribus pariatur ea hic rem ad vitae, labore id dolor expedita sed numquam! Aliquam iure vero expedita obcaecati esse at accusamus perferendis totam modi laudantium. Molestias cupiditate molestiae, dicta ipsam blanditiis odio iusto. Optio error vitae aliquid voluptatum rerum consequuntur commodi cum quo harum, fuga qui excepturi aut velit ducimus est laudantium quasi?&amp;lt;/p&amp;gt;\r\n', '1699979510.9711-foto-N.jpeg', 'teste', 20, 'S', 'teste', 'N', 'teste-4', 'teste', 4, 'N', '2023-11-14 16:31:50', '2023-11-22 19:59:42');
 
 -- --------------------------------------------------------
 
@@ -243,7 +284,11 @@ INSERT INTO `publicados` (`id`, `id_post`, `titulo`, `link`) VALUES
 (21, 8, 'Justiça em Foco', '#'),
 (22, 8, 'Jornal Brasil', '#'),
 (23, 8, 'Revista Brasilia', '#'),
-(24, 8, 'Rede News', '#');
+(24, 8, 'Rede News', '#'),
+(25, 5, 'Justiça em Foco', 'https://www.justicaemfoco.com.br/desc-noticia.php?id=147476&nome=jfsc_encerra_xviii_semana_nacional_da_conciliacao_com_mais_de_r_21_milhoes_em_acordos_homologados'),
+(26, 5, 'Jornal Brasil', 'https://www.justicaemfoco.com.br/desc-noticia.php?id=147476&nome=jfsc_encerra_xviii_semana_nacional_da_conciliacao_com_mais_de_r_21_milhoes_em_acordos_homologados'),
+(27, 5, 'Revista Brasilia', 'https://www.justicaemfoco.com.br/desc-noticia.php?id=147476&nome=jfsc_encerra_xviii_semana_nacional_da_conciliacao_com_mais_de_r_21_milhoes_em_acordos_homologados'),
+(28, 5, 'Rede News', 'https://www.justicaemfoco.com.br/desc-noticia.php?id=147476&nome=jfsc_encerra_xviii_semana_nacional_da_conciliacao_com_mais_de_r_21_milhoes_em_acordos_homologados');
 
 -- --------------------------------------------------------
 
@@ -292,7 +337,7 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`id`, `nome`, `email`, `cpf`, `telefone`, `senha`, `plano_ativo`, `id_plano`, `creditos`, `adm`) VALUES
 (1, 'Marcio Maia', 'adm@grupoavs.com', NULL, NULL, '$2y$10$t.s.qDHhP4Jyvo0pPNluxufJjlSahpd55HM3o58MR5LUQ1XXDJNdC', 'N', NULL, NULL, 'S'),
-(4, 'Teste 2', 'teste@teste.com', NULL, NULL, '$2y$10$zPg2VEyM/lberTyEV0v9UOpg/wxz434PD8f5wWhIcJ/SKJMn5iLj2', 'N', 1, 97, 'N');
+(4, 'Teste 2', 'teste@teste.com', NULL, NULL, '$2y$10$zPg2VEyM/lberTyEV0v9UOpg/wxz434PD8f5wWhIcJ/SKJMn5iLj2', 'S', 1, 2, 'N');
 
 --
 -- Indexes for dumped tables
@@ -314,6 +359,12 @@ ALTER TABLE `categorias`
 -- Indexes for table `colunistas`
 --
 ALTER TABLE `colunistas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `config`
+--
+ALTER TABLE `config`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -360,7 +411,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT for table `banners`
 --
 ALTER TABLE `banners`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `categorias`
@@ -375,6 +426,12 @@ ALTER TABLE `colunistas`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `config`
+--
+ALTER TABLE `config`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `newsletters`
 --
 ALTER TABLE `newsletters`
@@ -384,7 +441,7 @@ ALTER TABLE `newsletters`
 -- AUTO_INCREMENT for table `planos`
 --
 ALTER TABLE `planos`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `posts`
@@ -396,7 +453,7 @@ ALTER TABLE `posts`
 -- AUTO_INCREMENT for table `publicados`
 --
 ALTER TABLE `publicados`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `textos`
