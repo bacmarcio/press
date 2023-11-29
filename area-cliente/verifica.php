@@ -32,3 +32,6 @@ $banners = Banners::getInstance(Conexao::getInstance());
 
 include "../Class/publicados.class.php";
 $publicados = Publicados::getInstance(Conexao::getInstance());
+
+include "../Class/config.class.php";
+$config = Config::getInstance(Conexao::getInstance());

@@ -20,6 +20,7 @@ if (isset($_GET['id'])) {
 }
 
 $dados = $usuarios->dadosUsuarios($id);
+$configurarSite = $config->dadosConfig();
 
 ?>
 <!DOCTYPE html>
@@ -30,6 +31,7 @@ $dados = $usuarios->dadosUsuarios($id);
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/css/style.css">
 
 </head>
 <body>
@@ -38,7 +40,7 @@ $dados = $usuarios->dadosUsuarios($id);
 			<div class="row justify-content-sm-center h-100">
 				<div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
 					<div class="text-center my-5">
-						<img src="https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo.svg" alt="logo" width="100">
+					<img src="/../post-images/<?php echo $configurarSite->favicon?>" alt="logo" width="100">
 					</div>
 					<div class="card shadow-lg">
 						<div class="card-body p-5">

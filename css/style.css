@@ -1,9 +1,9 @@
 /********** Template CSS **********/
 :root {
-    --primary: #1363C6;
+    --primary: #cda557;
     --secondary: #15ACE1;
     --light: #F4F7FE;
-    --dark: #14183E;
+    --dark: #624100;
 }
 
 
@@ -29,6 +29,23 @@
     z-index: 99;
 }
 
+.bg-primary{
+    background-color: #cda557 !important;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #cda557;
+    border-color: #cda557;
+}
+.bg-dark {
+    background-color: #6c4904!important;
+}
+.btn-primary:hover {
+    color: #fff;
+    background-color: #6c4904;
+    border-color: #6c4904;
+}
+
 
 /*** Heading ***/
 h1,
@@ -36,6 +53,7 @@ h2,
 h3,
 .fw-bold {
     font-weight: 700 !important;
+    color: #cda557;
 }
 
 h4,
@@ -43,6 +61,7 @@ h5,
 h6,
 .fw-medium {
     font-weight: 500 !important;
+    color: #cda557;
 }
 
 
@@ -351,7 +370,7 @@ h6,
     display: inline-block;
     padding: 3px 15px;
     color: #FFFFFF;
-    background: rgba(20, 24, 62, .7);
+    background: rgb(179 129 32);
     border-radius: 25px;
     margin-bottom: 15px;
 }

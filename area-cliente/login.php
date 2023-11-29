@@ -23,12 +23,14 @@ if ($url === 'logout') {
     exit();
 }
 
+$configurarSite = $config->dadosConfig();
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
-  <title>Sistema</title>
+  <title>Login</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- <meta http-equiv="Content-Security-Policy" content="style-src 'self' 'unsafe-inline' netdna.bootstrapcdn.com maxcdn.bootstrapcdn.com cdnjs.cloudflare.com; font-src 'self' fonts.gstatic.com fonts.googleapis.com netdna.bootstrapcdn.com maxcdn.bootstrapcdn.com cdnjs.cloudflare.com"> -->
@@ -39,7 +41,7 @@ if ($url === 'logout') {
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
-
+<link rel="stylesheet" href="css/style.css">		
 </head>
 
 <body>
@@ -49,7 +51,7 @@ if ($url === 'logout') {
 			<div class="row justify-content-sm-center h-100">
 				<div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
 					<div class="text-center my-5">
-						<img src="https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo.svg" alt="logo" width="100">
+						<img src="../post-images/<?php echo $configurarSite->favicon?>" alt="logo" width="100">
 					</div>
 					<div class="card shadow-lg">
 						<div class="card-body p-5">
@@ -108,25 +110,5 @@ if ($url === 'logout') {
 <!--Ultima versão do jquery-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@floating-ui/dom@1.5.3"></script>
-<script>
-	// Example starter JavaScript for disabling form submissions if there are invalid fields
-(() => {
-  'use strict'
-
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  const forms = document.querySelectorAll('.needs-validation')
-
-  // Loop over them and prevent submission
-  Array.from(forms).forEach(form => {
-    form.addEventListener('submit', event => {
-      if (!form.checkValidity()) {
-        event.preventDefault()
-        event.stopPropagation()
-      }
-
-      form.classList.add('was-validated')
-    }, false)
-  })
-})()
-</script>
+<script src="js/script.js"></script>
 </html>

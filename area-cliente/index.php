@@ -36,6 +36,7 @@ $mensagem = $resultado['mensagem'];
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <style>
     .ultima-coluna {
@@ -180,6 +181,9 @@ $mensagem = $resultado['mensagem'];
                         </table>
                     </div>
                 <?php } else echo "<h6 class='text-center'>Nenhuma release encontrada!</h6>"; ?>
+                <div class="text-center mt-5 text-muted">
+						Copyright &copy; 2017-2021 &mdash; Your Company 
+				</div>
             </div>
         </div>
     </section>
